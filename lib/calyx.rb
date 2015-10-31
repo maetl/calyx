@@ -1,6 +1,4 @@
 module Calyx
-  VERSION = '0.1.0'.freeze
-
   class Grammar
     class << self
       def start(*productions, &production)
