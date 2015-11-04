@@ -46,7 +46,7 @@ module Calyx
           expansion = production.split(DELIMITER).reject do |chunks|
             chunks.strip.empty?
           end.map do |atom|
-            if atom[0] == '{' && atom[atom.length-1] == '}'
+            if atom.chars.first == '{' && atom.chars.last == '}'
               NonTerminal.new(atom.slice(1, atom.length-2))
             else
               Terminal.new(atom)
