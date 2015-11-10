@@ -1,6 +1,8 @@
 module Calyx
   class Grammar
     class << self
+      attr_accessor :registry
+
       def start(*productions, &production)
         registry[:start] = construct_rule(productions)
       end
@@ -9,8 +11,13 @@ module Calyx
         registry[name.to_sym] = construct_rule(productions)
       end
 
-      def registry
+      def inherit_registry(rules)
         @registry ||= {}
+        @registry.merge!(rules || {})
+      end
+
+      def inherited(subclass)
+        subclass.inherit_registry(@registry)
       end
 
       def construct_rule(productions)

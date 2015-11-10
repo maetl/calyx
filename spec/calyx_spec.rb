@@ -23,4 +23,18 @@ describe Calyx do
     grammar = OneTwo.new
     expect(grammar.generate).to eq('One. Two.')
   end
+
+  specify 'rule inheritance' do
+    class BaseRules < Calyx::Grammar
+      rule :one, 'One.'
+      rule :two, 'Two.'
+    end
+
+    class StartRule < BaseRules
+      start '{one} {two}'
+    end
+
+    grammar = StartRule.new
+    expect(grammar.generate).to eq('One. Two.')
+  end
 end
