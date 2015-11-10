@@ -12,4 +12,15 @@ describe Calyx do
     atom = Calyx::Grammar::Production::Terminal.new(:atom)
     expect(atom.evaluate({})).to eq(:atom)
   end
+
+  specify 'split and join with delimiters' do
+    class OneTwo < Calyx::Grammar
+      start '{one} {two}'
+      rule :one, 'One.'
+      rule :two, 'Two.'
+    end
+
+    grammar = OneTwo.new
+    expect(grammar.generate).to eq('One. Two.')
+  end
 end

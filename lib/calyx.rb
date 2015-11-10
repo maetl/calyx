@@ -43,9 +43,7 @@ module Calyx
         DELIMITER = /(\{[A-Za-z0-9_]+\})/.freeze
 
         def self.parse(production)
-          expansion = production.split(DELIMITER).reject do |chunks|
-            chunks.strip.empty?
-          end.map do |atom|
+          expansion = production.split(DELIMITER).map do |atom|
             if atom.chars.first == '{' && atom.chars.last == '}'
               NonTerminal.new(atom.slice(1, atom.length-2))
             else
