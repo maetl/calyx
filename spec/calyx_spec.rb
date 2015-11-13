@@ -37,4 +37,15 @@ describe Calyx do
     grammar = StartRule.new
     expect(grammar.generate).to eq('One. Two.')
   end
+
+  specify 'reference rule symbols in other rules' do
+    class RuleSymbols < Calyx::Grammar
+      start :rule_symbol
+      rule :rule_symbol, :terminal_symbol
+      rule :terminal_symbol, 'OK'
+    end
+
+    grammar = RuleSymbols.new
+    expect(grammar.generate).to eq('OK')
+  end
 end

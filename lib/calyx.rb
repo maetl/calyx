@@ -74,7 +74,14 @@ module Calyx
 
       class Choices
         def self.parse(production)
-          self.new(production.map { |a| Concat.parse(a) })
+          choices = production.map do |choice|
+            if choice.is_a?(String)
+              Concat.parse(choice)
+            elsif choice.is_a?(Symbol)
+              NonTerminal.new(choice)
+            end
+          end
+          self.new(choices)
         end
 
         def initialize(collection)
