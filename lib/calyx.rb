@@ -104,7 +104,9 @@ module Calyx
         end
 
         def evaluate(registry)
-          choice = @collection.max_by { |_, weight| rand ** (1.0 / weight) }.first
+          choice = @collection.max_by do |_, weight|
+            rand ** (1.0 / weight) }.first
+          end
           choice.evaluate(registry)
         end
       end
