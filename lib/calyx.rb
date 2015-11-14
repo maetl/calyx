@@ -88,7 +88,15 @@ module Calyx
 
           raise 'Weights must sum to 1' if weights_sum != 1.0
 
-          self.new(productions)
+          choices = productions.map do |choice, weight|
+            if choice.is_a?(String)
+              [Concat.parse(choice), weight]
+            elsif choice.is_a?(Symbol)
+              [NonTerminal.new(choice), weight]
+            end
+          end
+
+          self.new(choices)
         end
 
         def initialize(collection)
@@ -96,7 +104,8 @@ module Calyx
         end
 
         def evaluate(registry)
-          @collection.max_by { |_, weight| rand ** (1.0 / weight) }.first
+          choice = @collection.max_by { |_, weight| rand ** (1.0 / weight) }.first
+          choice.evaluate(registry)
         end
       end
 
