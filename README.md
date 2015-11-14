@@ -68,7 +68,7 @@ class HelloWorld < Calyx::Grammar
 end
 ```
 
-Nesting and hierarchy can be used in different ways to balance consistency with variation. The exact same word atoms can be combined in different ways to produce strikingly different resulting texts.
+Nesting and hierarchy can be manipulated to balance consistency with variation. The exact same word atoms can be combined in different ways to produce strikingly different resulting texts.
 
 ```ruby
 module HelloWorld
