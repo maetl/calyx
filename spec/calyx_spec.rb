@@ -49,6 +49,14 @@ describe Calyx do
     expect(grammar.generate).to eq('OK')
   end
 
+  specify 'weighted choices must sum to 1' do
+    expect do
+      class BadWeights < Calyx::Grammar
+        start ['10%', 0.1], ['70%', 0.7]
+      end
+    end.to raise_error('Weights must sum to 1')
+  end
+
   specify 'weighted choices in rule definition' do
     class WeightedChoices < Calyx::Grammar
       start ['20%', 0.2], ['80%', 0.8]
