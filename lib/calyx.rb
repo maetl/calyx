@@ -21,7 +21,11 @@ module Calyx
       end
 
       def construct_rule(productions)
-        Production::Choices.parse(productions)
+        if productions.first.is_a?(Enumerable)
+          Production::WeightedChoices.parse(productions)
+        else
+          Production::Choices.parse(productions)
+        end
       end
     end
 
@@ -51,10 +55,14 @@ module Calyx
 
         def self.parse(production)
           expansion = production.split(DELIMITER).map do |atom|
-            if atom.chars.first == '{' && atom.chars.last == '}'
-              NonTerminal.new(atom.slice(1, atom.length-2))
-            else
-              Terminal.new(atom)
+            if atom.is_a?(String)
+              if atom.chars.first == '{' && atom.chars.last == '}'
+                NonTerminal.new(atom.slice(1, atom.length-2))
+              else
+                Terminal.new(atom)
+              end
+            elsif atom.is_a?(Symbol)
+              NonTerminal.new
             end
           end
 
@@ -72,9 +80,29 @@ module Calyx
         end
       end
 
+      class WeightedChoices
+        def self.parse(productions)
+          weights_sum = productions.reduce(0) do |memo, choice|
+            memo += choice.last
+          end
+
+          raise 'Weights must sum to 1' if weights_sum != 1.0
+
+          self.new(productions)
+        end
+
+        def initialize(collection)
+          @collection = collection
+        end
+
+        def evaluate(registry)
+          @collection.max_by { |_, weight| rand ** (1.0 / weight) }.first
+        end
+      end
+
       class Choices
-        def self.parse(production)
-          choices = production.map do |choice|
+        def self.parse(productions)
+          choices = productions.map do |choice|
             if choice.is_a?(String)
               Concat.parse(choice)
             elsif choice.is_a?(Symbol)

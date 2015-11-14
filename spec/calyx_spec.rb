@@ -48,4 +48,13 @@ describe Calyx do
     grammar = RuleSymbols.new
     expect(grammar.generate).to eq('OK')
   end
+
+  specify 'weighted choices in rule definition' do
+    class WeightedChoices < Calyx::Grammar
+      start ['20%', 0.2], ['80%', 0.8]
+    end
+
+    grammar = WeightedChoices.new(12345)
+    expect(grammar.generate).to eq('20%')
+  end
 end
