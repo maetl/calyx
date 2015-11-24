@@ -22,21 +22,22 @@ module Calyx
 
       def construct_rule(productions)
         if productions.first.is_a?(Enumerable)
-          Production::WeightedChoices.parse(productions)
+          Production::WeightedChoices.parse(productions, registry)
         else
-          Production::Choices.parse(productions)
+          Production::Choices.parse(productions, registry)
         end
       end
     end
 
     module Production
       class NonTerminal
-        def initialize(expansion)
+        def initialize(expansion, registry)
           @expansion = expansion.to_sym
+          @registry = registry
         end
 
-        def evaluate(registry)
-          registry[@expansion].evaluate(registry)
+        def evaluate
+          @registry[@expansion].evaluate
         end
       end
 
@@ -45,7 +46,7 @@ module Calyx
           @atom = atom
         end
 
-        def evaluate(registry)
+        def evaluate
           @atom
         end
       end
@@ -53,16 +54,16 @@ module Calyx
       class Concat
         DELIMITER = /(\{[A-Za-z0-9_]+\})/.freeze
 
-        def self.parse(production)
+        def self.parse(production, registry)
           expansion = production.split(DELIMITER).map do |atom|
             if atom.is_a?(String)
               if atom.chars.first == '{' && atom.chars.last == '}'
-                NonTerminal.new(atom.slice(1, atom.length-2))
+                NonTerminal.new(atom.slice(1, atom.length-2), registry)
               else
                 Terminal.new(atom)
               end
             elsif atom.is_a?(Symbol)
-              NonTerminal.new
+              NonTerminal.new(atom, registry)
             end
           end
 
@@ -73,15 +74,15 @@ module Calyx
           @expansion = expansion
         end
 
-        def evaluate(registry)
+        def evaluate
           @expansion.reduce('') do |exp, atom|
-            exp << atom.evaluate(registry)
+            exp << atom.evaluate
           end
         end
       end
 
       class WeightedChoices
-        def self.parse(productions)
+        def self.parse(productions, registry)
           weights_sum = productions.reduce(0) do |memo, choice|
             memo += choice.last
           end
@@ -90,9 +91,9 @@ module Calyx
 
           choices = productions.map do |choice, weight|
             if choice.is_a?(String)
-              [Concat.parse(choice), weight]
+              [Concat.parse(choice, registry), weight]
             elsif choice.is_a?(Symbol)
-              [NonTerminal.new(choice), weight]
+              [NonTerminal.new(choice, registry), weight]
             end
           end
 
@@ -103,22 +104,22 @@ module Calyx
           @collection = collection
         end
 
-        def evaluate(registry)
+        def evaluate
           choice = @collection.max_by do |_, weight|
             rand ** (1.0 / weight)
           end.first
 
-          choice.evaluate(registry)
+          choice.evaluate
         end
       end
 
       class Choices
-        def self.parse(productions)
+        def self.parse(productions, registry)
           choices = productions.map do |choice|
             if choice.is_a?(String)
-              Concat.parse(choice)
+              Concat.parse(choice, registry)
             elsif choice.is_a?(Symbol)
-              NonTerminal.new(choice)
+              NonTerminal.new(choice, registry)
             end
           end
           self.new(choices)
@@ -128,8 +129,8 @@ module Calyx
           @collection = collection
         end
 
-        def evaluate(registry)
-          @collection.sample.evaluate(registry)
+        def evaluate
+          @collection.sample.evaluate
         end
       end
     end
@@ -145,7 +146,7 @@ module Calyx
     end
 
     def generate
-      registry[:start].evaluate(registry)
+      registry[:start].evaluate
     end
   end
 end

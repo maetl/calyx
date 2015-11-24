@@ -4,13 +4,13 @@ describe Calyx do
   specify 'construct non-terminal production rule' do
     terminal = double('terminal')
     expect(terminal).to receive(:evaluate)
-    statement = Calyx::Grammar::Production::NonTerminal.new(:statement)
-    statement.evaluate(statement: terminal)
+    statement = Calyx::Grammar::Production::NonTerminal.new(:statement, {statement: terminal})
+    statement.evaluate
   end
 
   specify 'construct terminal production rule' do
     atom = Calyx::Grammar::Production::Terminal.new(:atom)
-    expect(atom.evaluate({})).to eq(:atom)
+    expect(atom.evaluate).to eq(:atom)
   end
 
   specify 'split and join with delimiters' do
