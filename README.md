@@ -146,7 +146,7 @@ end
 # => "Why, hello there."
 ```
 
-In order to use more intricate natural language processing capabilities, you can embed additional methods onto the `String` class yourself, or use methods from existing Gems that monkeypatch `String`.
+In order to use more intricate natural language processing capabilities, you can embed additional methods onto the `String` class yourself, as well as use methods from existing Gems that monkeypatch `String`.
 
 ```ruby
 include 'indefinite_article'
