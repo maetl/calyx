@@ -90,6 +90,50 @@ module HelloWorld
 end
 ```
 
+By default, the outcomes of generated rules are selected with Ruby’s built-in random number generator (as seen in methods like `Kernel.rand` and `Array.sample`). If you want to supply a weighted probability list, you can pass in arrays to the rule constructor, with the first argument being the template text string and the second argument being a float representing the probability between `0` and `1` of this choice being selected.
+
+For example, you can model the triangular distribution produced by rolling 2d6:
+
+```ruby
+class Roll2D6 < Calyx::Grammar
+  start(
+    ['2', 0.0278],
+    ['3',	0.556],
+    ['4',	0.833],
+    ['5',	0.1111],
+    ['6',	0.1389],
+    ['7',	0.1667],
+    ['8',	0.1389],
+    ['9',	0.1111],
+    ['10', 0.833],
+    ['11', 0.556],
+    ['12', 0.278]
+  )
+end
+```
+
+Or reproduce Gary Gygax’s famous generation table from the original Dungeon Master’s Guide (page 171):
+
+```ruby
+class ChamberOrRoomContents < Calyx::Grammar
+  start(
+    [:empty, 0.6],
+    [:monster, 0.1],
+    [:monster_treasure, 0.15],
+    [:special, 0.05],
+    [:trick_trap, 0.05],
+    [:treasure, 0.05]
+  )
+
+  rule :empty, 'Empty'
+  rule :monster, 'Monster Only'
+  rule :monster_treasure, 'Monster and Treasure'
+  rule :monster_treasure, 'Special'
+  rule :trick_trap, 'Trick/Trap.'
+  rule :treasure, 'Treasure'
+end
+```
+
 Dot-notation is supported in template expressions, allowing you to call any available method on the `String` object returned from a rule. Formatting methods can be chained arbitrarily and will execute in the same way as they would in native Ruby code.
 
 ```ruby
