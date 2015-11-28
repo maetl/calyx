@@ -128,7 +128,7 @@ class ChamberOrRoomContents < Calyx::Grammar
   rule :empty, 'Empty'
   rule :monster, 'Monster Only'
   rule :monster_treasure, 'Monster and Treasure'
-  rule :monster_treasure, 'Special'
+  rule :special, 'Special'
   rule :trick_trap, 'Trick/Trap.'
   rule :treasure, 'Treasure'
 end
