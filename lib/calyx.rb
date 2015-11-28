@@ -65,14 +65,16 @@ module Calyx
       end
 
       class Concat
-        DELIMITER = /(\{[A-Za-z0-9_\.]+\})/.freeze
-        DEREF = '.'.freeze
+        EXPRESSION = /(\{[A-Za-z0-9_\.]+\})/.freeze
+        START_TOKEN = '{'.freeze
+        END_TOKEN = '}'.freeze
+        DEREF_TOKEN = '.'.freeze
 
         def self.parse(production, registry)
-          expansion = production.split(DELIMITER).map do |atom|
+          expansion = production.split(EXPRESSION).map do |atom|
             if atom.is_a?(String)
-              if atom.chars.first == '{' && atom.chars.last == '}'
-                head, *tail = atom.slice(1, atom.length-2).split(DEREF)
+              if atom.chars.first == START_TOKEN && atom.chars.last == END_TOKEN
+                head, *tail = atom.slice(1, atom.length-2).split(DEREF_TOKEN)
                 rule = NonTerminal.new(head, registry)
                 unless tail.empty?
                   Expression.new(rule, tail)
