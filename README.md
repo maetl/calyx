@@ -90,6 +90,44 @@ module HelloWorld
 end
 ```
 
+Dot-notation is supported in template expressions, allowing you to call any available method on the `String` object returned from a rule. Formatting methods can be chained arbitrarily and will execute in the same way as they would in native Ruby code.
+
+```ruby
+class Greeting < Calyx::Grammar
+  start '{hello.capitalize} there.', 'Why, {hello} there.'
+  rule :hello, 'hello'
+end
+
+# => "Hello there."
+# => "Why, hello there."
+```
+
+In order to use more intricate natural language processing capabilities, you can embed additional methods onto the `String` class yourself, or use methods from existing Gems that monkeypatch `String`.
+
+```ruby
+include 'indefinite_article'
+
+module FullStop
+  def full_stop
+    self << '.'
+  end
+end
+
+class String
+  include FullStop
+end
+
+class NounsWithArticles < Calyx::Grammar
+  start '{fruit.with_indefinite_article.capitalize.full_stop}'
+  rule :fruit, 'apple', 'orange', 'banana', 'pear'
+end
+
+# => "An apple."
+# => "An orange."
+# => "A banana."
+# => "A pear."
+```
+
 ## License
 
 Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015 Mark Rickerby
