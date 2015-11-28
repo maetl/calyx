@@ -20,6 +20,8 @@ module Calyx
         subclass.inherit_registry(@registry)
       end
 
+      private
+
       def construct_rule(productions)
         if productions.first.is_a?(Enumerable)
           Production::WeightedChoices.parse(productions, registry)
