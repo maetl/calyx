@@ -75,11 +75,12 @@ describe Calyx do
 
   specify 'string formatters in rule definition' do
     class StringFormatters < Calyx::Grammar
-      start '{hello.capitalize}'
+      start :hello_world
+      rule :hello_world, '{hello.capitalize} world'
       rule :hello, 'hello'
     end
 
     grammar = StringFormatters.new(12345)
-    expect(grammar.generate).to eq('Hello')
+    expect(grammar.generate).to eq('Hello world')
   end
 end

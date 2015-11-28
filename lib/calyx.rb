@@ -65,7 +65,7 @@ module Calyx
       end
 
       class Concat
-        DELIMITER = /(\{[A-Za-z0-9_]+\})/.freeze
+        DELIMITER = /(\{[A-Za-z0-9_\.]+\})/.freeze
         DEREF = '.'.freeze
 
         def self.parse(production, registry)
