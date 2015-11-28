@@ -13,6 +13,13 @@ describe Calyx do
     expect(atom.evaluate).to eq(:atom)
   end
 
+  specify 'construct string formatting production' do
+    nonterminal = double(:nonterminal)
+    allow(nonterminal).to receive(:evaluate).and_return('hello')
+    rule = Calyx::Grammar::Production::Expression.new(nonterminal, ['upcase'])
+    expect(rule.evaluate).to eq('HELLO')
+  end
+
   specify 'split and join with delimiters' do
     class OneTwo < Calyx::Grammar
       start '{one} {two}'
@@ -64,5 +71,15 @@ describe Calyx do
 
     grammar = WeightedChoices.new(12345)
     expect(grammar.generate).to eq('20%')
+  end
+
+  specify 'string formatters in rule definition' do
+    class StringFormatters < Calyx::Grammar
+      start '{hello.capitalize}'
+      rule :hello, 'hello'
+    end
+
+    grammar = StringFormatters.new(12345)
+    expect(grammar.generate).to eq('Hello')
   end
 end

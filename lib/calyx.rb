@@ -51,14 +51,34 @@ module Calyx
         end
       end
 
+      class Expression
+        def initialize(production, methods)
+          @production = production
+          @methods = methods.map { |m| m.to_sym }
+        end
+
+        def evaluate
+          @methods.reduce(@production.evaluate) do |value,method|
+            value.send(method)
+          end
+        end
+      end
+
       class Concat
         DELIMITER = /(\{[A-Za-z0-9_]+\})/.freeze
+        DEREF = '.'.freeze
 
         def self.parse(production, registry)
           expansion = production.split(DELIMITER).map do |atom|
             if atom.is_a?(String)
               if atom.chars.first == '{' && atom.chars.last == '}'
-                NonTerminal.new(atom.slice(1, atom.length-2), registry)
+                head, *tail = atom.slice(1, atom.length-2).split(DEREF)
+                rule = NonTerminal.new(head, registry)
+                unless tail.empty?
+                  Expression.new(rule, tail)
+                else
+                  rule
+                end
               else
                 Terminal.new(atom)
               end
