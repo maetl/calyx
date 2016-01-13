@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module Calyx
   class Grammar
     class << self
@@ -172,5 +174,32 @@ module Calyx
     def generate
       registry[:start].evaluate
     end
+  end
+
+  class DataTemplate
+    attr_reader :data, :narrative
+    class << self
+      def construct_data(data_hash)
+        @data = data_hash
+      end
+    end
+
+    def initialize(data_hash)
+      @data = data_hash
+    end
+
+    def write(condition, klass_a, klass_b)
+      @narrative ||= []
+      if condition
+        @narrative << klass_a.new.generate
+      else
+        @narrative << klass_b.new.generate
+      end
+    end
+
+    def generate
+      @narrative.join(" ")
+    end
+
   end
 end

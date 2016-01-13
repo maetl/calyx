@@ -83,4 +83,29 @@ describe Calyx do
     grammar = StringFormatters.new(12345)
     expect(grammar.generate).to eq('Hello world')
   end
+
+  specify 'Template class' do
+    class Happy < Calyx::Grammar
+      start 'I am happy.'
+    end
+    class Sad < Calyx::Grammar
+      start 'I am sad.'
+    end
+
+    class DataTemplate < Calyx::DataTemplate
+      def generate
+        write data[:mood] == :happy, Happy, Sad
+        super
+      end
+    end
+
+    happy_data = {:mood => :happy }
+    sad_data = { :mood => :sad }
+
+    happy_sentence = DataTemplate.new(happy_data)
+    sad_sentence = DataTemplate.new(sad_data)
+
+    expect(happy_sentence.generate).to eq("I am happy.")
+    expect(sad_sentence.generate).to eq("I am sad.")
+  end
 end
