@@ -109,4 +109,19 @@ describe Calyx::DataTemplate do
       expect(sad_sentence.publish).to eq("I am sad.")
     end
 
+    it 'can handle single operations' do
+      class DataTemplate < Calyx::DataTemplate
+        def write_narrative
+          write data[:mood] == :happy, Happy
+        end
+      end
+
+      happy_sentence = DataTemplate.new(happy_data)
+      sad_sentence = DataTemplate.new(sad_data)
+
+      expect(happy_sentence.publish).to eq("I am happy.")
+      expect(sad_sentence.publish).to eq("")
+    end
+
+
 end
