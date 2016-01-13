@@ -178,11 +178,6 @@ module Calyx
 
   class DataTemplate
     attr_reader :data, :narrative
-    class << self
-      def construct_data(data_hash)
-        @data = data_hash
-      end
-    end
 
     def initialize(data_hash)
       @data = data_hash
