@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Calyx do
+describe Calyx::Grammar do
   specify 'construct non-terminal production rule' do
     terminal = double('terminal')
     expect(terminal).to receive(:evaluate)
@@ -83,8 +83,9 @@ describe Calyx do
     grammar = StringFormatters.new(12345)
     expect(grammar.generate).to eq('Hello world')
   end
+end
 
-  specify 'Template class' do
+describe Calyx::DataTemplate do
     class Happy < Calyx::Grammar
       start 'I am happy.'
     end
@@ -92,19 +93,20 @@ describe Calyx do
       start 'I am sad.'
     end
 
-    class DataTemplate < Calyx::DataTemplate
-      def write_narrative
-        write data[:mood] == :happy, Happy, Sad
-      end
-    end
-
     happy_data = {:mood => :happy }
     sad_data = { :mood => :sad }
 
-    happy_sentence = DataTemplate.new(happy_data)
-    sad_sentence = DataTemplate.new(sad_data)
+    it 'can handle tenary operations' do
+      class DataTemplate < Calyx::DataTemplate
+        def write_narrative
+          write data[:mood] == :happy, Happy, Sad
+        end
+      end
+      happy_sentence = DataTemplate.new(happy_data)
+      sad_sentence = DataTemplate.new(sad_data)
 
-    expect(happy_sentence.publish).to eq("I am happy.")
-    expect(sad_sentence.publish).to eq("I am sad.")
-  end
+      expect(happy_sentence.publish).to eq("I am happy.")
+      expect(sad_sentence.publish).to eq("I am sad.")
+    end
+
 end
