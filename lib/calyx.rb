@@ -1,5 +1,3 @@
-require 'ostruct'
-
 module Calyx
   class Grammar
     class << self
