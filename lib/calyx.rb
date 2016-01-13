@@ -185,7 +185,7 @@ module Calyx
     end
 
     def write_narrative
-      #user writes in what he wants to have happened
+      #user writes in what should happened next
       raise "There is no 'write_narrative' method."
     end
 
