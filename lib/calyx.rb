@@ -180,7 +180,11 @@ module Calyx
     attr_reader :data, :narrative
 
     def initialize(data_hash)
-      @data = data_hash
+      #code written with help from jon2992 (IRC name: aegis3121)
+      data_hash.each do |key, value|
+        self.instance_variable_set("@#{key}", value)
+        self.class.send :attr_reader, key
+      end
       write_narrative
     end
 

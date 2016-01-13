@@ -99,7 +99,7 @@ describe Calyx::DataTemplate do
     it 'can handle tenary operations' do
       class DataTemplate < Calyx::DataTemplate
         def write_narrative
-          write data[:mood] == :happy, Happy, Sad
+          write mood == :happy, Happy, Sad
         end
       end
       happy_sentence = DataTemplate.new(happy_data)
@@ -112,7 +112,7 @@ describe Calyx::DataTemplate do
     it 'can handle single operations' do
       class DataTemplate < Calyx::DataTemplate
         def write_narrative
-          write data[:mood] == :happy, Happy
+          write mood == :happy, Happy
         end
       end
 
