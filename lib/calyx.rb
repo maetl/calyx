@@ -193,7 +193,7 @@ module Calyx
       raise "There is no 'write_narrative' method."
     end
 
-    def write(condition, klass_a, klass_b = nil)
+    def conditional_write(condition, klass_a, klass_b = nil)
       @narrative ||= []
       if condition
         @narrative << klass_a.new.generate
