@@ -104,7 +104,7 @@ describe Calyx do
     happy_sentence = DataTemplate.new(happy_data)
     sad_sentence = DataTemplate.new(sad_data)
 
-    expect(happy_sentence.generate).to eq("I am happy.")
-    expect(sad_sentence.generate).to eq("I am sad.")
+    expect(happy_sentence.publish).to eq("I am happy.")
+    expect(sad_sentence.publish).to eq("I am sad.")
   end
 end

@@ -198,7 +198,7 @@ module Calyx
       end
     end
 
-    def generate
+    def publish
       @narrative.join(" ")
     end
 
