@@ -93,9 +93,8 @@ describe Calyx do
     end
 
     class DataTemplate < Calyx::DataTemplate
-      def generate
+      def write_narrative
         write data[:mood] == :happy, Happy, Sad
-        super
       end
     end
 

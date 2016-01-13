@@ -186,6 +186,12 @@ module Calyx
 
     def initialize(data_hash)
       @data = data_hash
+      write_narrative
+    end
+
+    def write_narrative
+      #user writes in what he wants to have happened
+      raise "There is no 'write_narrative' method."
     end
 
     def write(condition, klass_a, klass_b)
