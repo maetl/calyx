@@ -138,7 +138,7 @@ describe Calyx::DataTemplate do
 
     it 'can substitute in data' do
       class StockReport < Calyx::Grammar
-        start 'The price of one share of <%= name %> is <%= price %> Yen.'
+        start 'The price of one share of <%= name %> on <%= date %> is <%= price %> Yen.'
       end
 
       class DataTemplate < Calyx::DataTemplate
@@ -147,10 +147,10 @@ describe Calyx::DataTemplate do
         end
       end
 
-      stock_data = { :name => "Cyberdyne", :price => 1897.0 }
+      stock_data = { :name => "Cyberdyne", :price => 1897.0, :date => Date.new(2015,1,14) }
 
       stock_report = DataTemplate.new(stock_data)
-      expect(stock_report.publish).to eq("The price of one share of Cyberdyne is 1897.0 Yen.")
+      expect(stock_report.publish).to eq("The price of one share of Cyberdyne on 2015-01-14 is 1897.0 Yen.")
 
     end
 
