@@ -207,9 +207,13 @@ module Calyx
 
     def publish
       outline = @narrative.join(" ")
-      rough_draft = ERB.new(outline)
-      final_draft = rough_draft.result(binding)
-      final_draft
+      insert_data(outline)
+    end
+
+    private
+    def insert_data(outline)
+      outline = ERB.new(outline)
+      outline.result(binding)
     end
 
   end
