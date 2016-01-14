@@ -183,6 +183,7 @@ module Calyx
         self.instance_variable_set("@#{key}", value)
         self.class.send :attr_reader, key
       end
+      @narrative = []
       write_narrative
     end
 
@@ -192,12 +193,10 @@ module Calyx
     end
 
     def write(klass)
-      @narrative ||= []
       @narrative << klass.new.generate
     end
 
     def conditional_write(condition, klass_a, klass_b = nil)
-      @narrative ||= []
       if condition
         @narrative << klass_a.new.generate
       elsif klass_b
