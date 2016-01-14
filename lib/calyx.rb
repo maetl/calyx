@@ -189,7 +189,7 @@ module Calyx
 
     def write_narrative
       #user writes in what should happened next
-      raise "There is no 'write_narrative' method."
+      raise "There is no 'write_narrative' method present in your class."
     end
 
     def write(klass)
