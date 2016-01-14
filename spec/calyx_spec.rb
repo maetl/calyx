@@ -123,5 +123,15 @@ describe Calyx::DataTemplate do
       expect(sad_sentence.publish).to eq("")
     end
 
+    it 'can write without conditions' do
+      class DataTemplate < Calyx::DataTemplate
+        def write_narrative
+          write Happy
+        end
+      end
+
+      happy_sentence = DataTemplate.new(happy_data)
+      expect(happy_sentence.publish).to eq("I am happy.")
+    end
 
 end
