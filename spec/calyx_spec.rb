@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'date'
+require 'erb'
 
 describe Calyx::Grammar do
   specify 'construct non-terminal production rule' do
@@ -133,5 +135,24 @@ describe Calyx::DataTemplate do
       happy_sentence = DataTemplate.new(happy_data)
       expect(happy_sentence.publish).to eq("I am happy.")
     end
+
+    it 'can substitute in data' do
+      class StockReport < Calyx::Grammar
+        start 'The price of one share of <%= name %> is <%= price %> Yen.'
+      end
+
+      class DataTemplate < Calyx::DataTemplate
+        def write_narrative
+          write StockReport
+        end
+      end
+
+      stock_data = { :name => "Cyberdyne", :price => 1897.0 }
+
+      stock_report = DataTemplate.new(stock_data)
+      expect(stock_report.publish).to eq("The price of one share of Cyberdyne is 1897.0 Yen.")
+
+    end
+
 
 end
