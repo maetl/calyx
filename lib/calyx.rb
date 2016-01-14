@@ -175,7 +175,7 @@ module Calyx
   end
 
   class DataTemplate
-    attr_reader :data, :narrative
+    attr_reader :narrative
 
     def initialize(data_hash)
       #code written with help from jon2992 (IRC name: aegis3121)
