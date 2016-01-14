@@ -107,8 +107,8 @@ describe Calyx::DataTemplate do
       happy_sentence = DataTemplate.new(happy_data)
       sad_sentence = DataTemplate.new(sad_data)
 
-      expect(happy_sentence.publish).to eq("I am happy.")
-      expect(sad_sentence.publish).to eq("I am sad.")
+      expect(happy_sentence.result).to eq("I am happy.")
+      expect(sad_sentence.result).to eq("I am sad.")
     end
 
     it 'can handle single operations' do
@@ -121,8 +121,8 @@ describe Calyx::DataTemplate do
       happy_sentence = DataTemplate.new(happy_data)
       sad_sentence = DataTemplate.new(sad_data)
 
-      expect(happy_sentence.publish).to eq("I am happy.")
-      expect(sad_sentence.publish).to eq("")
+      expect(happy_sentence.result).to eq("I am happy.")
+      expect(sad_sentence.result).to eq("")
     end
 
     it 'can write without conditions' do
@@ -133,7 +133,7 @@ describe Calyx::DataTemplate do
       end
 
       happy_sentence = DataTemplate.new(happy_data)
-      expect(happy_sentence.publish).to eq("I am happy.")
+      expect(happy_sentence.result).to eq("I am happy.")
     end
 
     it 'can substitute in data' do
@@ -150,7 +150,7 @@ describe Calyx::DataTemplate do
       stock_data = { :name => "Cyberdyne", :price => 1897.0, :date => Date.new(2015,1,14) }
 
       stock_report = DataTemplate.new(stock_data)
-      expect(stock_report.publish).to eq("The price of one share of Cyberdyne on 2015-01-14 is 1897.0 Yen.")
+      expect(stock_report.result).to eq("The price of one share of Cyberdyne on 2015-01-14 is 1897.0 Yen.")
 
     end
 

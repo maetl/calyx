@@ -205,15 +205,8 @@ module Calyx
       end
     end
 
-    def publish
-      outline = @narrative.join(" ")
-      insert_data(outline)
-    end
-
-    private
-    def insert_data(outline)
-      outline = ERB.new(outline)
-      outline.result(binding)
+    def result
+      ERB.new(@narrative.join(" ")).result(binding)
     end
 
   end
