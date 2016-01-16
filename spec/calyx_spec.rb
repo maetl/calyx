@@ -149,8 +149,6 @@ describe Calyx::DataTemplate do
         end
       end
 
-      stock_data = { :name => "Cyberdyne", :price => 1897.0, :date => Date.new(2015,1,14) }
-
       stock_report = DataTemplate.new(stock_data)
       expect(stock_report.result).to eq("The price of one share of Cyberdyne on 2015-01-14 is 1897.0 Yen.")
 
