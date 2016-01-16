@@ -97,6 +97,8 @@ describe Calyx::DataTemplate do
 
     happy_data = {:mood => :happy }
     sad_data = { :mood => :sad }
+    stock_data = { :name => "Cyberdyne", :price => 1897.0, :date => Date.new(2015,1,14) }
+
 
     it 'can handle tenary operations' do
       class DataTemplate < Calyx::DataTemplate
@@ -154,5 +156,20 @@ describe Calyx::DataTemplate do
 
     end
 
+    it 'each instance of a DataTemplate class will produce its own unique methods based on a specified "data hash"' do
+        class DataTemplate < Calyx::DataTemplate
+          def write_narrative
+            write Happy
+          end
+        end
 
+        happy_sentence = DataTemplate.new(happy_data)
+        stock_report = DataTemplate.new(stock_data)
+
+        expect(happy_sentence.mood).to eq(:happy)
+        expect(stock_report.price).to eq(1897.0)
+        expect{ happy_sentence.price }.to raise_error(NoMethodError)
+        expect{ stock_report.mood }.to raise_error(NoMethodError)
+
+      end
 end
