@@ -177,7 +177,7 @@ module Calyx
   class DataTemplate
     attr_reader :narrative
 
-    def initialize(data_hash)
+    def initialize(data_hash = {})
       data_hash.each do |key, value|
         self.define_singleton_method(:"#{key}") do
           value

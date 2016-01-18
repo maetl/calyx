@@ -169,5 +169,20 @@ describe Calyx::DataTemplate do
         expect{ happy_sentence.price }.to raise_error(NoMethodError)
         expect{ stock_report.mood }.to raise_error(NoMethodError)
 
+    end
+
+    it "can still write sentences without needing a data hash" do
+      class HelloWorld < Calyx::Grammar
+        start "Hello World."
       end
+
+      class DataTemplate < Calyx::DataTemplate
+        def write_narrative
+          write HelloWorld
+        end
+      end
+
+      hello = DataTemplate.new
+      expect(hello.result).to eq("Hello World.")
+    end
 end
