@@ -43,7 +43,7 @@ There are two ways to generate text. You can generate text using Calyx::Grammar 
 ```ruby
 hello = HelloWorld.new
 hello.generate
-# > "Hello <%= planet %>."
+# > "Hello World."
 ```
 
 Or, you can generate text by initializing the Calyx::DataTemplate class and calling the `result` method.
