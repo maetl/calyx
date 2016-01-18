@@ -252,7 +252,7 @@ tokoyo_electric_writer.result
 # => ""
 ```
 
-By simply specifying a few `meta-rules` with conditionals and Grammars, you can generate unique, readable narratives based on your data.
+By simply specifying a few "meta-rules" with conditionals and Grammars, you can generate unique, readable narratives based on your data.
 ```ruby
 class StockWriter < Calyx::DataTemplate
  def write_narrative
