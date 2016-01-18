@@ -53,7 +53,7 @@ greeting.result
 # > "Hello World."
 ```
 
-##Calyx::Grammar
+### Calyx::Grammar
 Obviously, "Hello World" isn’t very interesting by itself. Possible variations can be added to the text using the `rule` constructor to provide a named set of text strings and the rule delimiter syntax (`{}`) within the text strings to substitute the generated content of the rule.
 
 ```ruby
@@ -190,7 +190,7 @@ end
 # => "A pear."
 ```
 
-##Calyx::DataTemplate
+### Calyx::DataTemplate
 Calyx::DataTemplate is useful for allowing a computer to write stories based on data stored within a Hash. The data can be plugged instantly into generated content, so long as you use erb syntax (to distingush from the rule delimiter syntax).
 
 ```ruby
