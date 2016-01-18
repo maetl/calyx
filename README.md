@@ -50,7 +50,7 @@ Or, you can generate text by initializing the Calyx::DataTemplate class and call
 ```ruby
 greeting = Greeting.new
 greeting.result
-# > "Hello world."
+# > "Hello World."
 ```
 
 ##Calyx::Grammar
