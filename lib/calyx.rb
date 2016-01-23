@@ -1,4 +1,5 @@
 module Calyx
+  #The Grammar class and the Production module was written by Mark Rickerby in 2015, and licensed under the MIT license.
   class Grammar
     class << self
       attr_accessor :registry
@@ -174,6 +175,7 @@ module Calyx
     end
   end
 
+  #The DataTemplate class was written by Tariq Ali in 2016, and licensed under the MIT License.
   class DataTemplate
     attr_reader :narrative
 
