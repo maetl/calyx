@@ -1,3 +1,5 @@
+require 'erb'
+
 module Calyx
   #The Grammar class and the Production module was written by Mark Rickerby in 2015, and licensed under the MIT license.
   class Grammar
