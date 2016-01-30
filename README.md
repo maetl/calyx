@@ -194,6 +194,8 @@ end
 Calyx::DataTemplate is useful for allowing a computer to write stories based on data stored within a Hash. The data can be plugged instantly into generated content, so long as you use erb syntax (to distingush from the rule delimiter syntax).
 
 ```ruby
+require 'date'
+
 class StockReport < Calyx::Grammar
  start "The price of one share of <%= name %> on <%= date %> is <%= price %> Yen."
 end
@@ -217,7 +219,7 @@ class GoodStock < Calyx::Grammar
  start "You should buy stock in <%= name %> because this company has a low EPS."
 end
 
-class BadStock < Calyx:Grammar
+class BadStock < Calyx::Grammar
  start "You should sell stock in <%= name %> because this company has a high EPS."
 end
 
