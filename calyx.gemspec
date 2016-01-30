@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'calyx/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'calyx'
+  spec.name          = 'tra38-calyx'
   spec.version       = Calyx::VERSION
-  spec.authors       = ['Mark Rickerby']
-  spec.email         = ['me@maetl.net']
+  spec.authors       = ['Mark Rickerby','Tariq Ali']
+  spec.email         = ['me@maetl.net','tra38@nau.edu']
 
   spec.summary       = %q{Generate text with declarative recursive grammars}
   spec.description   = %q{Calyx provides a simple API for generating text with declarative recursive grammars.}
-  spec.homepage      = 'https://github.com/maetl/calyx'
+  spec.homepage      = 'https://github.com/tra38/calyx'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(spec)/}) }
