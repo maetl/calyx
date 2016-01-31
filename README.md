@@ -7,13 +7,13 @@ Calyx provides a simple API for generating text with declarative recursive gramm
 ### Command Line
 
 ```
-gem install calyx
+gem install tra38-calyx
 ```
 
 ## Gemfile
 
 ```
-gem 'calyx'
+gem 'tra38-calyx'
 ```
 
 ## Usage
