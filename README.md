@@ -17,8 +17,7 @@ gem 'tra38-calyx'
 ```
 
 ## Usage
-
-Calyx support two types of classes.
+To construct rules for generating text, you must first require "calyx", and then inherit from either the `Calyx::Grammar` class or the `Calyx::DataTemplate` class.
 
 Classes that inherit from `Calyx::Grammar` are used to construct a set of rules that can generate a text. All grammars require a `start` rule, which specifies the starting point for generating the text structure.
 
