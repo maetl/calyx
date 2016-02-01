@@ -7,36 +7,53 @@ Calyx provides a simple API for generating text with declarative recursive gramm
 ### Command Line
 
 ```
-gem install calyx
+gem install tra38-calyx
 ```
 
-## Gemfile
+### Gemfile
 
 ```
-gem 'calyx'
+gem 'tra38-calyx'
 ```
 
 ## Usage
+To construct rules for generating text, you must first require "calyx", and then inherit from either the `Calyx::Grammar` class or the `Calyx::DataTemplate` class.
 
-Require the library and inherit from `Calyx::Grammar` to construct a set of rules to generate a text. All grammars require a `start` rule, which specifies the starting point for generating the text structure.
+Classes that inherit from `Calyx::Grammar` are used to construct a set of rules that can generate a text. All grammars require a `start` rule, which specifies the starting point for generating the text structure.
+
+Classes that inherit from `Calyx::DataTemplate` are used to construct a set of "meta-rules" that will invoke Grammar rules for you. All templates require a `write_narrative` method which specifies what "meta-rules" are being called.
 
 ```ruby
 require 'calyx'
 
 class HelloWorld < Calyx::Grammar
-  start 'Hello world.'
+ start "Hello World."
+end
+
+class Greeting < Calyx::DataTemplate
+ def write_narrative
+  write HelloWorld
+ end
 end
 ```
 
-To generate the text itself, initialize the object and call the `generate` method.
+There are two ways to generate text. You can generate text using Calyx::Grammar by initializing the object and calling the `generate` method.
 
 ```ruby
 hello = HelloWorld.new
 hello.generate
-# > "Hello world."
+# > "Hello World."
 ```
 
-Obviously, this hardcoded sentence isn’t very interesting by itself. Possible variations can be added to the text using the `rule` constructor to provide a named set of text strings and the rule delimiter syntax (`{}`) within the text strings to substitute the generated content of the rule.
+Or, you can generate text by initializing the Calyx::DataTemplate class and calling the `result` method.
+```ruby
+greeting = Greeting.new
+greeting.result
+# > "Hello World."
+```
+
+### Calyx::Grammar
+Obviously, "Hello World" isn’t very interesting by itself. Possible variations can be added to the text using the `rule` constructor to provide a named set of text strings and the rule delimiter syntax (`{}`) within the text strings to substitute the generated content of the rule.
 
 ```ruby
 class HelloWorld < Calyx::Grammar
@@ -172,8 +189,110 @@ end
 # => "A pear."
 ```
 
+### Calyx::DataTemplate
+Calyx::DataTemplate is useful for allowing a computer to write stories based on data stored within a Hash. The data can be plugged instantly into generated content, so long as you use erb syntax (to distingush from the rule delimiter syntax).
+
+```ruby
+require 'date'
+
+class StockReport < Calyx::Grammar
+ start "The price of one share of <%= name %> on <%= date %> is <%= price %> Yen."
+end
+
+class StockWriter < Calyx::DataTemplate
+ def write_narrative
+  write StockReport
+ end
+end
+
+cyberdyne = { :name => "Cyberdyne", :price => 1897.0, :date => Date.new(2015,1,14) }
+
+stock_writer = StockWriter.new(cyberdyne)
+stock_writer.result
+# => "The price of one share of Cyberdyne on 2015-01-14 is 1897.0 Yen."
+```
+
+`conditional_write` allows Calyx::DataTemplate to choose what grammar rule to invoke. If the condition is true, use the first grammar; otherwise, use the second grammar.
+```ruby
+class GoodStock < Calyx::Grammar
+ start "You should buy stock in <%= name %> because this company has a low EPS."
+end
+
+class BadStock < Calyx::Grammar
+ start "You should sell stock in <%= name %> because this company has a high EPS."
+end
+
+class StockWriter < Calyx::DataTemplate
+ def write_narrative
+  conditional_write eps <= 20, GoodStock, BadStock
+ end
+end
+
+mitsui = { :name => "Mitsui", :eps => 15.8}
+mitsui_writer = StockWriter.new(mitsui)
+mitsui_writer.result
+# => "You should buy stock in Mitsui because this company has a low EPS."
+
+tokoyo_electric = { :name => "Tokyo Electric Power", :eps => 275.2 }
+tokoyo_electric_writer = StockWriter.new(tokoyo_electric)
+tokoyo_electric_writer.result
+# => "You should sell stock in Tokoyo Electric Power because this company has a high EPS."
+```
+
+You may also only provide only one grammar for `conditional_write`. If the condition is false, then nothing will be written.
+```ruby
+class StockWriter < Calyx::DataTemplate
+ def write_narrative
+  conditional_write eps <= 20, GoodStock
+ end
+end
+
+tokoyo_electric = { :name => "Tokyo Electric Power", :eps => 275.2 }
+tokoyo_electric_writer = StockWriter.new(tokoyo_electric)
+tokoyo_electric_writer.result
+# => ""
+```
+
+By simply specifying a few "meta-rules" with conditionals and Grammars, you can generate unique, readable narratives based on your data.
+```ruby
+class StockWriter < Calyx::DataTemplate
+ def write_narrative
+   write StockReport
+   conditional_write eps <= 20, GoodStock, BadStock
+   conditional_write eps <= 10, WonderfulStock
+   conditional_write eps >= 50, AbsolutelyHorribleStock
+   write ThanksForReading
+  end
+end
+```
+
+###
+
 ## License
 
-Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015 Mark Rickerby
+Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015 Mark Rickerby, (c) 2016 Tariq Ali
 
-See the `LICENSE` file [included with the project distribution](https://github.com/maetl/calyx/blob/master/LICENSE) for more information.
+See the `LICENSE` file [included with the project distribution](https://github.com/tra38/calyx/blob/master/LICENSE) for more information.
+
+## History
+In November 2015, Mark Rickerby created Calyx and used that gem to create [choose-your-own adventure gamebooks](https://github.com/dariusk/NaNoGenMo-2015/issues/189). He later on wrote a [blog post](http://maetl.net/notes/storyboard/gamebook-of-dungeon-tropes) explaining his thought process.
+
+In January 2016, Tariq Ali forked Calyx and started adding in new features to turn Calyx into a useful tool for generating data-driven narratives (robojournalism).
+
+##Contributions
+We welcome contributions! Here is a step-by-step guide.
+
+1. Fork it ( https://github.com/tra38/calyx/fork )
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create a new Pull Request
+
+###Planned Features
+If you have any suggestions or bug reports, please report them on the [issue tracker](https://github.com/tra38/calyx/issues). Thank you.
+
+- [Produce Listicles](https://github.com/tra38/calyx/issues/1)
+- [Determine Mean, Median, Mode, etc. of a Large Dataset](https://github.com/tra38/calyx/issues/2)
+
+## Disclaimer
+In the real world, you would probably not want to buy or sell Japanese stock based solely on EPS. [The MIT Encyclopedia of the Japanese Economy](https://books.google.com/books?id=0RS0CGUaef8C&pg=PA423&lpg=PA423&dq=high+earnings+per+share+in+japan&source=bl&ots=sR8KV0fBTk&sig=qHspeX72SmpsU25wz9AZnhaAxyU&hl=en&sa=X&ved=0ahUKEwjcnqqctrLKAhWKRiYKHdKACaoQ6AEIHDAA#v=onepage&q=high%20earnings%20per%20share%20in%20japan&f=false) can provide some reasons why.

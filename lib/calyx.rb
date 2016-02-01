@@ -1,4 +1,7 @@
+require 'erb'
+
 module Calyx
+  #The Grammar class and the Production module was written by Mark Rickerby in 2015, and licensed under the MIT license.
   class Grammar
     class << self
       attr_accessor :registry
@@ -172,5 +175,43 @@ module Calyx
     def generate
       registry[:start].evaluate
     end
+  end
+
+  #The DataTemplate class was written by Tariq Ali in 2016, and licensed under the MIT License.
+  class DataTemplate
+    attr_reader :narrative
+
+    def initialize(data_hash = {})
+      data_hash.each do |key, value|
+        self.define_singleton_method(:"#{key}") do
+          value
+        end
+      end
+      @narrative = []
+      write_narrative
+    end
+
+    def write_narrative
+      #user writes in what should happened next
+      raise "There is no 'write_narrative' method present in your class."
+    end
+
+    def write(klass)
+      @narrative << klass.new.generate
+    end
+
+    def conditional_write(condition, klass_a, klass_b = nil)
+      if condition
+        @narrative << klass_a.new.generate
+      elsif klass_b
+        @narrative << klass_b.new.generate
+      else
+      end
+    end
+
+    def result
+      ERB.new(@narrative.join(" ")).result(binding)
+    end
+
   end
 end
