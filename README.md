@@ -10,7 +10,7 @@ Calyx provides a simple API for generating text with declarative recursive gramm
 gem install tra38-calyx
 ```
 
-## Gemfile
+### Gemfile
 
 ```
 gem 'tra38-calyx'
@@ -278,6 +278,21 @@ See the `LICENSE` file [included with the project distribution](https://github.c
 In November 2015, Mark Rickerby created Calyx and used that gem to create [choose-your-own adventure gamebooks](https://github.com/dariusk/NaNoGenMo-2015/issues/189). He later on wrote a [blog post](http://maetl.net/notes/storyboard/gamebook-of-dungeon-tropes) explaining his thought process.
 
 In January 2016, Tariq Ali forked Calyx and started adding in new features to turn Calyx into a useful tool for generating data-driven narratives (robojournalism).
+
+##Contributions
+We welcome contributions! Here is a step-by-step guide.
+
+1. Fork it ( https://github.com/tra38/calyx/fork )
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create a new Pull Request
+
+###Planned Features
+If you have any suggestions or bug reports, please report them on the [issue tracker](https://github.com/tra38/calyx/issues). Thank you.
+
+- [Produce Listicles](https://github.com/tra38/calyx/issues/1)
+- [Determine Mean, Median, Mode, etc. of a Large Dataset](https://github.com/tra38/calyx/issues/2)
 
 ## Disclaimer
 In the real world, you would probably not want to buy or sell Japanese stock based solely on EPS. [The MIT Encyclopedia of the Japanese Economy](https://books.google.com/books?id=0RS0CGUaef8C&pg=PA423&lpg=PA423&dq=high+earnings+per+share+in+japan&source=bl&ots=sR8KV0fBTk&sig=qHspeX72SmpsU25wz9AZnhaAxyU&hl=en&sa=X&ved=0ahUKEwjcnqqctrLKAhWKRiYKHdKACaoQ6AEIHDAA#v=onepage&q=high%20earnings%20per%20share%20in%20japan&f=false) can provide some reasons why.
