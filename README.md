@@ -172,6 +172,20 @@ end
 # => "A pear."
 ```
 
+## Roadmap
+
+Rough plan for stabilising the API and features for a `1.0` release.
+
+| Version | Features planned |
+|---------|------------------|
+| `0.6`   | block constructor |
+| `0.7`   | support for template context map passed to generate |
+| `0.8`   | return grammar tree from evaluate/generate, with to_s being separate |
+| `0.9`   | support mixin/composition of rule sets rather than inheritance |
+| `0.10`  | support YAML format (and JSON?) |
+| `0.11`  | method missing metaclass API |
+| `1.0`   | API documentation |
+
 ## License
 
 Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015 Mark Rickerby
