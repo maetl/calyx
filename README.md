@@ -210,7 +210,7 @@ Rough plan for stabilising the API and features for a `1.0` release.
 
 | Version | Features planned |
 |---------|------------------|
-| `0.6`   | block constructor |
+| `0.6`   | ~~block constructor~~ |
 | `0.7`   | support for template context map passed to generate |
 | `0.8`   | return grammar tree from evaluate/generate, with to_s being separate |
 | `0.9`   | support mixin/composition of rule sets rather than inheritance |
