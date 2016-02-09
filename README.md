@@ -1,6 +1,6 @@
 # Calyx
 
-[![Gem Version](http://img.shields.io/gem/v/yarrow.svg)](https://rubygems.org/gems/calyx)
+[![Gem Version](http://img.shields.io/gem/v/calyx.svg)](https://rubygems.org/gems/calyx)
 [![Build Status](https://travis-ci.org/maetl/calyx.svg?branch=master)](https://travis-ci.org/maetl/calyx)
 
 Calyx provides a simple API for generating text with declarative recursive grammars.
