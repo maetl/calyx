@@ -59,6 +59,21 @@ hello.generate
 # > "Yo world."
 ```
 
+### Block Constructors
+
+As an alternative to subclassing, you can also construct rules unique to an instance by passing a block when initializing the class:
+
+```ruby
+hello = Calyx::Grammar.new do
+  start '{greeting} world.'
+  rule :greeting, 'Hello', 'Hi', 'Hey', 'Yo'
+end
+
+hello.generate
+```
+
+### Nesting and Substitution
+
 Rules are recursive. They can be arbitrarily nested and connected to generate larger and more complex texts.
 
 ```ruby
@@ -92,6 +107,8 @@ module HelloWorld
   end
 end
 ```
+
+### Random Sampling
 
 By default, the outcomes of generated rules are selected with Ruby’s built-in random number generator (as seen in methods like `Kernel.rand` and `Array.sample`). If you want to supply a weighted probability list, you can pass in arrays to the rule constructor, with the first argument being the template text string and the second argument being a float representing the probability between `0` and `1` of this choice being selected.
 
@@ -134,6 +151,18 @@ class ChamberOrRoomContents < Calyx::Grammar
   rule :special, 'Special'
   rule :trick_trap, 'Trick/Trap.'
   rule :treasure, 'Treasure'
+end
+```
+
+### Template Expressions
+
+Basic rule substitution uses single curly brackets as delimiters for template expressions:
+
+```ruby
+class Fruit < Calyx::Grammar
+  start '{colour} {fruit}'
+  rule :colour, 'red', 'green', 'yellow'
+  rule :fruit, 'apple', 'pear', 'tomato'
 end
 ```
 
