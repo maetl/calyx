@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Calyx do
+  specify 'registry can store symbols with a hash-like interface' do
+    registry = Calyx::Grammar::Registry.new
+    registry[:start] = :atom
+    expect(registry[:start]).to eq(:atom)
+  end
+
   specify 'construct non-terminal production rule' do
     terminal = double('terminal')
     expect(terminal).to receive(:evaluate)
@@ -82,5 +88,16 @@ describe Calyx do
 
     grammar = StringFormatters.new(12345)
     expect(grammar.generate).to eq('Hello world')
+  end
+
+  specify 'instance constructor with block eval' do
+    Hue = Calyx::Grammar.new do
+      start 'rgb({r},{g},{b})'
+      rule :r, '255'
+      rule :g, '0'
+      rule :b, '0'
+    end
+
+    expect(Hue.generate).to eq('rgb(255,0,0)')
   end
 end

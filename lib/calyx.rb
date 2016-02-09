@@ -1,33 +1,64 @@
 module Calyx
   class Grammar
-    class << self
-      attr_accessor :registry
+    class Registry
+      def initialize
+        @rules = {}
+      end
 
       def start(*productions, &production)
-        registry[:start] = construct_rule(productions)
+        @rules[:start] = construct_rule(productions)
       end
 
       def rule(name, *productions, &production)
-        registry[name.to_sym] = construct_rule(productions)
+        @rules[name.to_sym] = construct_rule(productions)
       end
 
-      def inherit_registry(rules)
-        @registry ||= {}
-        @registry.merge!(rules || {})
+      def []=(symbol, production)
+        @rules[symbol] = production
       end
 
-      def inherited(subclass)
-        subclass.inherit_registry(@registry)
+      def [](symbol)
+        @rules[symbol]
+      end
+
+      def combine(rules)
+        @rules.merge!(rules.to_h)
+      end
+
+      def to_h
+        @rules
       end
 
       private
 
       def construct_rule(productions)
         if productions.first.is_a?(Enumerable)
-          Production::WeightedChoices.parse(productions, registry)
+          Production::WeightedChoices.parse(productions, self)
         else
-          Production::Choices.parse(productions, registry)
+          Production::Choices.parse(productions, self)
         end
+      end
+    end
+
+    class << self
+      def registry
+        @registry ||= Registry.new
+      end
+
+      def start(*productions, &production)
+        registry.start(*productions)
+      end
+
+      def rule(name, *productions, &production)
+        registry.rule(name, *productions)
+      end
+
+      def inherit_registry(rules)
+        registry.combine(rules) unless rules.nil?
+      end
+
+      def inherited(subclass)
+        subclass.inherit_registry(registry)
       end
     end
 
@@ -159,18 +190,21 @@ module Calyx
       end
     end
 
-    def initialize(seed=nil)
+    def initialize(seed=nil, &block)
       @seed = seed
       @seed = Time.new.to_i unless @seed
       srand(@seed)
-    end
 
-    def registry
-      self.class.registry
+      if block_given?
+        @registry = Registry.new
+        @registry.instance_eval(&block)
+      else
+        @registry = self.class.registry
+      end
     end
 
     def generate
-      registry[:start].evaluate
+      @registry[:start].evaluate
     end
   end
 end
