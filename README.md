@@ -13,7 +13,7 @@ Calyx provides a simple API for generating text with declarative recursive gramm
 gem install calyx
 ```
 
-## Gemfile
+### Gemfile
 
 ```
 gem 'calyx'
