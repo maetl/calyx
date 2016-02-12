@@ -1,17 +1,24 @@
 require 'spec_helper'
 
 describe Calyx do
-  specify 'registry can store symbols with a hash-like interface' do
+  specify 'registry evaluates the start rule' do
     registry = Calyx::Grammar::Registry.new
-    registry[:start] = :atom
-    expect(registry[:start]).to eq(:atom)
+    registry.start('atom')
+    expect(registry.evaluate).to eq('atom')
+  end
+
+  specify 'registry evaluates recursive rules' do
+    registry = Calyx::Grammar::Registry.new
+    registry.start(:atom)
+    registry.rule(:atom, 'atom')
+    expect(registry.evaluate).to eq('atom')
   end
 
   specify 'construct non-terminal production rule' do
-    terminal = double('terminal')
-    expect(terminal).to receive(:evaluate)
-    statement = Calyx::Grammar::Production::NonTerminal.new(:statement, {statement: terminal})
-    statement.evaluate
+    registry = double('registry')
+    expect(registry).to receive(:expand).and_return(Calyx::Grammar::Production::Terminal.new(:atom))
+    rule = Calyx::Grammar::Production::NonTerminal.new(:statement, registry)
+    rule.evaluate
   end
 
   specify 'construct terminal production rule' do
