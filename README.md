@@ -46,7 +46,11 @@ class HelloWorld < Calyx::Grammar
   start '{greeting} world.'
   rule :greeting, 'Hello', 'Hi', 'Hey', 'Yo'
 end
+```
 
+Each time `#generate` runs, it evaluates the tree and randomly selects variations of rules to construct a resulting string.
+
+```ruby
 hello = HelloWorld.new
 
 hello.generate
