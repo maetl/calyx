@@ -1,6 +1,8 @@
 module Calyx
   class Grammar
     class Registry
+      attr_reader :rules
+
       def initialize
         @rules = {}
       end
@@ -17,16 +19,12 @@ module Calyx
         @rules[symbol]
       end
 
-      def combine(rules)
-        @rules.merge!(rules.to_h)
+      def combine(registry)
+        @rules = rules.merge(registry.rules)
       end
 
       def evaluate
         @rules[:start].evaluate
-      end
-
-      def to_h
-        @rules
       end
 
       private
@@ -53,8 +51,8 @@ module Calyx
         registry.rule(name, *productions)
       end
 
-      def inherit_registry(rules)
-        registry.combine(rules) unless rules.nil?
+      def inherit_registry(child_registry)
+        registry.combine(child_registry) unless child_registry.nil?
       end
 
       def inherited(subclass)
