@@ -132,7 +132,7 @@ describe Calyx do
       start '{fruit}'
     end
 
-    grammar = TemplateStringChoices.new(12345)
-    expect(grammar.generate({fruit: ['apple', 'orange']})).to eq('apple')
+    grammar = TemplateStringChoices.new
+    expect(grammar.generate({fruit: ['apple', 'orange']})).to match(/apple|orange/)
   end
 end
