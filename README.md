@@ -114,7 +114,18 @@ end
 
 ### Random Sampling
 
-By default, the outcomes of generated rules are selected with Ruby’s built-in random number generator (as seen in methods like `Kernel.rand` and `Array.sample`). If you want to supply a weighted probability list, you can pass in arrays to the rule constructor, with the first argument being the template text string and the second argument being a float representing the probability between `0` and `1` of this choice being selected.
+By default, the outcomes of generated rules are selected with Ruby’s built-in pseudorandom number generator (as seen in methods like `Kernel.rand` and `Array.sample`). To seed the random number generator, pass in a seed value (an integer) as the first argument to the constructor:
+
+```ruby
+MyGrammar.new(12345)
+Calyx::Grammar.new(12345, &rules)
+```
+
+When a seed value isn’t supplied, `Time.new.to_i` is used as the default seed, which makes each run of the generator relatively unique.
+
+### Weighted Selection
+
+If you want to supply a weighted probability list, you can pass in arrays to the rule constructor, with the first argument being the template text string and the second argument being a float representing the probability between `0` and `1` of this choice being selected.
 
 For example, you can model the triangular distribution produced by rolling 2d6:
 
