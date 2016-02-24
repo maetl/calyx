@@ -107,4 +107,32 @@ describe Calyx do
 
     expect(Hue.generate).to eq('rgb(255,0,0)')
   end
+
+  specify 'construct dynamic rules with context hash of values' do
+    class TemplateStringValues < Calyx::Grammar
+      start '{one}{two}{three}'
+    end
+
+    grammar = TemplateStringValues.new
+    expect(grammar.generate({one: 1, two: 2, three: 3})).to eq('123')
+  end
+
+  specify 'construct dynamic rules with context hash of expansion strings' do
+    class TemplateStringExpansions < Calyx::Grammar
+      start '{how}'
+      rule :a, 'piece of string?'
+    end
+
+    grammar = TemplateStringExpansions.new
+    expect(grammar.generate({how: '{long}', long: '{is}', is: '{a}'})).to eq('piece of string?')
+  end
+
+  specify 'construct dynamic rules with context hash of choices' do
+    class TemplateStringChoices < Calyx::Grammar
+      start '{fruit}'
+    end
+
+    grammar = TemplateStringChoices.new(12345)
+    expect(grammar.generate({fruit: ['apple', 'orange']})).to eq('apple')
+  end
 end

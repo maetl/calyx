@@ -23,7 +23,19 @@ module Calyx
         @rules = rules.merge(registry.rules)
       end
 
-      def evaluate
+      def evaluate(context={})
+        context.each do |key, value|
+          if @rules.key?(key.to_sym)
+            raise "Rule already declared in grammar: #{key}"
+          end
+
+          @rules[key.to_sym] = if value.is_a?(Array)
+            Production::Choices.parse(value, self)
+          else
+            Production::Concat.parse(value.to_s, self)
+          end
+        end
+
         @rules[:start].evaluate
       end
 
@@ -201,8 +213,8 @@ module Calyx
       end
     end
 
-    def generate
-      @registry.evaluate
+    def generate(context={})
+      @registry.evaluate(context)
     end
   end
 end
