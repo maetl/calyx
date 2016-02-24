@@ -219,6 +219,25 @@ end
 # => "A pear."
 ```
 
+### Dynamically Constructing Rules
+
+Template expansions can be dynamically constructed at runtime by passing a context map of rules to the `#generate` method:
+
+```ruby
+class AppGreeting < Calyx::Grammar
+  start 'Hi {username}!', 'Welcome back {username}...', 'Hola {username}'
+end
+
+context = {
+  username: UserModel.username
+}
+
+greeting = AppGreeting.new
+greeting.generate(context)
+```
+
+__Note: This feature is still experimental, and the API may morph and change a bit as we try to figure out the best patterns for merging and combining grammars.__
+
 ## Roadmap
 
 Rough plan for stabilising the API and features for a `1.0` release.
@@ -226,7 +245,7 @@ Rough plan for stabilising the API and features for a `1.0` release.
 | Version | Features planned |
 |---------|------------------|
 | `0.6`   | ~~block constructor~~ |
-| `0.7`   | support for template context map passed to generate |
+| `0.7`   | ~~support for template context map passed to generate~~ |
 | `0.8`   | return grammar tree from evaluate/generate, with to_s being separate |
 | `0.9`   | support mixin/composition of rule sets rather than inheritance |
 | `0.10`  | support YAML format (and JSON?) |
