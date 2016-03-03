@@ -135,4 +135,18 @@ describe Calyx do
     grammar = TemplateStringChoices.new
     expect(grammar.generate({fruit: ['apple', 'orange']})).to match(/apple|orange/)
   end
+
+
+  specify 'construct dynamic rules with two context hashes' do
+    class StockReport < Calyx::Grammar
+      start 'You should buy shares in {company}.'
+    end
+
+    grammar = StockReport.new
+    cyberdyne_context_hash = {company: "Cyberdyne" }
+    bridgestone_context_hash = {company: "Bridgestone" }
+
+    expect(grammar.generate(cyberdyne_context_hash)).to eq("You should buy shares in Cyberdyne.")
+    expect(grammar.generate(bridgestone_context_hash)).to eq("You should buy shares in Bridgestone.")
+  end
 end
