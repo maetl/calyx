@@ -252,6 +252,11 @@ Rough plan for stabilising the API and features for a `1.0` release.
 | `0.11`  | method missing metaclass API |
 | `1.0`   | API documentation |
 
+## Credits
+
+- [Mark Rickerby](https://github.com/maetl) (author and maintainer)
+- [Tariq Ali](https://github.com/tra38)
+
 ## License
 
 Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015 Mark Rickerby
