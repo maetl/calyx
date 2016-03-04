@@ -24,19 +24,21 @@ module Calyx
       end
 
       def evaluate(context={})
+        duplicate_registry = Marshal.load(Marshal.dump(self))
+        duplicate_rules = duplicate_registry.rules
         context.each do |key, value|
-          if @rules.key?(key.to_sym)
+          if duplicate_rules.key?(key.to_sym)
             raise "Rule already declared in grammar: #{key}"
           end
 
-          @rules[key.to_sym] = if value.is_a?(Array)
-            Production::Choices.parse(value, self)
+          duplicate_rules[key.to_sym] = if value.is_a?(Array)
+            Production::Choices.parse(value, duplicate_registry)
           else
-            Production::Concat.parse(value.to_s, self)
+            Production::Concat.parse(value.to_s, duplicate_registry)
           end
         end
 
-        @rules[:start].evaluate
+        duplicate_rules[:start].evaluate
       end
 
       private
