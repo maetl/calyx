@@ -203,8 +203,7 @@ module Calyx
     end
 
     def initialize(seed=nil, &block)
-      @seed = seed
-      @seed = Time.new.to_i unless @seed
+      @seed = seed || Random.new_seed
       srand(@seed)
 
       if block_given?
