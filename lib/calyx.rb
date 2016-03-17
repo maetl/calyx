@@ -211,7 +211,7 @@ module Calyx
         @registry = Registry.new
         @registry.instance_eval(&block)
       else
-        @registry = self.class.registry.clone
+        @registry = self.class.registry
       end
     end
 
