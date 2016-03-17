@@ -23,7 +23,7 @@ module Calyx
         @rules = rules.merge(registry.rules)
       end
 
-      def evaluate(context={})
+      def evaluate(start_symbol=:start, context={})
         duplicate_registry = Marshal.load(Marshal.dump(self))
         duplicate_rules = duplicate_registry.rules
         context.each do |key, value|
@@ -38,7 +38,7 @@ module Calyx
           end
         end
 
-        duplicate_rules[:start].evaluate
+        duplicate_rules[start_symbol].evaluate
       end
 
       private
@@ -216,7 +216,7 @@ module Calyx
     end
 
     def generate(context={})
-      @registry.evaluate(context)
+      @registry.evaluate(:start, context)
     end
   end
 end
