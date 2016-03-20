@@ -59,7 +59,7 @@ module Calyx
         klass = Class.new(Calyx::Grammar)
         yaml = YAML.load_file(file)
         yaml.each do |key, value|
-          if key == :start
+          if key.to_sym == :start
             klass.send(:start, *value)
           else
             klass.send(:rule, key, *value)
