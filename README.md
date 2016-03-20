@@ -114,7 +114,7 @@ end
 
 ### Random Sampling
 
-By default, the outcomes of generated rules are selected with Ruby’s built-in pseudorandom number generator (as seen in methods like `Kernel.rand` and `Array.sample`). To seed the random number generator, pass in a seed value (an integer) as the first argument to the constructor:
+By default, the outcomes of generated rules are selected with Ruby’s built-in pseudorandom number generator (as seen in methods like `Kernel.rand` and `Array.sample`). To seed the random number generator, pass in an integer seed value as the first argument to the constructor:
 
 ```ruby
 MyGrammar.new(12345)
@@ -252,8 +252,13 @@ Rough plan for stabilising the API and features for a `1.0` release.
 | `0.11`  | method missing metaclass API |
 | `1.0`   | API documentation |
 
+## Credits
+
+- [Mark Rickerby](https://github.com/maetl) (author and maintainer)
+- [Tariq Ali](https://github.com/tra38)
+
 ## License
 
-Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015 Mark Rickerby
+Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015-2016 [Editorial Technology](http://editorial.technology/).
 
 See the `LICENSE` file [included with the project distribution](https://github.com/maetl/calyx/blob/master/LICENSE) for more information.

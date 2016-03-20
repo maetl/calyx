@@ -25,7 +25,7 @@ module Calyx
         @rules = rules.merge(registry.rules)
       end
 
-      def evaluate(context={})
+      def evaluate(start_symbol=:start, context={})
         duplicate_registry = Marshal.load(Marshal.dump(self))
         duplicate_rules = duplicate_registry.rules
         context.each do |key, value|
@@ -40,7 +40,7 @@ module Calyx
           end
         end
 
-        duplicate_rules[:start].evaluate
+        duplicate_rules[start_symbol].evaluate
       end
 
       private
@@ -218,20 +218,19 @@ module Calyx
     end
 
     def initialize(seed=nil, &block)
-      @seed = seed
-      @seed = Time.new.to_i unless @seed
+      @seed = seed || Random.new_seed
       srand(@seed)
 
       if block_given?
         @registry = Registry.new
         @registry.instance_eval(&block)
       else
-        @registry = self.class.registry.clone
+        @registry = self.class.registry
       end
     end
 
     def generate(context={})
-      @registry.evaluate(context)
+      @registry.evaluate(:start, context)
     end
   end
 end
