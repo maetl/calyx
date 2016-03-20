@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Calyx
   class Grammar
     class Registry
@@ -53,6 +55,19 @@ module Calyx
     end
 
     class << self
+      def load_yml(file)
+        klass = Class.new(Calyx::Grammar)
+        yaml = YAML.load_file(file)
+        yaml.each do |key, value|
+          if key == :start
+            klass.send(:start, *value)
+          else
+            klass.send(:rule, key, *value)
+          end
+        end
+        klass.new
+      end
+
       def registry
         @registry ||= Registry.new
       end

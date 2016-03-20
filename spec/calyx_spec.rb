@@ -149,4 +149,34 @@ describe Calyx do
     expect(grammar.generate(cyberdyne_context_hash)).to eq("You should buy shares in Cyberdyne.")
     expect(grammar.generate(bridgestone_context_hash)).to eq("You should buy shares in Bridgestone.")
   end
+
+  specify 'construct a Calyx::Grammar class using a YAML file that references other rules' do
+    yaml_text = <<-EOF
+    start: :hello_world
+    hello_world: :statement
+    statement: "Hello World"
+    EOF
+    yaml = YAML.load(yaml_text)
+    filepath = "test.yml"
+    allow(YAML).to receive(:load_file).with(filepath).and_return(yaml)
+    grammar = Calyx::Grammar.load_yml(filepath)
+    expect(grammar.generate).to eq("Hello World")
+  end
+
+  specify 'construct a Calyx::Grammar class using a YAML file that can handle multiple parameters' do
+    yaml_text = <<-EOF
+    start: "{fruit}"
+    fruit:
+      - apple
+      - orange
+    EOF
+    yaml = YAML.load(yaml_text)
+    filepath = "test.yml"
+    allow(YAML).to receive(:load_file).with(filepath).and_return(yaml)
+    grammar = Calyx::Grammar.load_yml(filepath)
+    array = []
+    10.times { array << grammar.generate }
+    expect(array.uniq.sort).to eq(["apple","orange"])
+  end
+
 end
