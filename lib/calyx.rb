@@ -58,12 +58,8 @@ module Calyx
       def load_yml(file)
         klass = Class.new(Calyx::Grammar)
         yaml = YAML.load_file(file)
-        yaml.each do |key, value|
-          if key.to_sym == :start
-            klass.send(:start, *value)
-          else
-            klass.send(:rule, key, *value)
-          end
+        yaml.each do |rule_name, rule_productions|
+          klass.send(:rule, rule_name, *rule_productions)
         end
         klass.new
       end
