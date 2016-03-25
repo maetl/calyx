@@ -179,4 +179,33 @@ describe Calyx do
     expect(array.uniq.sort).to eq(["apple","orange"])
   end
 
+  specify 'construct a Calyx::Grammar class with weighted choices' do
+    yaml_text = <<-EOF
+    start:
+      - [20%, 0.2]
+      - [80%, 0.8]
+    EOF
+    yaml = YAML.load(yaml_text)
+    filepath = "test.yml"
+    allow(YAML).to receive(:load_file).with(filepath).and_return(yaml)
+    grammar = Calyx::Grammar.load_yml(filepath)
+    array = []
+    10.times { array << grammar.generate }
+    expect(array.uniq.sort).to eq(["20%","80%"])
+  end
+
+  specify 'raise an error if weighted choices do not equal 1' do
+    yaml_text = <<-EOF
+    start:
+      - [90%, 0.9]
+      - [80%, 0.8]
+    EOF
+    yaml = YAML.load(yaml_text)
+    filepath = "test.yml"
+    allow(YAML).to receive(:load_file).with(filepath).and_return(yaml)
+    expect do
+      Calyx::Grammar.load_yml(filepath)
+    end.to raise_error('Weights must sum to 1')
+  end
+
 end
