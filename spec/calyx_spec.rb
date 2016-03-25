@@ -182,8 +182,8 @@ describe Calyx do
   specify 'construct a Calyx::Grammar class with weighted choices' do
     yaml_text = <<-EOF
     start:
-      - [20%, 0.2]
-      - [80%, 0.8]
+      - [60%, 0.6]
+      - [40%, 0.4]
     EOF
     yaml = YAML.load(yaml_text)
     filepath = "test.yml"
@@ -191,7 +191,7 @@ describe Calyx do
     grammar = Calyx::Grammar.load_yml(filepath)
     array = []
     10.times { array << grammar.generate }
-    expect(array.uniq.sort).to eq(["20%","80%"])
+    expect(array.uniq.sort).to eq(["40%","60%"])
   end
 
   specify 'raise an error if weighted choices do not equal 1' do
