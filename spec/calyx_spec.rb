@@ -194,7 +194,7 @@ describe Calyx do
     expect(array.uniq.sort).to eq(["40%","60%"])
   end
 
-  specify 'raise an error if weighted choices do not equal 1' do
+  specify 'construct a Calyx::Grammar class but raise an error if weighted choices do not equal 1' do
     yaml_text = <<-EOF
     start:
       - [90%, 0.9]
