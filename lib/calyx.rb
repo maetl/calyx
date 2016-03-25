@@ -7,8 +7,8 @@ module Calyx
         @rules = {}
       end
 
-      def start(*productions, &production)
-        @rules[:start] = construct_rule(productions)
+      def method_missing(name, *arguments)
+        rule(name, *arguments)
       end
 
       def rule(name, *productions, &production)
@@ -58,7 +58,7 @@ module Calyx
       end
 
       def start(*productions, &production)
-        registry.start(*productions)
+        registry.rule(:start, *productions)
       end
 
       def rule(name, *productions, &production)
