@@ -5,11 +5,11 @@ module Calyx
         @registry ||= Registry.new
       end
 
-      def start(*productions, &production)
-        registry.rule(:start, *productions)
+      def rule(name, *productions, &production)
+        registry.rule(name, *productions)
       end
 
-      def rule(name, *productions, &production)
+      def method_missing(name, *productions)
         registry.rule(name, *productions)
       end
 
