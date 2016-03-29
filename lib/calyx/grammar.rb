@@ -34,8 +34,16 @@ module Calyx
       end
     end
 
-    def generate(context={})
-      @registry.evaluate(:start, context)
+    def generate(*args)
+      start_symbol = :start
+      rules_map = {}
+
+      args.each do |arg|
+        start_symbol = arg if arg.class == Symbol
+        rules_map = arg if arg.class == Hash
+      end
+
+      @registry.evaluate(start_symbol, rules_map)
     end
   end
 end

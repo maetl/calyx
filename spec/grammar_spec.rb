@@ -117,4 +117,22 @@ describe Calyx::Grammar do
     expect(grammar.generate(cyberdyne_context_hash)).to eq("You should buy shares in Cyberdyne.")
     expect(grammar.generate(bridgestone_context_hash)).to eq("You should buy shares in Bridgestone.")
   end
+
+  specify 'generate with explicit start symbol' do
+    grammar = Calyx::Grammar.new do
+      alt_start 'alt_start'
+      start 'start'
+    end
+
+    expect(grammar.generate(:alt_start)).to eq('alt_start')
+  end
+
+  specify 'generate with explicit start symbol and context hash' do
+    grammar = Calyx::Grammar.new do
+      alt_start '{alt_start_var}'
+      start 'start'
+    end
+
+    expect(grammar.generate(:alt_start, { alt_start_var: 'alt_start_var' })).to eq('alt_start_var')
+  end
 end
