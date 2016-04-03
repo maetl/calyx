@@ -1,6 +1,32 @@
+require 'yaml'
+require 'json'
+
 module Calyx
   class Grammar
     class << self
+      def load_yml(file)
+        yaml = YAML.load_file(file)
+        create_calyx_class(yaml)
+      end
+
+      def load_json(file)
+        json = JSON.parse(file)
+        json.each do |key, value|
+          if value[0] == ":"
+            json[key] = value[1..-1].to_sym
+          end
+        end
+        create_calyx_class(json)
+      end
+
+      def create_calyx_class(hash)
+        klass = Class.new(Calyx::Grammar)
+        hash.each do |rule_name, rule_productions|
+          klass.send(rule_name, *rule_productions)
+        end
+        klass.new
+      end
+
       def registry
         @registry ||= Registry.new
       end
