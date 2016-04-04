@@ -14,6 +14,20 @@ describe "#load_json" do
     expect(grammar.generate).to eq("Hello World")
   end
 
+  specify 'construct a Calyx::Grammar that can handle multiple references to other rules' do
+    json_text = <<-EOF
+    {
+      "start": [":dragon_wins",":hero_wins"],
+      "dragon_wins": "Dragon Wins",
+      "hero_wins": "Hero Wins"
+    }
+    EOF
+    grammar = Calyx::Grammar.load_json(json_text)
+    array = []
+    10.times { array << grammar.generate }
+    expect(array.uniq.sort).to eq(["Dragon Wins","Hero Wins"])
+  end
+
   specify 'construct a Calyx::Grammar class using a JSON file that can handle multiple parameters' do
     json_text = <<-EOF
     {
