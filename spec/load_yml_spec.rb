@@ -15,6 +15,23 @@ describe "#load_yml" do
     expect(grammar.generate).to eq("Hello World")
   end
 
+  specify 'construct a Calyx::Grammar that can handle multiple references to other rules' do
+    yaml_text = <<-EOF
+    start:
+      - :dragon_wins
+      - :hero_wins
+    dragon_wins: "Dragon Wins"
+    hero_wins: "Hero Wins"
+    EOF
+    yaml = YAML.load(yaml_text)
+    filepath = "test.yml"
+    allow(YAML).to receive(:load_file).with(filepath).and_return(yaml)
+    grammar = Calyx::Grammar.load_yml(filepath)
+    array = []
+    10.times { array << grammar.generate }
+    expect(array.uniq.sort).to eq(["Dragon Wins","Hero Wins"])
+  end
+
   specify 'construct a Calyx::Grammar class using a YAML file that can handle multiple parameters' do
     yaml_text = <<-EOF
     start: "{fruit}"
