@@ -4,8 +4,20 @@ require 'json'
 module Calyx
   class Grammar
     class << self
+      def load(filename)
+        file = File.read(filename)
+        extension = File.extname(filename)
+        if extension == ".yml"
+          load_yml(file)
+        elsif extension == ".json"
+          load_json(file)
+        else
+          raise "We have not implemented this feature yet."
+        end
+      end
+
       def load_yml(file)
-        yaml = YAML.load_file(file)
+        yaml = YAML.load(file)
         create_calyx_class(yaml)
       end
 
