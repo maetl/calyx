@@ -7,7 +7,7 @@ module Calyx
         end
 
         def evaluate
-          @atom
+          [:atom, @atom]
         end
       end
     end

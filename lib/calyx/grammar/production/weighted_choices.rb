@@ -29,7 +29,7 @@ module Calyx
             rand ** (1.0 / weight)
           end.first
 
-          choice.evaluate
+          [:weighted_choice, choice.evaluate]
         end
       end
     end

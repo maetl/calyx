@@ -43,7 +43,9 @@ module Calyx
         rules_map = arg if arg.class == Hash
       end
 
-      @registry.evaluate(start_symbol, rules_map)
+      @registry.evaluate(start_symbol, rules_map).flatten.reject do |obj|
+        obj.is_a?(Symbol)
+      end.join(''.freeze)
     end
   end
 end

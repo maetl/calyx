@@ -8,7 +8,7 @@ module Calyx
         end
 
         def evaluate
-          @registry.expand(@symbol).evaluate
+          [@symbol, @registry.expand(@symbol).evaluate]
         end
       end
     end

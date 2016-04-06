@@ -12,17 +12,17 @@ describe 'production rules' do
 
   describe Calyx::Grammar::Production::Terminal do
     specify 'construct terminal production rule' do
-      atom = Calyx::Grammar::Production::Terminal.new(:atom)
-      expect(atom.evaluate).to eq(:atom)
+      atom = Calyx::Grammar::Production::Terminal.new(:terminal)
+      expect(atom.evaluate).to eq([:atom, :terminal])
     end
   end
 
   describe Calyx::Grammar::Production::Expression do
     specify 'construct string formatting production' do
       nonterminal = double(:nonterminal)
-      allow(nonterminal).to receive(:evaluate).and_return('hello')
+      allow(nonterminal).to receive(:evaluate).and_return([:atom, 'hello'])
       rule = Calyx::Grammar::Production::Expression.new(nonterminal, ['upcase'])
-      expect(rule.evaluate).to eq('HELLO')
+      expect(rule.evaluate).to eq([:expression, 'HELLO'])
     end
   end
 end

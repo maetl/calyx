@@ -34,9 +34,11 @@ module Calyx
         end
 
         def evaluate
-          @expansion.reduce('') do |exp, atom|
+          concat = @expansion.reduce([]) do |exp, atom|
             exp << atom.evaluate
           end
+
+          [:concat, concat]
         end
       end
     end

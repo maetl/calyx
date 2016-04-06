@@ -18,7 +18,7 @@ module Calyx
         end
 
         def evaluate
-          @collection.sample.evaluate
+          [:choice, @collection.sample.evaluate]
         end
       end
     end

@@ -8,9 +8,12 @@ module Calyx
         end
 
         def evaluate
-          @methods.reduce(@production.evaluate) do |value,method|
+          terminal = @production.evaluate.flatten.reject { |o| o.is_a?(Symbol) }.join(''.freeze)
+          expression = @methods.reduce(terminal) do |value,method|
             value.send(method)
           end
+
+          [:expression, expression]
         end
       end
     end

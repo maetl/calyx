@@ -38,7 +38,7 @@ module Calyx
           end
         end
 
-        expand(start_symbol).evaluate
+        [start_symbol, expand(start_symbol).evaluate]
       end
 
       private
