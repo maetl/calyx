@@ -26,6 +26,24 @@ describe Calyx::Grammar do
     expect(grammar.generate).to eq('One. Two.')
   end
 
+  specify 'rule chained inheritance' do
+    class ParentRules < Calyx::Grammar
+      rule :one, 'One.'
+      rule :two, 'Two.'
+    end
+
+    class ChildRule < ParentRules
+      rule :three, 'Three.'
+    end
+
+    class GrandchildRule < ChildRule
+      start '{one} {two} {three}'
+    end
+
+    grammar = GrandchildRule.new
+    expect(grammar.generate).to eq('One. Two. Three.')
+  end
+
   specify 'reference rule symbols in other rules' do
     class RuleSymbols < Calyx::Grammar
       start :rule_symbol
