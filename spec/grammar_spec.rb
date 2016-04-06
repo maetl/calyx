@@ -42,6 +42,9 @@ describe Calyx::Grammar do
 
     grammar = GrandchildRule.new
     expect(grammar.generate).to eq('One. Two. Three.')
+
+    parent = ParentRules.new
+    expect { parent.generate }.to raise_error(NoMethodError)
   end
 
   specify 'reference rule symbols in other rules' do
