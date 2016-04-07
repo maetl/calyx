@@ -247,7 +247,7 @@ Rough plan for stabilising the API and features for a `1.0` release.
 | `0.6`   | ~~block constructor~~ |
 | `0.7`   | ~~support for template context map passed to generate~~ |
 | `0.8`   | ~~method missing metaclass API~~ |
-| `0.9`   | return grammar tree from evaluate/generate, with to_s being separate |
+| `0.9`   | return grammar tree from `#evaluate`, with flattened string from `#generate` being separate |
 | `0.10`  | inject custom string functions for parameterised rules, transforms and mappings |
 | `0.11`  | support YAML format (and JSON?) |
 | `1.0`   | API documentation |
