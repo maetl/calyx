@@ -31,7 +31,7 @@ describe "#load" do
     allow(File).to receive(:read).with(file_name).and_return(mystery)
     expect do
       Calyx::Grammar.load(file_name)
-    end.to raise_error('We have not implemented this feature yet.')
+    end.to raise_error('Cannot convert .mystery files.')
   end
 
 end

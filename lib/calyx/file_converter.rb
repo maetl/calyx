@@ -12,7 +12,7 @@ module Calyx
         elsif extension == ".json"
           load_json(file)
         else
-          raise "We have not implemented this feature yet."
+          raise "Cannot convert #{extension} files."
         end
       end
 
