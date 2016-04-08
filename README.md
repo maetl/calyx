@@ -236,7 +236,26 @@ greeting = AppGreeting.new
 greeting.generate(context)
 ```
 
-__Note: This feature is still experimental, and the API may morph and change a bit as we try to figure out the best patterns for merging and combining grammars.__
+__Note: The API may morph and change a bit as we try to figure out the best patterns for merging and combining grammars.__
+
+### Accessing the Raw Generated Tree
+
+Calling `#evaluate` on the grammar instance will give you access to the raw generated tree structure before it gets flattened into a string.
+
+The tree is encoded as an array of nested arrays, with the leading symbols labeling the choices and rules selected, and the trailing terminal leaves encoding string values.
+
+This may not make a lot of sense unless you’re familiar with the concept of [s-expressions](https://en.wikipedia.org/wiki/S-expression). It’s a fairly speculative feature at this stage, but it leads to some interesting possibilities.
+
+```ruby
+grammar = Calyx::Grammar.new do
+  start 'Riddle me ree.'
+end
+
+grammar.evaluate
+# => [:start, [:term, "Riddle me ree."]]
+```
+
+__Note: This feature is still experimental. The tree structure is likely to change so it’s probably best not to rely on it for anything big at this stage.__
 
 ## Roadmap
 
@@ -247,7 +266,7 @@ Rough plan for stabilising the API and features for a `1.0` release.
 | `0.6`   | ~~block constructor~~ |
 | `0.7`   | ~~support for template context map passed to generate~~ |
 | `0.8`   | ~~method missing metaclass API~~ |
-| `0.9`   | return grammar tree from `#evaluate`, with flattened string from `#generate` being separate |
+| `0.9`   | ~~return grammar tree from `#evaluate`, with flattened string from `#generate` being separate~~ |
 | `0.10`  | inject custom string functions for parameterised rules, transforms and mappings |
 | `0.11`  | support YAML format (and JSON?) |
 | `1.0`   | API documentation |
