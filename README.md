@@ -252,7 +252,7 @@ grammar = Calyx::Grammar.new do
 end
 
 grammar.evaluate
-# => [:start, [:term, "Riddle me ree."]]
+# => [:start, [:choice, [:concat, [[:atom, "Riddle me ree."]]]]]
 ```
 
 __Note: This feature is still experimental. The tree structure is likely to change so it’s probably best not to rely on it for anything big at this stage.__
