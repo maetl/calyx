@@ -35,6 +35,22 @@ module Calyx
     end
 
     def generate(*args)
+      start_symbol, rules_map = map_default_args(*args)
+
+      @registry.evaluate(start_symbol, rules_map).flatten.reject do |obj|
+        obj.is_a?(Symbol)
+      end.join(''.freeze)
+    end
+
+    def evaluate(*args)
+      start_symbol, rules_map = map_default_args(*args)
+
+      @registry.evaluate(start_symbol, rules_map)
+    end
+
+    private
+
+    def map_default_args(*args)
       start_symbol = :start
       rules_map = {}
 
@@ -43,9 +59,7 @@ module Calyx
         rules_map = arg if arg.class == Hash
       end
 
-      @registry.evaluate(start_symbol, rules_map).flatten.reject do |obj|
-        obj.is_a?(Symbol)
-      end.join(''.freeze)
+      [start_symbol, rules_map]
     end
   end
 end

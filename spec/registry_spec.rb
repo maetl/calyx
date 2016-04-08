@@ -5,17 +5,6 @@ describe Calyx::Grammar::Registry do
     Calyx::Grammar::Registry.new
   end
 
-  context '#evaluate' do
-    # Need to do some more work to determine what the tree representation should look like.
-    #
-    # In particular, need to look at whether the :choice and :concat nodes could be simplified
-    # in cases where there is only a single production rather than multiple choices.
-    #
-    # The best way to resolve this is probably to try generating some interesting trees and
-    # seeing what is useful in practice.
-    it 'should return a tree representation of the grammar'
-  end
-
   specify 'registry evaluates the start rule' do
     registry.start('atom')
     expect(registry.evaluate).to eq([:start, [:choice, [:concat, [[:atom, "atom"]]]]])
@@ -30,5 +19,11 @@ describe Calyx::Grammar::Registry do
   specify 'evaluate from context if rule not found' do
     registry.start(:atom)
     expect(registry.evaluate(:start, atom: 'atom')).to eq([:start, [:choice, [:atom, [:concat, [[:atom, "atom"]]]]]])
+  end
+
+  specify 'evaluate concatenated production' do
+    registry.start('Hello, {name}.')
+    registry.rule(:name, 'Joe')
+    expect(registry.evaluate).to eq([:start, [:choice, [:concat, [[:atom, "Hello, "], [:name, [:choice, [:concat, [[:atom, "Joe"]]]]], [:atom, "."]]]]])
   end
 end
