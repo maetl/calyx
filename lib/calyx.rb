@@ -1,5 +1,6 @@
 require_relative 'calyx/version'
 require_relative 'calyx/grammar'
+require_relative 'calyx/file_converter'
 require_relative 'calyx/grammar/registry'
 require_relative 'calyx/grammar/production/choices'
 require_relative 'calyx/grammar/production/concat'
