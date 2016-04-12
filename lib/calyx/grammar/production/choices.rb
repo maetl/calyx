@@ -7,7 +7,11 @@ module Calyx
             if choice.is_a?(String)
               Concat.parse(choice, registry)
             elsif choice.is_a?(Symbol)
-              NonTerminal.new(choice, registry)
+              if choice[0] == Memo::SIGIL
+                Memo.new(choice, registry)
+              else
+                NonTerminal.new(choice, registry)
+              end
             end
           end
           self.new(choices)
