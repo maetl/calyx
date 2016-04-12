@@ -20,4 +20,12 @@ describe 'memoized rules' do
 
     expect(grammar.generate(:burger_combo)).to include(grammar.generate(:burger))
   end
+
+  xit 'memoized symbol in rule definition' do
+    grammar = Calyx::Grammar.new do
+      rule :@spitz, "pomeranian", "samoyed", "shiba inu"
+    end
+
+    expect(grammar.generate(:spitz)).to eq(grammar.generate(:spitz))
+  end
 end
