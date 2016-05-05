@@ -10,7 +10,7 @@ module Calyx
         end
 
         def evaluate
-          @result ||= [@symbol, @registry.expand(@symbol).evaluate]
+          [@symbol, @registry.memoize_expansion(@symbol)]
         end
       end
     end

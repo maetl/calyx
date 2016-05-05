@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'memoized rules' do
-  specify 'memoized symbol prefix' do
+  specify 'memoized rule mapped with symbol prefix' do
     grammar = Calyx::Grammar.new do
       rule :start, "Enter {character}. Exit {character}."
       rule :character, :@name
@@ -11,21 +11,13 @@ describe 'memoized rules' do
     expect(grammar.generate).to eq(grammar.generate)
   end
 
-  specify 'memoized template expression' do
+  specify 'memoized rule mapped with template expression' do
     grammar = Calyx::Grammar.new do
-      rule :burger, "Monolith {@extras}"
-      rule :burger_combo, "Jumbo Monolith {@extras}"
-      rule :extras, "w/ extra grease", "w/ polycheese"
+      rule :pupper, '{@spitz}:{@spitz}'
+      rule :spitz, "pomeranian", "samoyed", "shiba inu"
     end
 
-    expect(grammar.generate(:burger_combo)).to include(grammar.generate(:burger))
-  end
-
-  xit 'memoized symbol in rule definition' do
-    grammar = Calyx::Grammar.new do
-      rule :@spitz, "pomeranian", "samoyed", "shiba inu"
-    end
-
-    expect(grammar.generate(:spitz)).to eq(grammar.generate(:spitz))
+    actual = grammar.generate(:pupper).split(':')
+    expect(actual.first).to eq(actual.last)
   end
 end

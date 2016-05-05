@@ -1,10 +1,11 @@
 module Calyx
   class Grammar
     class Registry
-      attr_reader :rules
+      attr_reader :rules, :memos
 
       def initialize
         @rules = {}
+        @memos = {}
       end
 
       def method_missing(name, *arguments)
@@ -17,6 +18,10 @@ module Calyx
 
       def expand(symbol)
         @rules[symbol] || @context[symbol]
+      end
+
+      def memoize_expansion(symbol)
+        memos[symbol] ||= expand(symbol).evaluate
       end
 
       def combine(registry)
