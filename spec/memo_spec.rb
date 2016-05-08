@@ -23,7 +23,7 @@ describe 'memoized rules' do
     expect(actual.first).to eq(actual.last)
   end
 
-  specify 'memoized rules change between multiple runs' do
+  specify 'memoized rules are stored between multiple runs' do
     grammar = Calyx::Grammar.new do
       rule :start, '{flower}{flower}{flower}'
       rule :flower, :@flowers
