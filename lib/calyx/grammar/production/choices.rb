@@ -6,6 +6,8 @@ module Calyx
           choices = productions.map do |choice|
             if choice.is_a?(String)
               Concat.parse(choice, registry)
+            elsif choice.is_a?(Fixnum)
+              Terminal.new(choice.to_s)
             elsif choice.is_a?(Symbol)
               if choice[0] == Memo::SIGIL
                 Memo.new(choice, registry)
