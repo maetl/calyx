@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'set'
 
 describe 'memoized rules' do
   specify 'memoized rule mapped with symbol prefix' do
@@ -24,17 +25,18 @@ describe 'memoized rules' do
   end
 
   specify 'memoized rules are reset between multiple runs' do
-    grammar = Calyx::Grammar.new(1212) do
+    grammar = Calyx::Grammar.new do
       rule :start, '{flower}{flower}{flower}'
       rule :flower, :@flowers
       rule :flowers, "🌷", "🌻", "🌼"
     end
 
-    expect(grammar.generate).to match(/🌷{3}/)
-    expect(grammar.generate).to match(/🌼{3}/)
-    expect(grammar.generate).to match(/🌼{3}/)
-    expect(grammar.generate).to match(/🌼{3}/)
-    expect(grammar.generate).to match(/🌷{3}/)
-    expect(grammar.generate).to match(/🌻{3}/)
+    generations = Set.new
+
+    while generations.size < 3
+      generation = grammar.generate
+      expect(generation).to match(/🌷🌷🌷|🌻🌻🌻|🌼🌼🌼/)
+      generations << generation
+    end
   end
 end
