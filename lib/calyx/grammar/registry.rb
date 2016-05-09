@@ -5,7 +5,6 @@ module Calyx
 
       def initialize
         @rules = {}
-        @memos = {}
       end
 
       def method_missing(name, *arguments)
@@ -29,7 +28,7 @@ module Calyx
       end
 
       def evaluate(start_symbol=:start, rules_map={})
-        @context = {}
+        reset_state
 
         rules_map.each do |key, value|
           if rules.key?(key.to_sym)
@@ -47,6 +46,11 @@ module Calyx
       end
 
       private
+
+      def reset_state
+        @context = {}
+        @memos = {}
+      end
 
       def construct_rule(productions)
         if productions.first.is_a?(Enumerable)

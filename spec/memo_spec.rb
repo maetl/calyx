@@ -23,15 +23,18 @@ describe 'memoized rules' do
     expect(actual.first).to eq(actual.last)
   end
 
-  specify 'memoized rules are stored between multiple runs' do
-    grammar = Calyx::Grammar.new do
+  specify 'memoized rules are reset between multiple runs' do
+    grammar = Calyx::Grammar.new(1212) do
       rule :start, '{flower}{flower}{flower}'
       rule :flower, :@flowers
       rule :flowers, "🌷", "🌻", "🌼"
     end
 
-    10.times do
-      expect(grammar.generate).to eq(grammar.generate)
-    end
+    expect(grammar.generate).to match(/🌷{3}/)
+    expect(grammar.generate).to match(/🌼{3}/)
+    expect(grammar.generate).to match(/🌼{3}/)
+    expect(grammar.generate).to match(/🌼{3}/)
+    expect(grammar.generate).to match(/🌷{3}/)
+    expect(grammar.generate).to match(/🌻{3}/)
   end
 end
