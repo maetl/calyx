@@ -18,7 +18,7 @@ module Calyx
 
       def load_yml(file)
         yaml = YAML.load(file)
-        create_calyx_class(yaml)
+        build_grammar(yaml)
       end
 
       def load_json(file)
@@ -30,15 +30,15 @@ module Calyx
             json[key] = parse_array(value)
           end
         end
-        create_calyx_class(json)
+        build_grammar(json)
       end
 
-      def create_calyx_class(hash)
-        klass = Class.new(Calyx::Grammar)
-        hash.each do |rule_name, rule_productions|
-          klass.send(rule_name, *rule_productions)
+      def build_grammar(hash)
+        Calyx::Grammar.new do
+          hash.each do |rule_name, rule_productions|
+            rule(rule_name, *rule_productions)
+          end
         end
-        klass.new
       end
 
       def parse_array(array)
