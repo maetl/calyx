@@ -23,13 +23,6 @@ module Calyx
 
       def load_json(file)
         json = JSON.parse(file)
-        json.each do |key, value|
-          if value[0] == ":"
-            json[key] = convert_to_symbol(value)
-          elsif value.is_a?(Array)
-            json[key] = parse_array(value)
-          end
-        end
         build_grammar(json)
       end
 
@@ -39,20 +32,6 @@ module Calyx
             rule(rule_name, *rule_productions)
           end
         end
-      end
-
-      def parse_array(array)
-        array.map do |element|
-          if element[0] == ":"
-            convert_to_symbol(element)
-          else
-            element
-          end
-        end
-      end
-
-      def convert_to_symbol(value)
-        value[1..-1].to_sym
       end
     end
   end

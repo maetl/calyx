@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe "#load_yml" do
-
   specify 'generate with recursive rules' do
     yaml = <<-EOF
     start: :hello_world
@@ -53,6 +52,4 @@ describe "#load_yml" do
     EOF
     expect { Calyx::Grammar.load_yml(yaml) }.to raise_error('Weights must sum to 1')
   end
-
-
 end
