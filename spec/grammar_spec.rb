@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Calyx::Grammar do
-  specify 'split and join with delimiters' do
+  it 'splits and joins with delimiters' do
     class OneTwo < Calyx::Grammar
       start '{one} {two}'
       rule :one, 'One.'
@@ -10,41 +10,6 @@ describe Calyx::Grammar do
 
     grammar = OneTwo.new
     expect(grammar.generate).to eq('One. Two.')
-  end
-
-  specify 'rule inheritance' do
-    class BaseRules < Calyx::Grammar
-      rule :one, 'One.'
-      rule :two, 'Two.'
-    end
-
-    class StartRule < BaseRules
-      start '{one} {two}'
-    end
-
-    grammar = StartRule.new
-    expect(grammar.generate).to eq('One. Two.')
-  end
-
-  specify 'rule chained inheritance' do
-    class ParentRules < Calyx::Grammar
-      rule :one, 'One.'
-      rule :two, 'Two.'
-    end
-
-    class ChildRule < ParentRules
-      rule :three, 'Three.'
-    end
-
-    class GrandchildRule < ChildRule
-      start '{one} {two} {three}'
-    end
-
-    grammar = GrandchildRule.new
-    expect(grammar.generate).to eq('One. Two. Three.')
-
-    parent = ParentRules.new
-    expect { parent.generate }.to raise_error(NoMethodError)
   end
 
   specify 'reference rule symbols in other rules' do
@@ -84,17 +49,6 @@ describe Calyx::Grammar do
 
     grammar = StringFormatters.new(12345)
     expect(grammar.generate).to eq('Hello world')
-  end
-
-  specify 'instance constructor with block eval' do
-    Hue = Calyx::Grammar.new do
-      start 'rgb({r},{g},{b})'
-      rule :r, '255'
-      rule :g, '0'
-      rule :b, '0'
-    end
-
-    expect(Hue.generate).to eq('rgb(255,0,0)')
   end
 
   specify 'construct dynamic rules with context hash of values' do
