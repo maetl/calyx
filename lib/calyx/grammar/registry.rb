@@ -42,7 +42,12 @@ module Calyx
           end
         end
 
-        [start_symbol, expand(start_symbol).evaluate]
+        begin
+          expansion = expand(start_symbol)
+          [start_symbol, expansion.evaluate]
+        rescue NoMethodError => e
+          raise RuleNotFound.new(start_symbol)
+        end
       end
 
       private

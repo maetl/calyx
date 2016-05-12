@@ -1,5 +1,6 @@
 require 'calyx/version'
 require 'calyx/grammar'
+require 'calyx/errors'
 require 'calyx/file_converter'
 require 'calyx/grammar/registry'
 require 'calyx/grammar/production/memo'
