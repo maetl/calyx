@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Calyx::Grammar::Registry do
+describe Calyx::Registry do
   let(:registry) do
-    Calyx::Grammar::Registry.new
+    Calyx::Registry.new
   end
 
   specify 'registry evaluates the start rule' do
