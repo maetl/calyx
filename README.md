@@ -221,30 +221,32 @@ end
 
 ### Memoized Rules
 
-Rule expansions can be ‘memoized’ so that multiple references to the same rule return the same value. This is useful for picking nouns from a list and reusing them in multiple places within a text.
+Rule expansions can be ‘memoized’ so that multiple references to the same rule return the same value. This is useful for picking a noun from a list and reusing it in multiple places within a text.
 
 The `@` symbol is used to mark memoized rules. This evaluates the rule and stores it in memory the first time it’s referenced. All subsequent references to the memoized rule use the same stored value.
 
 ```ruby
 # Without memoization
 grammar = Calyx::Grammar.new do
-  start '{name} <{name.downcase}@omnicorp.com>'
+  start '{name} <{name.downcase}>'
   name 'Dave', 'Doug', 'Dilbert'
 end
 
-# => Dave <doug@omnicorp.com>
-# => Doug <dave@omnicorp.com>
-# => Dilbert <dave@omnicorp.com>
+3.times { grammar.generate }
+# => Dave <doug>
+# => Doug <dave>
+# => Dilbert <dave>
 
 # With memoization
 grammar = Calyx::Grammar.new do
-  start '{@name} <{@name.downcase}@omnicorp.com>'
+  start '{@name} <{@name.downcase}>'
   name 'Dave', 'Doug', 'Dilbert'
 end
 
-# => Dave <dave@omnicorp.com>
-# => Doug <doug@omnicorp.com>
-# => Dilbert <dilbert@omnicorp.com>
+3.times { grammar.generate }
+# => Dave <dave>
+# => Doug <doug>
+# => Dilbert <dilbert>
 ```
 
 ### Dynamically Constructing Rules
