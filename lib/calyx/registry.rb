@@ -41,10 +41,11 @@ module Calyx
         end
       end
 
-      begin
-        expansion = expand(start_symbol)
+      expansion = expand(start_symbol)
+
+      if expansion.respond_to?(:evaluate)
         [start_symbol, expansion.evaluate]
-      rescue NoMethodError => e
+      else
         raise RuleNotFound.new(start_symbol)
       end
     end
