@@ -1,6 +1,6 @@
 module Calyx
   class Registry
-    attr_reader :rules, :memos
+    attr_reader :rules
 
     def initialize
       @rules = {}
@@ -11,11 +11,11 @@ module Calyx
     end
 
     def rule(name, *productions, &production)
-      @rules[name.to_sym] = construct_rule(productions)
+      rules[name.to_sym] = construct_rule(productions)
     end
 
     def expand(symbol)
-      @rules[symbol] || @context[symbol]
+      rules[symbol] || context[symbol]
     end
 
     def memoize_expansion(symbol)
@@ -27,14 +27,14 @@ module Calyx
     end
 
     def evaluate(start_symbol=:start, rules_map={})
-      reset_state
+      reset_evaluation_context
 
       rules_map.each do |key, value|
         if rules.key?(key.to_sym)
           raise "Rule already declared in grammar: #{key}"
         end
 
-        @context[key.to_sym] = if value.is_a?(Array)
+        context[key.to_sym] = if value.is_a?(Array)
           Production::Choices.parse(value, self)
         else
           Production::Concat.parse(value.to_s, self)
@@ -52,7 +52,9 @@ module Calyx
 
     private
 
-    def reset_state
+    attr_reader :memos, :context
+
+    def reset_evaluation_context
       @context = {}
       @memos = {}
     end
