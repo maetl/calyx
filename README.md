@@ -94,7 +94,7 @@ Nesting and hierarchy can be manipulated to balance consistency with novelty. Th
 
 ```ruby
 module HelloWorld
-  Sentiment < Calyx::Grammar
+  class Sentiment < Calyx::Grammar
     start '{happy_phrase}', '{sad_phrase}'
     rule :happy_phrase, '{happy_greeting} {happy_adj} world.'
     rule :happy_greeting, 'Hello', 'Hi', 'Hey', 'Yo'
@@ -104,7 +104,7 @@ module HelloWorld
     rule :sad_adj, 'cruel', 'miserable'
   end
 
-  Mixed < Calyx::Grammar
+  class Mixed < Calyx::Grammar
     start '{greeting} {adj} world.'
     rule :greeting, 'Hello', 'Hi', 'Hey', 'Yo', 'Goodbye', 'So long', 'Farewell'
     rule :adj, 'wonderful', 'amazing', 'bright', 'beautiful', 'cruel', 'miserable'
