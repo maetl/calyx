@@ -229,24 +229,24 @@ The `@` symbol is used to mark memoized rules. This evaluates the rule and store
 # Without memoization
 grammar = Calyx::Grammar.new do
   start '{name} <{name.downcase}>'
-  name 'Dave', 'Doug', 'Dilbert'
+  name 'Daenerys', 'Tyrion', 'Jon'
 end
 
 3.times { grammar.generate }
-# => Dave <doug>
-# => Doug <dave>
-# => Dilbert <dave>
+# => Daenerys <jon>
+# => Tyrion <daenerys>
+# => Jon <tyrion>
 
 # With memoization
 grammar = Calyx::Grammar.new do
   start '{@name} <{@name.downcase}>'
-  name 'Dave', 'Doug', 'Dilbert'
+  name 'Daenerys', 'Tyrion', 'Jon'
 end
 
 3.times { grammar.generate }
-# => Dave <dave>
-# => Doug <doug>
-# => Dilbert <dilbert>
+# => Tyrion <tyrion>
+# => Daenerys <daenerys>
+# => Jon <jon>
 ```
 
 ### Dynamically Constructing Rules
