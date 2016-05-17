@@ -26,10 +26,12 @@ module Calyx
         build_grammar(json)
       end
 
-      def build_grammar(hash)
+      private
+
+      def build_grammar(rules)
         Calyx::Grammar.new do
-          hash.each do |rule_name, rule_productions|
-            rule(rule_name, *rule_productions)
+          rules.each do |label, productions|
+            rule(label, *productions)
           end
         end
       end
