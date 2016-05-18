@@ -5,7 +5,11 @@ module Calyx
         @registry ||= Registry.new
       end
 
-      def rule(name, *productions, &production)
+      def mapping(name, pairs)
+        registry.mapping(name, pairs)
+      end
+
+      def rule(name, *productions)
         registry.rule(name, *productions)
       end
 

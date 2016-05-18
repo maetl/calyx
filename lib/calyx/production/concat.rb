@@ -17,7 +17,7 @@ module Calyx
                 rule = NonTerminal.new(head, registry)
               end
               unless tail.empty?
-                Expression.new(rule, tail)
+                Expression.new(rule, tail, registry)
               else
                 rule
               end

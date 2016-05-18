@@ -1,21 +1,34 @@
 module Calyx
   class Registry
-    attr_reader :rules
+    attr_reader :rules, :mappings
 
     def initialize
       @rules = {}
+      @mappings = {}
     end
 
     def method_missing(name, *arguments)
       rule(name, *arguments)
     end
 
-    def rule(name, *productions, &production)
+    def mapping(name, pairs)
+      mappings[name.to_sym] = construct_mapping(pairs)
+    end
+
+    def rule(name, *productions)
       rules[name.to_sym] = construct_rule(productions)
     end
 
     def expand(symbol)
       rules[symbol] || context[symbol]
+    end
+
+    def transform(name, value)
+      if value.respond_to?(name)
+        value.send(name)
+      else
+        mappings[name].call(value)
+      end
     end
 
     def memoize_expansion(symbol)
@@ -57,6 +70,14 @@ module Calyx
     def reset_evaluation_context
       @context = {}
       @memos = {}
+    end
+
+    def construct_mapping(pairs)
+      mapper = -> (input) {
+        pairs.each { |match,target|
+          return input.gsub(match, target) if input =~ match
+        }
+      }
     end
 
     def construct_rule(productions)
