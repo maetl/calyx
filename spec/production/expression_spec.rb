@@ -22,7 +22,7 @@ describe Calyx::Production::Expression do
   it 'evaluates a value with modifier chain' do
     allow(production).to receive(:evaluate).and_return([:atom, 'hello'])
 
-    rule = Calyx::Production::Expression.new(production, ['upcase', 'squeeze'])
-    expect(rule.evaluate).to eq([:expression, 'HELO'])
+    rule = Calyx::Production::Expression.new(production, ['upcase', 'swapcase'])
+    expect(rule.evaluate).to eq([:expression, 'hello'])
   end
 end
