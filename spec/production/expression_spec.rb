@@ -1,28 +1,28 @@
 require 'spec_helper'
 
 describe Calyx::Production::Expression do
-  let(:production) do
-    double(:production)
+  let(:atom) do
+    double(:atom)
   end
 
   it 'evaluates a value' do
-    allow(production).to receive(:evaluate).and_return([:atom, 'hello'])
+    allow(atom).to receive(:evaluate).and_return([:atom, 'hello'])
 
-    rule = Calyx::Production::Expression.new(production, [])
+    rule = Calyx::Production::Expression.new(atom, [])
     expect(rule.evaluate).to eq([:expression, 'hello'])
   end
 
   it 'evaluates a value with modifier' do
-    allow(production).to receive(:evaluate).and_return([:atom, 'hello'])
+    allow(atom).to receive(:evaluate).and_return([:atom, 'hello'])
 
-    rule = Calyx::Production::Expression.new(production, ['upcase'])
+    rule = Calyx::Production::Expression.new(atom, ['upcase'])
     expect(rule.evaluate).to eq([:expression, 'HELLO'])
   end
 
   it 'evaluates a value with modifier chain' do
-    allow(production).to receive(:evaluate).and_return([:atom, 'hello'])
+    allow(atom).to receive(:evaluate).and_return([:atom, 'hello'])
 
-    rule = Calyx::Production::Expression.new(production, ['upcase', 'swapcase'])
+    rule = Calyx::Production::Expression.new(atom, ['upcase', 'swapcase'])
     expect(rule.evaluate).to eq([:expression, 'hello'])
   end
 end
