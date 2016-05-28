@@ -249,6 +249,8 @@ end
 # => Jon <jon>
 ```
 
+Note that the memoization symbol can only be used on the right hand side of a production rule.
+
 ### Dynamically Constructing Rules
 
 Template expansions can be dynamically constructed at runtime by passing a context map of rules to the `#generate` method:
