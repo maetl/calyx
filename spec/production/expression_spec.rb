@@ -31,9 +31,9 @@ describe Calyx::Production::Expression do
   end
 
   it 'transforms a value with a custom modifier' do
-    allow(registry_double).to receive(:transform).with(:pluralise, 'hello').and_return('hellos')
+    allow(registry_double).to receive(:transform).with(:to_uppercase, 'hello').and_return('HELLO')
 
-    rule = Calyx::Production::Expression.new(atom, ['pluralise'], registry_double)
-    expect(rule.evaluate).to eq([:expression, 'hellos'])
+    rule = Calyx::Production::Expression.new(atom, ['to_uppercase'], registry_double)
+    expect(rule.evaluate).to eq([:expression, 'HELLO'])
   end
 end

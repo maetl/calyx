@@ -26,4 +26,13 @@ describe Calyx::Registry do
     registry.rule(:name, 'Joe')
     expect(registry.evaluate).to eq([:start, [:choice, [:concat, [[:atom, "Hello, "], [:name, [:choice, [:concat, [[:atom, "Joe"]]]]], [:atom, "."]]]]])
   end
+
+  specify 'transform a value using core string API' do
+    expect(registry.transform(:upcase, "derive")).to eq("DERIVE")
+  end
+
+  specify 'transform a value using custom string transformation' do
+    registry.mapping(:past_tensify, /(.+e)$/ => '\1d')
+    expect(registry.transform(:past_tensify, "derive")).to eq("derived")
+  end
 end
