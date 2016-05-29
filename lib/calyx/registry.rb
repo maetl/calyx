@@ -26,8 +26,10 @@ module Calyx
     def transform(name, value)
       if value.respond_to?(name)
         value.send(name)
-      else
+      elsif mappings.key?(name)
         mappings[name].call(value)
+      else
+        value
       end
     end
 

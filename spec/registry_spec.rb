@@ -35,4 +35,8 @@ describe Calyx::Registry do
     registry.mapping(:past_tensify, /(.+e)$/ => '\1d')
     expect(registry.transform(:past_tensify, "derive")).to eq("derived")
   end
+
+  specify 'unregistered transform returns the identity passed to it' do
+    expect(registry.transform(:null, "derive")). to eq("derive")
+  end
 end
