@@ -9,6 +9,10 @@ module Calyx
         registry.mapping(name, pairs)
       end
 
+      def filter(name, &block)
+        registry.mapping(name, &block)
+      end
+
       def rule(name, *productions)
         registry.rule(name, *productions)
       end

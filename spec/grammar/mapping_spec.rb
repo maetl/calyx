@@ -11,5 +11,17 @@ describe Calyx::Grammar do
 
       expect(grammar.generate).to eq('nouns')
     end
+
+    it 'modifies expressions with custom filters defined in the grammar' do
+      grammar = Calyx::Grammar.new do
+        filter :pluralise do |input|
+          "#{input}s"
+        end
+        start '{noun.pluralise}'
+        noun 'noun'
+      end
+
+      expect(grammar.generate).to eq('nouns')
+    end
   end
 end

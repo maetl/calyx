@@ -15,6 +15,14 @@ module Calyx
       mappings[name.to_sym] = construct_mapping(pairs)
     end
 
+    def filter(name, callable=nil, &block)
+      if block_given?
+        mappings[name.to_sym] = block
+      else
+        mappings[name.to_sym] = callable
+      end
+    end
+
     def rule(name, *productions)
       rules[name.to_sym] = construct_rule(productions)
     end

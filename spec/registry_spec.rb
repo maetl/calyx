@@ -31,6 +31,16 @@ describe Calyx::Registry do
     expect(registry.transform(:upcase, "derive")).to eq("DERIVE")
   end
 
+  specify 'transform a value using a filter function' do
+    registry.filter(:to_upper, -> (input) { input.upcase })
+    expect(registry.transform(:to_upper, "derive")).to eq("DERIVE")
+  end
+
+  specify 'transform a value using a filter block' do
+    registry.filter(:to_upper) { |input| input.upcase }
+    expect(registry.transform(:to_upper, "derive")).to eq("DERIVE")
+  end
+
   specify 'transform a value using custom string transformation' do
     registry.mapping(:past_tensify, /(.+e)$/ => '\1d')
     expect(registry.transform(:past_tensify, "derive")).to eq("derived")
