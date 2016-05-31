@@ -1,10 +1,10 @@
 module Calyx
   class Registry
-    attr_reader :rules, :mappings
+    attr_reader :rules, :transforms
 
     def initialize
       @rules = {}
-      @mappings = {}
+      @transforms = {}
     end
 
     def method_missing(name, *arguments)
@@ -12,14 +12,14 @@ module Calyx
     end
 
     def mapping(name, pairs)
-      mappings[name.to_sym] = construct_mapping(pairs)
+      transforms[name.to_sym] = construct_mapping(pairs)
     end
 
     def filter(name, callable=nil, &block)
       if block_given?
-        mappings[name.to_sym] = block
+        transforms[name.to_sym] = block
       else
-        mappings[name.to_sym] = callable
+        transforms[name.to_sym] = callable
       end
     end
 
@@ -34,8 +34,8 @@ module Calyx
     def transform(name, value)
       if value.respond_to?(name)
         value.send(name)
-      elsif mappings.key?(name)
-        mappings[name].call(value)
+      elsif transforms.key?(name)
+        transforms[name].call(value)
       else
         value
       end
