@@ -1,5 +1,5 @@
 module Calyx
-  class Modifier
+  class Modifiers
     def extend_with(name)
       extend name
     end

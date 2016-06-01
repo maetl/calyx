@@ -1,11 +1,11 @@
 module Calyx
   class Registry
-    attr_reader :rules, :transforms
+    attr_reader :rules, :transforms, :modifiers
 
     def initialize
       @rules = {}
       @transforms = {}
-      @modifier = Modifier.new
+      @modifiers = Modifiers.new
     end
 
     def method_missing(name, *arguments)
@@ -13,7 +13,7 @@ module Calyx
     end
 
     def modifier(name)
-      @modifier.extend_with(name)
+      modifiers.extend_with(name)
     end
 
     def mapping(name, pairs)
@@ -40,7 +40,7 @@ module Calyx
       if transforms.key?(name)
         transforms[name].call(value)
       else
-        @modifier.transform(name, value)
+        modifiers.transform(name, value)
       end
     end
 
