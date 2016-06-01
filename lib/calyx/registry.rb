@@ -5,10 +5,15 @@ module Calyx
     def initialize
       @rules = {}
       @transforms = {}
+      @modifier = Modifier.new
     end
 
     def method_missing(name, *arguments)
       rule(name, *arguments)
+    end
+
+    def modifier(name)
+      @modifier.extend_with(name)
     end
 
     def mapping(name, pairs)
@@ -32,12 +37,10 @@ module Calyx
     end
 
     def transform(name, value)
-      if value.respond_to?(name)
-        value.send(name)
-      elsif transforms.key?(name)
+      if transforms.key?(name)
         transforms[name].call(value)
       else
-        value
+        @modifier.transform(name, value)
       end
     end
 

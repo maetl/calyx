@@ -5,6 +5,10 @@ module Calyx
         @registry ||= Registry.new
       end
 
+      def modifier(name)
+        registry.modifier(name)
+      end
+
       def mapping(name, pairs)
         registry.mapping(name, pairs)
       end
