@@ -181,6 +181,8 @@ class Fruit < Calyx::Grammar
 end
 ```
 
+## String Modifiers
+
 Dot-notation is supported in template expressions, allowing you to call any available method on the `String` object returned from a rule. Formatting methods can be chained arbitrarily and will execute in the same way as they would in native Ruby code.
 
 ```ruby
@@ -193,7 +195,77 @@ end
 # => "Why, hello there."
 ```
 
-In order to use more intricate natural language processing capabilities, you can embed additional methods onto the `String` class yourself, as well as use methods from existing Gems that monkeypatch `String`.
+You can also extend the grammar with custom modifiers that provide useful formatting functions.
+
+### Filters
+
+Filters accept an input string and return the transformed output:
+
+```ruby
+class Greeting < Calyx::Grammar
+  filter :shoutycaps do |input|
+    input.upcase
+  end
+  start '{hello.shoutycaps} there.', 'Why, {hello} there.'
+  rule :hello, 'hello'
+end
+
+# => "HELLO there."
+# => "Why, HELLO there."
+```
+
+### Mappings
+
+The mapping shortcut allows you to specify a map of regex patterns pointing to their resulting substitution strings:
+
+```ruby
+class GreenBottle < Calyx::Grammar
+  mapping :pluralize, /(.+)/ => '\\1s'
+  start 'One green {bottle}.', 'Two green {bottle.pluralize}.'
+  rule :bottle, 'bottle'
+end
+
+# => "One green bottle."
+# => "Two green bottles."
+```
+
+### Modifier Mixins
+
+In order to use more intricate natural language processing capabilities, you can add modifier methods to a module and extend the grammar with it:
+
+```ruby
+module FullStop
+  def full_stop
+    self << '.'
+  end
+end
+
+class Hello < Calyx::Grammar
+  modifier FullStop
+  start '{hello.capitalize.full_stop}'
+  rule :hello, 'hello'
+end
+
+# => "Hello."
+```
+
+To share custom modifiers across multiple grammars, you can include the module in `Calyx::Modifiers`. This will make the methods available to all subsequent instances:
+
+```ruby
+module FullStop
+  def full_stop
+    self << '.'
+  end
+end
+
+class Calyx::Modifiers
+  include FullStop
+end
+```
+
+### Monkeypatching String
+
+Alternatively, you can combine methods from existing Gems that monkeypatch `String`:
 
 ```ruby
 require 'indefinite_article'
