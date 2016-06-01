@@ -377,7 +377,12 @@ Rough plan for stabilising the API and features for a `1.0` release.
 
 ## Credits
 
-- [Mark Rickerby](https://github.com/maetl) (author and maintainer)
+### Author & Maintainer
+
+- [Mark Rickerby](https://github.com/maetl)
+
+### Contributors
+
 - [Tariq Ali](https://github.com/tra38)
 
 ## License
