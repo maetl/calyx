@@ -1,6 +1,3 @@
-require 'yaml'
-require 'json'
-
 module Calyx
   class Grammar
     class << self
@@ -17,11 +14,13 @@ module Calyx
       end
 
       def load_yml(file)
+        require 'yaml'
         yaml = YAML.load(file)
         build_grammar(yaml)
       end
 
       def load_json(file)
+        require 'json'
         json = JSON.parse(file)
         build_grammar(json)
       end
