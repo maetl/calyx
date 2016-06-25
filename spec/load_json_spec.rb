@@ -9,7 +9,7 @@ describe "#load_json" do
       "statement": "Hello World"
     }
     EOF
-    grammar = Calyx::Grammar.load_json(json_text)
+    grammar = Calyx::Format.load_json(json_text)
     expect(grammar.generate).to eq("Hello World")
   end
 
@@ -21,7 +21,7 @@ describe "#load_json" do
       "hero_wins": "Hero Wins"
     }
     EOF
-    grammar = Calyx::Grammar.load_json(json_text)
+    grammar = Calyx::Format.load_json(json_text)
     expect(grammar.generate).to match(/Dragon Wins|Hero Wins/)
   end
 
@@ -31,7 +31,7 @@ describe "#load_json" do
       "start": [["60%", 0.6], ["40%", 0.4]]
     }
     EOF
-    grammar = Calyx::Grammar.load_json(json_text)
+    grammar = Calyx::Format.load_json(json_text)
     expect(grammar.generate).to match(/40%|60%/)
   end
 
@@ -41,6 +41,6 @@ describe "#load_json" do
       "start": [["90%", 0.9], ["80%", 0.8]]
     }
     EOF
-    expect { Calyx::Grammar.load_json(json_text) }.to raise_error('Weights must sum to 1')
+    expect { Calyx::Format.load_json(json_text) }.to raise_error('Weights must sum to 1')
   end
 end

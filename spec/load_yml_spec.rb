@@ -7,7 +7,7 @@ describe "#load_yml" do
     hello_world: :statement
     statement: "Hello World"
     EOF
-    grammar = Calyx::Grammar.load_yml(yaml)
+    grammar = Calyx::Format.load_yml(yaml)
     expect(grammar.generate).to eq("Hello World")
   end
 
@@ -19,7 +19,7 @@ describe "#load_yml" do
     dragon_wins: "Dragon Wins"
     hero_wins: "Hero Wins"
     EOF
-    grammar = Calyx::Grammar.load_yml(yaml)
+    grammar = Calyx::Format.load_yml(yaml)
     expect(grammar.generate).to match(/Dragon Wins|Hero Wins/)
   end
 
@@ -30,7 +30,7 @@ describe "#load_yml" do
       - apple
       - orange
     EOF
-    grammar = Calyx::Grammar.load_yml(yaml)
+    grammar = Calyx::Format.load_yml(yaml)
     expect(grammar.generate).to match(/apple|orange/)
   end
 
@@ -40,7 +40,7 @@ describe "#load_yml" do
       - [60%, 0.6]
       - [40%, 0.4]
     EOF
-    grammar = Calyx::Grammar.load_yml(yaml)
+    grammar = Calyx::Format.load_yml(yaml)
     expect(grammar.generate).to match(/40%|60%/)
   end
 
@@ -50,6 +50,6 @@ describe "#load_yml" do
       - [90%, 0.9]
       - [80%, 0.8]
     EOF
-    expect { Calyx::Grammar.load_yml(yaml) }.to raise_error('Weights must sum to 1')
+    expect { Calyx::Format.load_yml(yaml) }.to raise_error('Weights must sum to 1')
   end
 end
