@@ -15,6 +15,11 @@ describe "#load_json" do
     expect(grammar.generate).to match(/Dragon Wins|Hero Wins/)
   end
 
+  specify 'generate with rule expansion' do
+    grammar = Calyx::Format.load_yml(sample('rule_expansion'))
+    expect(grammar.generate).to match(/apple|orange/)
+  end
+
   specify 'generate with weighted choices' do
     grammar = Calyx::Format.load_json(sample('weighted_choices'))
     expect(grammar.generate).to match(/40%|60%/)

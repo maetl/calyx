@@ -1,0 +1,4 @@
+{
+  "start": "{fruit}",
+  "fruit": ["apple", "orange"]
+}
