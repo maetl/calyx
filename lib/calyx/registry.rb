@@ -93,7 +93,9 @@ module Calyx
     end
 
     def construct_rule(productions)
-      if productions.first.is_a?(Enumerable)
+      if productions.first.is_a?(Hash)
+        Production::WeightedChoices.parse(productions.first.to_a, self)
+      elsif productions.first.is_a?(Enumerable)
         Production::WeightedChoices.parse(productions, self)
       else
         Production::Choices.parse(productions, self)
