@@ -1,5 +1,5 @@
 module Calyx
-  class Format
+  module Format
     def self.load(filename)
       file = File.read(filename)
       extension = File.extname(filename)
