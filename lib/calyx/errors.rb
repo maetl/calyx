@@ -1,3 +1,5 @@
 module Calyx
-  class RuleNotFound < NoMethodError; end
+  module Errors
+    class RuleNotFound < NoMethodError; end
+  end
 end

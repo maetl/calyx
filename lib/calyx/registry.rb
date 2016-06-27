@@ -72,7 +72,7 @@ module Calyx
       if expansion.respond_to?(:evaluate)
         [start_symbol, expansion.evaluate]
       else
-        raise RuleNotFound.new(start_symbol)
+        raise Errors::RuleNotFound.new(start_symbol)
       end
     end
 
