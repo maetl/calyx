@@ -57,7 +57,7 @@ module Calyx
 
       rules_map.each do |key, value|
         if rules.key?(key.to_sym)
-          raise "Rule already declared in grammar: #{key}"
+          raise Error::DuplicateRule.new(key)
         end
 
         context[key.to_sym] = if value.is_a?(Array)
