@@ -1,0 +1,5 @@
+{
+  "start": ["{dragon_wins}", "{hero_wins}"],
+  "dragon_wins": "Dragon Wins",
+  "hero_wins": "Hero Wins"
+}
