@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe "#load_json" do
+describe '#load_json' do
   def sample(filename)
     File.read("#{__dir__}/samples/#{filename}.json")
   end
 
   specify 'generate with recursive rules' do
     grammar = Calyx::Format.load_json(sample('hello_statement'))
-    expect(grammar.generate).to eq("Hello World")
+    expect(grammar.generate).to eq('Hello World')
   end
 
   specify 'generate with multiple choices' do

@@ -18,7 +18,7 @@ describe Calyx::Grammar do
       grammar = Calyx::Grammar.new do
         rule :start, :pupper
         rule :pupper, '{@spitz}:{@spitz}'
-        rule :spitz, "pomeranian", "samoyed", "shiba inu"
+        rule :spitz, 'pomeranian', 'samoyed', 'shiba inu'
       end
 
       actual = grammar.generate.split(':')
@@ -29,7 +29,7 @@ describe Calyx::Grammar do
       grammar = Calyx::Grammar.new do
         rule :start, '{flower}{flower}{flower}'
         rule :flower, :@flowers
-        rule :flowers, "🌷", "🌻", "🌼"
+        rule :flowers, '🌷', '🌻', '🌼'
       end
 
       generations = Set.new

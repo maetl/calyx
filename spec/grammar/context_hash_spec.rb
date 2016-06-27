@@ -37,11 +37,11 @@ describe Calyx::Grammar do
       end
 
       grammar = StockReport.new
-      cyberdyne_context_hash = {company: "Cyberdyne" }
-      bridgestone_context_hash = {company: "Bridgestone" }
+      cyberdyne_context_hash = {company: 'Cyberdyne' }
+      bridgestone_context_hash = {company: 'Bridgestone' }
 
-      expect(grammar.generate(cyberdyne_context_hash)).to eq("You should buy shares in Cyberdyne.")
-      expect(grammar.generate(bridgestone_context_hash)).to eq("You should buy shares in Bridgestone.")
+      expect(grammar.generate(cyberdyne_context_hash)).to eq('You should buy shares in Cyberdyne.')
+      expect(grammar.generate(bridgestone_context_hash)).to eq('You should buy shares in Bridgestone.')
     end
   end
 end

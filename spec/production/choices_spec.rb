@@ -4,7 +4,7 @@ describe Calyx::Production::Choices do
   specify 'construct choices from strings' do
     registry = double('registry')
     rule = Calyx::Production::Choices.parse(['atom', 'atom', 'atom'], registry)
-    expect(rule.evaluate).to eq([:choice, [:concat, [[:atom, "atom"]]]])
+    expect(rule.evaluate).to eq([:choice, [:concat, [[:atom, 'atom']]]])
   end
 
   specify 'construct choices from numbers' do
