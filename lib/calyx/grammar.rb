@@ -5,6 +5,10 @@ module Calyx
         @registry ||= Registry.new
       end
 
+      def load(filename)
+        Format.load(filename)
+      end
+
       def modifier(name)
         registry.modifier(name)
       end

@@ -34,12 +34,4 @@ module Calyx
       end
     end
   end
-
-  class Grammar
-    class << self
-      def load(filename)
-        Calyx::Format.load(filename)
-      end
-    end
-  end
 end
