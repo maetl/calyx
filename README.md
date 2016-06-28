@@ -99,7 +99,8 @@ In JSON:
 In YAML:
 
 ```yaml
-start: {greeting} world.
+---
+start: "{greeting} world."
 greeting:
   - Hello
   - Hi
