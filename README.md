@@ -39,12 +39,12 @@ hello.generate
 # > "Hello world."
 ```
 
-Obviously, this hardcoded sentence isn’t very interesting by itself. Possible variations can be added to the text using the `rule` constructor to provide a named set of text strings and the rule delimiter syntax (`{}`) within the text strings to substitute the generated content of the rule.
+Obviously, this hardcoded sentence isn’t very interesting by itself. Possible variations can be added to the text by adding additional rules which provide a named set of text strings. The rule delimiter syntax (`{}`) can be used to substitute the generated content of other rules.
 
 ```ruby
 class HelloWorld < Calyx::Grammar
   start '{greeting} world.'
-  rule :greeting, 'Hello', 'Hi', 'Hey', 'Yo'
+  greeting 'Hello', 'Hi', 'Hey', 'Yo'
 end
 ```
 
