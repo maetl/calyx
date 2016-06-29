@@ -21,7 +21,7 @@ gem 'calyx'
 
 ## Usage
 
-Require the library and inherit from `Calyx::Grammar` to construct a set of rules to generate a text. All grammars require a `start` rule, which specifies the starting point for generating the text structure.
+Require the library and inherit from `Calyx::Grammar` to construct a set of rules to generate a text.
 
 ```ruby
 require 'calyx'
@@ -63,6 +63,17 @@ hello.generate
 # > "Yo world."
 ```
 
+By convention, the `start` rule specifies the default starting point for generating the final text. You can start from any other named rule by passing it explicitly to the generate method.
+
+```ruby
+class HelloWorld < Calyx::Grammar
+  hello 'Hello world.'
+end
+
+hello = HelloWorld.new
+hello.generate(:hello)
+```
+
 ### Block Constructors
 
 As an alternative to subclassing, you can also construct rules unique to an instance by passing a block when initializing the class:
@@ -70,7 +81,7 @@ As an alternative to subclassing, you can also construct rules unique to an inst
 ```ruby
 hello = Calyx::Grammar.new do
   start '{greeting} world.'
-  rule :greeting, 'Hello', 'Hi', 'Hey', 'Yo'
+  greeting 'Hello', 'Hi', 'Hey', 'Yo'
 end
 
 hello.generate
@@ -115,10 +126,10 @@ Rules are recursive. They can be arbitrarily nested and connected to generate la
 ```ruby
 class HelloWorld < Calyx::Grammar
   start '{greeting} {world_phrase}.'
-  rule :greeting, 'Hello', 'Hi', 'Hey', 'Yo'
-  rule :world_phrase, '{happy_adj} world', '{sad_adj} world', 'world'
-  rule :happy_adj, 'wonderful', 'amazing', 'bright', 'beautiful'
-  rule :sad_adj, 'cruel', 'miserable'
+  greeting 'Hello', 'Hi', 'Hey', 'Yo'
+  world_phrase '{happy_adj} world', '{sad_adj} world', 'world'
+  happy_adj 'wonderful', 'amazing', 'bright', 'beautiful'
+  sad_adj 'cruel', 'miserable'
 end
 ```
 
@@ -128,18 +139,18 @@ Nesting and hierarchy can be manipulated to balance consistency with novelty. Th
 module HelloWorld
   class Sentiment < Calyx::Grammar
     start '{happy_phrase}', '{sad_phrase}'
-    rule :happy_phrase, '{happy_greeting} {happy_adj} world.'
-    rule :happy_greeting, 'Hello', 'Hi', 'Hey', 'Yo'
-    rule :happy_adj, 'wonderful', 'amazing', 'bright', 'beautiful'
-    rule :sad_phrase, '{sad_greeting} {sad_adj} world.'
-    rule :sad_greeting, 'Goodbye', 'So long', 'Farewell'
-    rule :sad_adj, 'cruel', 'miserable'
+    happy_phrase '{happy_greeting} {happy_adj} world.'
+    happy_greeting 'Hello', 'Hi', 'Hey', 'Yo'
+    happy_adj 'wonderful', 'amazing', 'bright', 'beautiful'
+    sad_phrase '{sad_greeting} {sad_adj} world.'
+    sad_greeting 'Goodbye', 'So long', 'Farewell'
+    sad_adj 'cruel', 'miserable'
   end
 
   class Mixed < Calyx::Grammar
     start '{greeting} {adj} world.'
-    rule :greeting, 'Hello', 'Hi', 'Hey', 'Yo', 'Goodbye', 'So long', 'Farewell'
-    rule :adj, 'wonderful', 'amazing', 'bright', 'beautiful', 'cruel', 'miserable'
+    greeting 'Hello', 'Hi', 'Hey', 'Yo', 'Goodbye', 'So long', 'Farewell'
+    adj 'wonderful', 'amazing', 'bright', 'beautiful', 'cruel', 'miserable'
   end
 end
 ```
@@ -192,12 +203,12 @@ class ChamberOrRoomContents < Calyx::Grammar
     [:treasure, 0.05]
   )
 
-  rule :empty, 'Empty'
-  rule :monster, 'Monster Only'
-  rule :monster_treasure, 'Monster and Treasure'
-  rule :special, 'Special'
-  rule :trick_trap, 'Trick/Trap.'
-  rule :treasure, 'Treasure'
+  empty 'Empty'
+  monster 'Monster Only'
+  monster_treasure 'Monster and Treasure'
+  special 'Special'
+  trick_trap 'Trick/Trap.'
+  treasure 'Treasure'
 end
 ```
 
@@ -208,8 +219,8 @@ Basic rule substitution uses single curly brackets as delimiters for template ex
 ```ruby
 class Fruit < Calyx::Grammar
   start '{colour} {fruit}'
-  rule :colour, 'red', 'green', 'yellow'
-  rule :fruit, 'apple', 'pear', 'tomato'
+  colour 'red', 'green', 'yellow'
+  fruit 'apple', 'pear', 'tomato'
 end
 ```
 
@@ -220,7 +231,7 @@ Dot-notation is supported in template expressions, allowing you to call any avai
 ```ruby
 class Greeting < Calyx::Grammar
   start '{hello.capitalize} there.', 'Why, {hello} there.'
-  rule :hello, 'hello'
+  hello 'hello'
 end
 
 # => "Hello there."
@@ -238,8 +249,9 @@ class Greeting < Calyx::Grammar
   filter :shoutycaps do |input|
     input.upcase
   end
+
   start '{hello.shoutycaps} there.', 'Why, {hello} there.'
-  rule :hello, 'hello'
+  hello 'hello'
 end
 
 # => "HELLO there."
@@ -254,7 +266,7 @@ The mapping shortcut allows you to specify a map of regex patterns pointing to t
 class GreenBottle < Calyx::Grammar
   mapping :pluralize, /(.+)/ => '\\1s'
   start 'One green {bottle}.', 'Two green {bottle.pluralize}.'
-  rule :bottle, 'bottle'
+  bottle 'bottle'
 end
 
 # => "One green bottle."
@@ -275,7 +287,7 @@ end
 class Hello < Calyx::Grammar
   modifier FullStop
   start '{hello.capitalize.full_stop}'
-  rule :hello, 'hello'
+  hello 'hello'
 end
 
 # => "Hello."
@@ -314,7 +326,7 @@ end
 
 class NounsWithArticles < Calyx::Grammar
   start '{fruit.with_indefinite_article.capitalize.full_stop}'
-  rule :fruit, 'apple', 'orange', 'banana', 'pear'
+  fruit 'apple', 'orange', 'banana', 'pear'
 end
 
 # => "An apple."
