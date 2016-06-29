@@ -190,7 +190,7 @@ class Roll2D6 < Calyx::Grammar
 end
 ```
 
-Or reproduce Gary Gygax’s famous generation table from the original Dungeon Master’s Guide (page 171):
+Or reproduce Gary Gygax’s famous generation table from the original [Dungeon Master’s Guide](https://en.wikipedia.org/wiki/Dungeon_Master%27s_Guide#Advanced_Dungeons_.26_Dragons) (page 171):
 
 ```ruby
 class ChamberOrRoomContents < Calyx::Grammar
