@@ -103,7 +103,7 @@ module Calyx
       end
     end
 
-    # Generates a string as an output of the grammar.
+    # Produces a string as an output of the grammar.
     #
     # @param start_symbol [Symbol]
     # @param rules_map [Hash]
@@ -116,7 +116,7 @@ module Calyx
       end.join(''.freeze)
     end
 
-    # Generates a syntax tree of nested list nodes as an output of the grammar.
+    # Produces a syntax tree of nested list nodes as an output of the grammar.
     #
     # @param start_symbol [Symbol]
     # @param rules_map [Hash]
