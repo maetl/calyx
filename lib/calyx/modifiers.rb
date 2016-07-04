@@ -1,9 +1,5 @@
 module Calyx
   class Modifiers
-    def extend_with(name)
-      extend name
-    end
-
     def transform(name, value)
       if respond_to?(name)
         send(name, value)

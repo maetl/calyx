@@ -13,7 +13,7 @@ module Calyx
     end
 
     def modifier(name)
-      modifiers.extend_with(name)
+      modifiers.extend(name)
     end
 
     def mapping(name, pairs)
