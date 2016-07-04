@@ -1,5 +1,12 @@
 module Calyx
   module Format
+    # Reads a file and parses its format, based on the given extension.
+    #
+    # Accepts a JSON or YAML file path, identified by its extension (`.json`
+    # or `.yml`).
+    #
+    # @param filename [String]
+    # @return [Calyx::Grammar]
     def self.load(filename)
       file = File.read(filename)
       extension = File.extname(filename)
@@ -12,11 +19,19 @@ module Calyx
       end
     end
 
+    # Converts the given string of YAML data to a grammar instance.
+    #
+    # @param data [String]
+    # @return [Calyx::Grammar]
     def self.load_yml(data)
       require 'yaml'
       self.build_grammar(YAML.load(data))
     end
 
+    # Converts the given string of JSON data to a grammar instance.
+    #
+    # @param data [String]
+    # @return [Calyx::Grammar]
     def self.load_json(data)
       require 'json'
       self.build_grammar(JSON.parse(data))
