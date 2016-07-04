@@ -12,16 +12,14 @@ module Calyx
       end
     end
 
-    def self.load_yml(file)
+    def self.load_yml(data)
       require 'yaml'
-      yaml = YAML.load(file)
-      self.build_grammar(yaml)
+      self.build_grammar(YAML.load(data))
     end
 
-    def self.load_json(file)
+    def self.load_json(data)
       require 'json'
-      json = JSON.parse(file)
-      self.build_grammar(json)
+      self.build_grammar(JSON.parse(data))
     end
 
     private
