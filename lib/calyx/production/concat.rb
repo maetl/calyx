@@ -6,6 +6,13 @@ module Calyx
       END_TOKEN = '}'.freeze
       DEREF_TOKEN = '.'.freeze
 
+      # Parses an interpolated string into fragments combining terminal strings
+      # and non-terminal rules.
+      #
+      # Returns a concat node which is the head of a tree of child nodes.
+      #
+      # @param production [String]
+      # @param registry [Calyx::Registry]
       def self.parse(production, registry)
         expansion = production.split(EXPRESSION).map do |atom|
           if atom.is_a?(String)
@@ -30,10 +37,18 @@ module Calyx
         self.new(expansion)
       end
 
+      # Initialize the concat node with an expansion of terminal and
+      # non-terminal fragments.
+      #
+      # @param expansion [Array]
       def initialize(expansion)
         @expansion = expansion
       end
 
+      # Evaluate all the child nodes of this node and concatenate them together
+      # into a single result.
+      #
+      # @return [Array]
       def evaluate
         concat = @expansion.reduce([]) do |exp, atom|
           exp << atom.evaluate
