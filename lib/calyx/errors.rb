@@ -41,5 +41,17 @@ module Calyx
         super("#{File.basename(msg)} is not a valid JSON or YAML file")
       end
     end
+
+    # Raised when a rule defined in a grammar is invalid. This will prevent
+    # the grammar from compiling correctly.
+    #
+    #   Calyx::Grammar.new do
+    #     start '40%' => 0.4, '30%' => 0.3
+    #   end
+    #
+    #   # => Calyx::Errors::InvalidDefinition: Weights must sum to 1
+    #
+    class InvalidDefinition < ArgumentError
+    end
   end
 end

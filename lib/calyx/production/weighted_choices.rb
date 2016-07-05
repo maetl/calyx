@@ -11,7 +11,7 @@ module Calyx
           memo += choice.last
         end
 
-        raise 'Weights must sum to 1' if weights_sum != 1.0
+        raise Errors::InvalidDefinition, 'Weights must sum to 1' if weights_sum != 1.0
 
         choices = productions.map do |choice, weight|
           if choice.is_a?(String)
