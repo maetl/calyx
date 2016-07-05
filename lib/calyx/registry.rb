@@ -103,7 +103,7 @@ module Calyx
 
       rules_map.each do |key, value|
         if rules.key?(key.to_sym)
-          raise Error::DuplicateRule.new(key)
+          raise Errors::DuplicateRule.new(key)
         end
 
         context[key.to_sym] = if value.is_a?(Array)

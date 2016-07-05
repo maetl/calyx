@@ -43,5 +43,14 @@ describe Calyx::Grammar do
       expect(grammar.generate(cyberdyne_context_hash)).to eq('You should buy shares in Cyberdyne.')
       expect(grammar.generate(bridgestone_context_hash)).to eq('You should buy shares in Bridgestone.')
     end
+
+    specify 'raise error when duplicate rule is passed' do
+      grammar = Calyx::Grammar.new do
+        start :priority
+        priority '(A)'
+      end
+
+      expect { grammar.evaluate(priority: '(B)') }.to raise_error(Calyx::Errors::DuplicateRule)
+    end
   end
 end
