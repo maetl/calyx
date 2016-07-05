@@ -16,7 +16,7 @@ describe Calyx::Grammar do
     it 'returns an empty grammar when block not given' do
       empty = Calyx::Grammar.new
 
-      expect { empty.generate }.to raise_error(":start is not registered")
+      expect { empty.generate }.to raise_error(Calyx::Errors::MissingRule)
     end
   end
 end

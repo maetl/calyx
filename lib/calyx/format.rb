@@ -15,7 +15,7 @@ module Calyx
       elsif extension == ".json"
         self.load_json(file)
       else
-        raise "Cannot convert #{extension} files."
+        raise Errors::UnsupportedFormat.new(filename)
       end
     end
 

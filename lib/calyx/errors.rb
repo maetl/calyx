@@ -10,7 +10,7 @@ module Calyx
     #   grammar.evaluate
     #   # => Calyx::Errors::MissingRule: :blank is not registered
     class MissingRule < RuntimeError;
-      def initialize(msg=key)
+      def initialize(msg)
         super(":#{msg} is not registered")
       end
     end
@@ -26,8 +26,19 @@ module Calyx
     #   grammar.evaluate(priority: "(B)")
     #   # => Calyx::Errors::DuplicateRule: :priority is already registered
     class DuplicateRule < ArgumentError
-      def initialize(msg=key)
+      def initialize(msg)
         super(":#{msg} is already registered")
+      end
+    end
+
+    # Raised when the client attempts to load a grammar with an unsupported file
+    # extension. Only `.json` and `.yml` are valid.
+    #
+    #   Calyx::Grammar.load("grammar.toml")
+    #   # => Calyx::Errors::UnsupportedFormat: grammar.toml is not a valid JSON or YAML file
+    class UnsupportedFormat < ArgumentError
+      def initialize(msg)
+        super("#{File.basename(msg)} is not a valid JSON or YAML file")
       end
     end
   end

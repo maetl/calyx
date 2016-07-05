@@ -21,6 +21,6 @@ describe '#load' do
   end
 
   specify 'raises error with bad file extension' do
-    expect { Calyx::Format.load(sample('bad_extension.bad')) }.to raise_error('Cannot convert .bad files.')
+    expect { Calyx::Format.load(sample('bad_extension.bad')) }.to raise_error(Calyx::Errors::UnsupportedFormat)
   end
 end
