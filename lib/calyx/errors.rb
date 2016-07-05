@@ -9,7 +9,7 @@ module Calyx
     #
     #   grammar.evaluate
     #   # => Calyx::Errors::MissingRule: :blank is not registered
-    class MissingRule < StandardError;
+    class MissingRule < RuntimeError;
       def initialize(msg=key)
         super(":#{msg} is not registered")
       end
@@ -25,7 +25,7 @@ module Calyx
     #
     #   grammar.evaluate(priority: "(B)")
     #   # => Calyx::Errors::DuplicateRule: :priority is already registered
-    class DuplicateRule < StandardError
+    class DuplicateRule < ArgumentError
       def initialize(msg=key)
         super(":#{msg} is already registered")
       end
