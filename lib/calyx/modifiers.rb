@@ -8,8 +8,8 @@ module Calyx
     #
     # If an invalid modifier function is given, returns the raw input string.
     #
-    # @param name [Symbol]
-    # @param value [String]
+    # @param [Symbol] name
+    # @param [String] value
     # @return [String]
     def transform(name, value)
       if respond_to?(name)

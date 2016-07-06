@@ -4,7 +4,7 @@ module Calyx
     class Terminal
       # Construct a terminal node with the given value.
       #
-      # @param atom [#to_s]
+      # @param [#to_s] atom
       def initialize(atom)
         @atom = atom
       end

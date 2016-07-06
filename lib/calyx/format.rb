@@ -7,7 +7,7 @@ module Calyx
     # Accepts a JSON or YAML file path, identified by its extension (`.json`
     # or `.yml`).
     #
-    # @param filename [String]
+    # @param [String] filename
     # @return [Calyx::Grammar]
     def self.load(filename)
       file = File.read(filename)
@@ -23,7 +23,7 @@ module Calyx
 
     # Converts the given string of YAML data to a grammar instance.
     #
-    # @param data [String]
+    # @param [String] data
     # @return [Calyx::Grammar]
     def self.load_yml(data)
       require 'yaml'
@@ -32,7 +32,7 @@ module Calyx
 
     # Converts the given string of JSON data to a grammar instance.
     #
-    # @param data [String]
+    # @param [String] data
     # @return [Calyx::Grammar]
     def self.load_json(data)
       require 'json'

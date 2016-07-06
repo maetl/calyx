@@ -6,8 +6,8 @@ module Calyx
       # Parse a list of productions and return a choice node which is the head
       # of a syntax tree of child nodes.
       #
-      # @param productions [Array]
-      # @param registry [Calyx::Registry]
+      # @param [Array] productions
+      # @param [Calyx::Registry] registry
       def self.parse(productions, registry)
         choices = productions.map do |choice|
           if choice.is_a?(String)
@@ -27,7 +27,7 @@ module Calyx
 
       # Initialize a new choice with a list of child nodes.
       #
-      # @param collection [Array]
+      # @param [Array] collection
       def initialize(collection)
         @collection = collection
       end

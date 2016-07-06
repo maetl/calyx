@@ -12,30 +12,30 @@ module Calyx
 
     # Hook for defining rules without explicitly calling the `#rule` method.
     #
-    # @param name [Symbol]
-    # @param productions [Array]
+    # @param [Symbol] name
+    # @param [Array] productions
     def method_missing(name, *arguments)
       rule(name, *arguments)
     end
 
     # Attaches a modifier module to this instance.
     #
-    # @param module_name [Module]
+    # @param [Module] module_name
     def modifier(name)
       modifiers.extend(name)
     end
 
     # Registers a paired mapping regex.
     #
-    # @param name [Symbol]
-    # @param pairs [Hash<Regex,String>]
+    # @param [Symbol] name
+    # @param [Hash<Regex,String>] pairs
     def mapping(name, pairs)
       transforms[name.to_sym] = construct_mapping(pairs)
     end
 
     # Registers the given block as a string filter.
     #
-    # @param name [Symbol]
+    # @param [Symbol] name
     # @block block with a single string argument returning a modified string.
     def filter(name, callable=nil, &block)
       if block_given?
@@ -47,23 +47,23 @@ module Calyx
 
     # Registers a new grammar rule.
     #
-    # @param name [Symbol]
-    # @param productions [Array]
+    # @param [Symbol] name
+    # @param [Array] productions
     def rule(name, *productions)
       rules[name.to_sym] = construct_rule(productions)
     end
 
     # Expands the given rule symbol to its production.
     #
-    # @param symbol [Symbol]
+    # @param [Symbol] symbol
     def expand(symbol)
       rules[symbol] || context[symbol]
     end
 
     # Applies the given modifier function to the given value to transform it.
     #
-    # @param name [Symbol]
-    # @param value [String]
+    # @param [Symbol] name
+    # @param [String] value
     # @return [String]
     def transform(name, value)
       if transforms.key?(name)
@@ -76,7 +76,7 @@ module Calyx
     # Expands a memoized rule symbol by evaluating it and storing the result
     # for later.
     #
-    # @param symbol [Symbol]
+    # @param [Symbol] symbol
     def memoize_expansion(symbol)
       memos[symbol] ||= expand(symbol).evaluate
     end
@@ -86,7 +86,7 @@ module Calyx
     # This is only needed at compile time, so that child classes can easily
     # inherit the set of rules decared by their parent.
     #
-    # @param registry [Calyx::Registry]
+    # @param [Calyx::Registry] registry
     def combine(registry)
       @rules = rules.merge(registry.rules)
     end
@@ -96,8 +96,8 @@ module Calyx
     #
     # Produces a syntax tree of nested list nodes.
     #
-    # @param start_symbol [Symbol]
-    # @param rules_map [Hash]
+    # @param [Symbol] start_symbol
+    # @param [Hash] rules_map
     # @return [Array]
     def evaluate(start_symbol=:start, rules_map={})
       reset_evaluation_context

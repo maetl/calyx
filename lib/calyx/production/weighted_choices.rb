@@ -7,8 +7,8 @@ module Calyx
       # Parse a given list or hash of productions into a syntax tree of weighted
       # choices.
       #
-      # @param productions [Array<Array>, Hash<#to_s, Float>]
-      # @param registry [Calyx::Registry]
+      # @param [Array<Array>, Hash<#to_s, Float>] productions
+      # @param [Calyx::Registry] registry
       def self.parse(productions, registry)
         weights_sum = productions.reduce(0) do |memo, choice|
           memo += choice.last
@@ -29,7 +29,7 @@ module Calyx
 
       # Initialize a new choice with a list of child nodes.
       #
-      # @param collection [Array]
+      # @param [Array] collection
       def initialize(collection)
         @collection = collection
       end

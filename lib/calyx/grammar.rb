@@ -23,7 +23,7 @@ module Calyx
       # Accepts a JSON or YAML file path, identified by its extension (`.json`
       # or `.yml`).
       #
-      # @param filename [String]
+      # @param [String] filename
       # @return [Calyx::Grammar]
       def load(filename)
         Format.load(filename)
@@ -31,22 +31,22 @@ module Calyx
 
       # DSL helper method for registering a modifier module with the grammar.
       #
-      # @param module_name [Module]
+      # @param [Module] module_name
       def modifier(module_name)
         registry.modifier(module_name)
       end
 
       # DSL helper method for registering a paired mapping regex.
       #
-      # @param name [Symbol]
-      # @param pairs [Hash<Regex,String>]
+      # @param [Symbol] name
+      # @param [Hash<Regex,String>] pairs
       def mapping(name, pairs)
         registry.mapping(name, pairs)
       end
 
       # DSL helper method for registering the given block as a string filter.
       #
-      # @param name [Symbol]
+      # @param [Symbol] name
       # @block block with a single string argument returning a modified string.
       def filter(name, &block)
         registry.mapping(name, &block)
@@ -56,8 +56,8 @@ module Calyx
       #
       # Not usually used directly, as the method missing API is less verbose.
       #
-      # @param name [Symbol]
-      # @param productions [Array]
+      # @param [Symbol] name
+      # @param [Array] productions
       def rule(name, *productions)
         registry.rule(name, *productions)
       end
@@ -68,8 +68,8 @@ module Calyx
       # This must be bypassed by calling `#rule` directly if the name of the
       # desired rule clashes with an existing helper method.
       #
-      # @param name [Symbol]
-      # @param productions [Array]
+      # @param [Symbol] name
+      # @param [Array] productions
       def method_missing(name, *productions)
         registry.rule(name, *productions)
       end
@@ -77,7 +77,7 @@ module Calyx
       # Hook for combining the registry of a parent grammar into the child that
       # inherits from it.
       #
-      # @param child_registry [Calyx::Registry]
+      # @param [Calyx::Registry] child_registry
       def inherit_registry(child_registry)
         registry.combine(child_registry) unless child_registry.nil?
       end
@@ -87,7 +87,7 @@ module Calyx
       #
       # This is automatically called by the Ruby engine.
       #
-      # @param subclass [Class]
+      # @param [Class] subclass
       def inherited(subclass)
         subclass.inherit_registry(registry)
       end
@@ -98,7 +98,7 @@ module Calyx
     # Grammar rules can be constructed on the fly when the passed-in block is
     # evaluated.
     #
-    # @param seed [Number]
+    # @param [Number] seed
     def initialize(seed=nil, &block)
       @seed = seed || Random.new_seed
       srand(@seed)
@@ -113,8 +113,9 @@ module Calyx
 
     # Produces a string as an output of the grammar.
     #
-    # @param start_symbol [Symbol]
-    # @param rules_map [Hash]
+    # @overload
+    #   @param [Symbol] start_symbol
+    #   @param [Hash] rules_map
     # @return [String]
     def generate(*args)
       start_symbol, rules_map = map_default_args(*args)
@@ -126,8 +127,9 @@ module Calyx
 
     # Produces a syntax tree of nested list nodes as an output of the grammar.
     #
-    # @param start_symbol [Symbol]
-    # @param rules_map [Hash]
+    # @overload
+    #   @param [Symbol] start_symbol
+    #   @param [Hash] rules_map
     # @return [Array]
     def evaluate(*args)
       start_symbol, rules_map = map_default_args(*args)

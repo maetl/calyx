@@ -8,8 +8,8 @@ module Calyx
       # Construct a memoized rule, given the symbol to lookup and the registry
       # to look it up in.
       #
-      # @param symbol [Symbol]
-      # @param registry [Calyx::Registry]
+      # @param [Symbol] symbol
+      # @param [Calyx::Registry] registry
       def initialize(symbol, registry)
         @symbol = symbol.slice(1, symbol.length-1).to_sym
         @registry = registry

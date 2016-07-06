@@ -13,8 +13,8 @@ module Calyx
       #
       # Returns a concat node which is the head of a tree of child nodes.
       #
-      # @param production [String]
-      # @param registry [Calyx::Registry]
+      # @param [String] production
+      # @param [Calyx::Registry] registry
       def self.parse(production, registry)
         expansion = production.split(EXPRESSION).map do |atom|
           if atom.is_a?(String)
@@ -42,7 +42,7 @@ module Calyx
       # Initialize the concat node with an expansion of terminal and
       # non-terminal fragments.
       #
-      # @param expansion [Array]
+      # @param [Array] expansion
       def initialize(expansion)
         @expansion = expansion
       end

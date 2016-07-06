@@ -4,9 +4,9 @@ module Calyx
     class Expression
       # Constructs a node representing a single template substitution.
       #
-      # @param production [#evaluate]
-      # @param methods [Array]
-      # @param registry [Calyx::Registry]
+      # @param [#evaluate] production
+      # @param [Array] methods
+      # @param [Calyx::Registry] registry
       def initialize(production, methods, registry)
         @production = production
         @methods = methods.map { |m| m.to_sym }

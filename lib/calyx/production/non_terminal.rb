@@ -6,8 +6,8 @@ module Calyx
       # Construct a non-terminal node, given the symbol to lookup and the
       # registry to look it up in.
       #
-      # @param symbol [Symbol]
-      # @param registry [Calyx::Registry]
+      # @param [Symbol] symbol
+      # @param [Calyx::Registry] registry
       def initialize(symbol, registry)
         @symbol = symbol.to_sym
         @registry = registry
