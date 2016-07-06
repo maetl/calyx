@@ -1,5 +1,6 @@
 module Calyx
   module Production
+    # A type of production rule that terminates with a resulting string atom.
     class Terminal
       # Construct a terminal node with the given value.
       #

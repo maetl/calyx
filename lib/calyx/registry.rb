@@ -1,4 +1,5 @@
 module Calyx
+  # Lookup table of all the available rules in the grammar.
   class Registry
     attr_reader :rules, :transforms, :modifiers
 

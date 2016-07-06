@@ -1,5 +1,7 @@
 module Calyx
   module Production
+    # A type of production rule that represents a non-terminal expansion,
+    # linking one rule to another.
     class NonTerminal
       # Construct a non-terminal node, given the symbol to lookup and the
       # registry to look it up in.

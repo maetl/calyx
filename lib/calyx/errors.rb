@@ -1,4 +1,5 @@
 module Calyx
+  # Library-specific error types.
   module Errors
     # Only rules that exist in the registry can be evaluated. When a
     # non-existent rule is referenced, this error is raised.

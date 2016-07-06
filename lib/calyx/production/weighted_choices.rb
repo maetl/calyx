@@ -1,5 +1,8 @@
 module Calyx
   module Production
+    # A type of production rule representing a map of possible rules with
+    # associated weights that define the expected probability of a rule
+    # being chosen.
     class WeightedChoices
       # Parse a given list or hash of productions into a syntax tree of weighted
       # choices.

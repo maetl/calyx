@@ -1,4 +1,5 @@
 module Calyx
+  # Applies modifiers to the output of a rule in a template substitution.
   class Modifiers
     # Transforms an output string by delegating to the given output function.
     #

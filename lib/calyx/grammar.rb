@@ -1,4 +1,12 @@
 module Calyx
+  # The main public interface to Calyx. Grammars represent the concept of a
+  # template grammar defined by a set of production rules that can be chained
+  # and nested from a given starting rule.
+  #
+  # Calyx works like a traditional phrase-structured grammar in reverse. Instead
+  # of recognising strings based on a union of possible matches, it generates
+  # strings by representing the union as a choice and randomly picking one
+  # of the options each time the grammar runs.
   class Grammar
     class << self
       # Access the registry belonging to this grammar class.

@@ -1,4 +1,6 @@
 module Calyx
+  # A type of production rule representing a list of possible rules, one of
+  # which will chosen each time the grammar runs.
   module Production
     class Choices
       # Parse a list of productions and return a choice node which is the head

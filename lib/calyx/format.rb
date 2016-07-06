@@ -1,4 +1,6 @@
 module Calyx
+  # Helper methods for loading and initializing grammars from static files
+  # on disk.
   module Format
     # Reads a file and parses its format, based on the given extension.
     #

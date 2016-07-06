@@ -1,5 +1,7 @@
 module Calyx
   module Production
+    # A type of production rule representing a string combining both template
+    # substitutions and raw content.
     class Concat
       EXPRESSION = /(\{[A-Za-z0-9_@\.]+\})/.freeze
       START_TOKEN = '{'.freeze
