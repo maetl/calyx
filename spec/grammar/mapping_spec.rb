@@ -4,12 +4,15 @@ describe Calyx::Grammar do
   describe 'custom mappings' do
     it 'modifies expressions with custom mappings defined in the grammar' do
       grammar = Calyx::Grammar.new do
-        mapping :pluralise, /(.+)/ => '\\1s'
-        start '{noun.pluralise}'
-        noun 'noun'
+        mapping :trim_e, /(.+)(e$)/ => "\\1"
+        ism_without_e '{structural.trim_e}ism'
+        ism_with_e '{narrative.trim_e}ism'
+        structural 'structural'
+        narrative 'narrative'
       end
 
-      expect(grammar.generate).to eq('nouns')
+      expect(grammar.generate(:ism_without_e)).to eq('structuralism')
+      expect(grammar.generate(:ism_with_e)).to eq('narrativism')
     end
 
     it 'modifies expressions with custom filters defined in the grammar' do

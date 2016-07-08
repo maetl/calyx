@@ -135,7 +135,12 @@ module Calyx
     def construct_mapping(pairs)
       mapper = -> (input) {
         match, target = pairs.detect { |match, target| input =~ match }
-        input.gsub(match, target)
+
+        if match && target
+          input.gsub(match, target)
+        else
+          input
+        end
       }
     end
 
