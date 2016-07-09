@@ -384,8 +384,6 @@ greeting = AppGreeting.new
 greeting.generate(context)
 ```
 
-__Note: The API may morph and change a bit as we try to figure out the best patterns for merging and combining grammars.__
-
 ### Accessing the Raw Generated Tree
 
 Calling `#evaluate` on the grammar instance will give you access to the raw generated tree structure before it gets flattened into a string.
@@ -402,8 +400,6 @@ end
 grammar.evaluate
 # => [:start, [:choice, [:concat, [[:atom, "Riddle me ree."]]]]]
 ```
-
-__Note: This feature is still experimental. The tree structure is likely to change so it’s probably best not to rely on it for anything big at this stage.__
 
 ## Roadmap
 
