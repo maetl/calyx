@@ -49,7 +49,7 @@ module Calyx
       # @param [Symbol] name
       # @block block with a single string argument returning a modified string.
       def filter(name, &block)
-        registry.mapping(name, &block)
+        registry.filter(name, &block)
       end
 
       # DSL helper method for registering a new grammar rule.
