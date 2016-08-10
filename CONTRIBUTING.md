@@ -12,7 +12,7 @@ The best way to contribute is to use the Gem. Install it on a local project and 
 
 It’s really helpful to contribute to discussion on open issues, reporting bugs or suggest new features. Any feedback and criticism is received with gratitude.
 
-## Contribute Code
+## Code Contributions
 
 ### Submitting Changes
 
@@ -23,7 +23,7 @@ Changes to the source code and documentation should be submitted as a pull reque
 
 If any aspects of your changes are ambiguous or unclear, use the pull request description to explain and provide further context (including code samples as necessary).
 
-Don’t bump the version as part of your changes (this happens separately).
+Please don’t bump the version as part of your changes (this happens separately).
 
 ### Pull Request Checklist
 
@@ -42,8 +42,8 @@ We are committed to making participation in this project a harassment-free exper
 
 Examples of unacceptable behaviour by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.
 
-The maintainer has the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct. Project maintainers who do not follow the Code of Conduct may be removed from the project team.
+The maintainer has the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct.
 
-Instances of abusive, harassing, or otherwise unacceptable behaviour may be reported by opening an issue or contacting the author and maintainer.
+Instances of abusive, harassing, or otherwise unacceptable behaviour may be reported by opening an issue or contacting the maintainer.
 
 *From the [Contributor Covenant](http://contributor-covenant.org), version 1.0.0, available at [http://contributor-covenant.org/version/1/0/0/](http://contributor-covenant.org/version/1/0/0/).*
