@@ -231,11 +231,13 @@ Dot-notation is supported in template expressions, allowing you to call any avai
 ```ruby
 class Greeting < Calyx::Grammar
   start '{hello.capitalize} there.', 'Why, {hello} there.'
-  hello 'hello'
+  hello 'hello', 'hi'
 end
 
 # => "Hello there."
+# => "Hi there."
 # => "Why, hello there."
+# => "Why, hi there."
 ```
 
 You can also extend the grammar with custom modifiers that provide useful formatting functions.
@@ -251,11 +253,13 @@ class Greeting < Calyx::Grammar
   end
 
   start '{hello.shoutycaps} there.', 'Why, {hello} there.'
-  hello 'hello'
+  hello 'hello', 'hi'
 end
 
 # => "HELLO there."
+# => "HI there."
 # => "Why, HELLO there."
+# => "Why, HI there."
 ```
 
 ### Mappings
