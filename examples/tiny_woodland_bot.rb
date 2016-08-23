@@ -6,7 +6,7 @@ tiny_woodland = Calyx::Grammar.new do
   start :field
   field (0..7).map { "{row}{br}" }.join
   row (0..12).map { "{point}" }.join
-  point [:trees, 0.6], [:foliage, 0.35], [:flowers, 0.05]
+  point trees: 0.6, foliage: 0.35, flowers: 0.05
   trees "🌲", "🌳"
   foliage "🌿", "🌱"
   flowers "🌷", "🌻", "🌼"
