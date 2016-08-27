@@ -19,6 +19,24 @@ gem install calyx
 gem 'calyx'
 ```
 
+## Examples
+
+## Any Gradient
+
+Demonstrates how to use Calyx to construct SVG graphics. **Any Gradient** generates a rectangle with a linear gradient of random colours.
+
+Run as a web server and preview the output in a browser (`http://localhost:9292`):
+
+```
+ruby examples/any_gradient.rb
+```
+
+Or generate SVG files via a command line pipe:
+
+```
+ruby examples/any_gradient > gradient1.xml
+```
+
 ## Usage
 
 Require the library and inherit from `Calyx::Grammar` to construct a set of rules to generate a text.
