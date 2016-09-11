@@ -51,9 +51,9 @@ module Calyx
       # into a single result.
       #
       # @return [Array]
-      def evaluate
+      def evaluate(rng)
         concat = @expansion.reduce([]) do |exp, atom|
-          exp << atom.evaluate
+          exp << atom.evaluate(rng)
         end
 
         [:concat, concat]

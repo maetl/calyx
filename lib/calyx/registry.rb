@@ -1,7 +1,7 @@
 module Calyx
   # Lookup table of all the available rules in the grammar.
   class Registry
-    attr_reader :rules, :transforms, :modifiers
+    attr_reader :rng, :rules, :transforms, :modifiers
 
     # Construct an empty registry.
     def initialize
@@ -78,7 +78,7 @@ module Calyx
     #
     # @param [Symbol] symbol
     def memoize_expansion(symbol)
-      memos[symbol] ||= expand(symbol).evaluate
+      memos[symbol] ||= expand(symbol).evaluate(@rng)
     end
 
     # Merges the given registry instance with the target registry.
@@ -99,8 +99,8 @@ module Calyx
     # @param [Symbol] start_symbol
     # @param [Hash] rules_map
     # @return [Array]
-    def evaluate(start_symbol=:start, rules_map={})
-      reset_evaluation_context
+    def evaluate(start_symbol=:start, rng=Random.new, rules_map={})
+      reset_evaluation_context(rng)
 
       rules_map.each do |key, value|
         if rules.key?(key.to_sym)
@@ -117,7 +117,7 @@ module Calyx
       expansion = expand(start_symbol)
 
       if expansion.respond_to?(:evaluate)
-        [start_symbol, expansion.evaluate]
+        [start_symbol, expansion.evaluate(rng)]
       else
         raise Errors::MissingRule.new(start_symbol)
       end
@@ -125,9 +125,10 @@ module Calyx
 
     private
 
-    attr_reader :memos, :context
+    attr_reader :rng, :memos, :context
 
-    def reset_evaluation_context
+    def reset_evaluation_context(rng)
+      @rng = rng
       @context = {}
       @memos = {}
     end

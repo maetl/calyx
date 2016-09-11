@@ -16,8 +16,8 @@ module Calyx
       # Evaluate the non-terminal, using the registry to handle the expansion.
       #
       # @return [Array]
-      def evaluate
-        [@symbol, @registry.expand(@symbol).evaluate]
+      def evaluate(rng)
+        [@symbol, @registry.expand(@symbol).evaluate(rng)]
       end
     end
   end

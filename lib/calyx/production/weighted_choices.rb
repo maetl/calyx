@@ -30,6 +30,7 @@ module Calyx
       # Initialize a new choice with a list of child nodes.
       #
       # @param [Array] collection
+      # @param [Random] rng
       def initialize(collection)
         @collection = collection
       end
@@ -41,12 +42,12 @@ module Calyx
       # of code recommended in the Ruby standard library documentation.
       #
       # @return [Array]
-      def evaluate
+      def evaluate(rng)
         choice = @collection.max_by do |_, weight|
-          rand ** (1.0 / weight)
+          rng.rand ** (1.0 / weight)
         end.first
 
-        [:weighted_choice, choice.evaluate]
+        [:weighted_choice, choice.evaluate(rng)]
       end
     end
   end

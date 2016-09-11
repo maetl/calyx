@@ -12,7 +12,7 @@ module Calyx
       # Evaluate the terminal by returning its identity directly.
       #
       # @return [Array]
-      def evaluate
+      def evaluate(rng)
         [:atom, @atom]
       end
     end

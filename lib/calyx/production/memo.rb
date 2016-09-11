@@ -18,7 +18,7 @@ module Calyx
       # Evaluate the memo, using the registry to handle the expansion.
       #
       # @return [Array]
-      def evaluate
+      def evaluate(rng)
         [@symbol, @registry.memoize_expansion(@symbol)]
       end
     end

@@ -17,23 +17,23 @@ describe Calyx::Production::Expression do
 
   it 'evaluates a value' do
     rule = Calyx::Production::Expression.new(atom, [], registry_instance)
-    expect(rule.evaluate).to eq([:expression, 'hello'])
+    expect(rule.evaluate(Random.new)).to eq([:expression, 'hello'])
   end
 
   it 'evaluates a value with modifier' do
     rule = Calyx::Production::Expression.new(atom, ['upcase'], registry_instance)
-    expect(rule.evaluate).to eq([:expression, 'HELLO'])
+    expect(rule.evaluate(Random.new)).to eq([:expression, 'HELLO'])
   end
 
   it 'evaluates a value with modifier chain' do
     rule = Calyx::Production::Expression.new(atom, ['upcase', 'swapcase'], registry_instance)
-    expect(rule.evaluate).to eq([:expression, 'hello'])
+    expect(rule.evaluate(Random.new)).to eq([:expression, 'hello'])
   end
 
   it 'transforms a value with a custom modifier' do
     allow(registry_double).to receive(:transform).with(:to_uppercase, 'hello').and_return('HELLO')
 
     rule = Calyx::Production::Expression.new(atom, ['to_uppercase'], registry_double)
-    expect(rule.evaluate).to eq([:expression, 'HELLO'])
+    expect(rule.evaluate(Random.new)).to eq([:expression, 'HELLO'])
   end
 end

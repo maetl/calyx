@@ -18,8 +18,8 @@ module Calyx
       # returning the transformed result.
       #
       # @return [Array]
-      def evaluate
-        terminal = @production.evaluate.flatten.reject { |o| o.is_a?(Symbol) }.join(''.freeze)
+      def evaluate(rng)
+        terminal = @production.evaluate(rng).flatten.reject { |o| o.is_a?(Symbol) }.join(''.freeze)
         expression = @methods.reduce(terminal) do |value, method|
           @registry.transform(method, value)
         end

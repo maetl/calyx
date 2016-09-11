@@ -35,8 +35,8 @@ module Calyx
       # Evaluate the choice by randomly picking one of its possible options.
       #
       # @return [Array]
-      def evaluate
-        [:choice, @collection.sample.evaluate]
+      def evaluate(rng)
+        [:choice, @collection.sample(random: rng).evaluate(rng)]
       end
     end
   end

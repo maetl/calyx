@@ -18,7 +18,7 @@ describe Calyx::Registry do
 
   specify 'evaluate from context if rule not found' do
     registry.start(:atom)
-    expect(registry.evaluate(:start, atom: 'atom')).to eq([:start, [:choice, [:atom, [:concat, [[:atom, 'atom']]]]]])
+    expect(registry.evaluate(:start, Random.new, atom: 'atom')).to eq([:start, [:choice, [:atom, [:concat, [[:atom, 'atom']]]]]])
   end
 
   specify 'evaluate concatenated production' do
