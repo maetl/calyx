@@ -30,7 +30,6 @@ module Calyx
       # Initialize a new choice with a list of child nodes.
       #
       # @param [Array] collection
-      # @param [Random] rng
       def initialize(collection)
         @collection = collection
       end
@@ -41,13 +40,14 @@ module Calyx
       # The method for selecting weighted probabilities is based on a snippet
       # of code recommended in the Ruby standard library documentation.
       #
+      # @param [Random] random
       # @return [Array]
-      def evaluate(rng)
+      def evaluate(random)
         choice = @collection.max_by do |_, weight|
-          rng.rand ** (1.0 / weight)
+          random.rand ** (1.0 / weight)
         end.first
 
-        [:weighted_choice, choice.evaluate(rng)]
+        [:weighted_choice, choice.evaluate(random)]
       end
     end
   end

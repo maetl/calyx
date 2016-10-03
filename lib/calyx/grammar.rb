@@ -98,12 +98,12 @@ module Calyx
     # Grammar rules can be constructed on the fly when the passed-in block is
     # evaluated.
     #
-    # @param [Number, Random] seed
-    def initialize(seed=Random.new, &block)
-      if seed.is_a?(Numeric)
-        @rng = Random.new(seed)
+    # @param [Numeric, Random] random
+    def initialize(random=Random.new, &block)
+      if random.is_a?(Numeric)
+        @random = Random.new(random)
       else
-        @rng = seed
+        @random = random
       end
 
       if block_given?
@@ -123,7 +123,7 @@ module Calyx
     def generate(*args)
       start_symbol, rules_map = map_default_args(*args)
 
-      @registry.evaluate(start_symbol, @rng, rules_map).flatten.reject do |obj|
+      @registry.evaluate(start_symbol, @random, rules_map).flatten.reject do |obj|
         obj.is_a?(Symbol)
       end.join(''.freeze)
     end
@@ -137,7 +137,7 @@ module Calyx
     def evaluate(*args)
       start_symbol, rules_map = map_default_args(*args)
 
-      @registry.evaluate(start_symbol, @rng, rules_map)
+      @registry.evaluate(start_symbol, @random, rules_map)
     end
 
     private

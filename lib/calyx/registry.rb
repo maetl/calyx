@@ -1,7 +1,7 @@
 module Calyx
   # Lookup table of all the available rules in the grammar.
   class Registry
-    attr_reader :rng, :rules, :transforms, :modifiers
+    attr_reader :rules, :transforms, :modifiers
 
     # Construct an empty registry.
     def initialize
@@ -78,7 +78,7 @@ module Calyx
     #
     # @param [Symbol] symbol
     def memoize_expansion(symbol)
-      memos[symbol] ||= expand(symbol).evaluate(@rng)
+      memos[symbol] ||= expand(symbol).evaluate(@random)
     end
 
     # Merges the given registry instance with the target registry.
@@ -91,16 +91,19 @@ module Calyx
       @rules = rules.merge(registry.rules)
     end
 
+
+
     # Evaluates the grammar defined in this registry, combining it with rules
     # from the passed in context.
     #
     # Produces a syntax tree of nested list nodes.
     #
     # @param [Symbol] start_symbol
+    # @param [Random] random
     # @param [Hash] rules_map
     # @return [Array]
-    def evaluate(start_symbol=:start, rng=Random.new, rules_map={})
-      reset_evaluation_context(rng)
+    def evaluate(start_symbol=:start, random=Random.new, rules_map={})
+      reset_evaluation_context(random)
 
       rules_map.each do |key, value|
         if rules.key?(key.to_sym)
@@ -117,7 +120,7 @@ module Calyx
       expansion = expand(start_symbol)
 
       if expansion.respond_to?(:evaluate)
-        [start_symbol, expansion.evaluate(rng)]
+        [start_symbol, expansion.evaluate(random)]
       else
         raise Errors::MissingRule.new(start_symbol)
       end
@@ -125,10 +128,10 @@ module Calyx
 
     private
 
-    attr_reader :rng, :memos, :context
+    attr_reader :random, :memos, :context
 
-    def reset_evaluation_context(rng)
-      @rng = rng
+    def reset_evaluation_context(random)
+      @random = random
       @context = {}
       @memos = {}
     end

@@ -50,10 +50,11 @@ module Calyx
       # Evaluate all the child nodes of this node and concatenate them together
       # into a single result.
       #
+      # @param [Random] random
       # @return [Array]
-      def evaluate(rng)
+      def evaluate(random)
         concat = @expansion.reduce([]) do |exp, atom|
-          exp << atom.evaluate(rng)
+          exp << atom.evaluate(random)
         end
 
         [:concat, concat]

@@ -15,9 +15,10 @@ module Calyx
 
       # Evaluate the non-terminal, using the registry to handle the expansion.
       #
+      # @param [Random] random
       # @return [Array]
-      def evaluate(rng)
-        [@symbol, @registry.expand(@symbol).evaluate(rng)]
+      def evaluate(random)
+        [@symbol, @registry.expand(@symbol).evaluate(random)]
       end
     end
   end

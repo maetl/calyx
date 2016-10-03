@@ -11,8 +11,9 @@ module Calyx
 
       # Evaluate the terminal by returning its identity directly.
       #
+      # @param [Random] random
       # @return [Array]
-      def evaluate(rng)
+      def evaluate(random)
         [:atom, @atom]
       end
     end
