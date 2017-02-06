@@ -81,6 +81,26 @@ module Calyx
       memos[symbol] ||= expand(symbol).evaluate(@random)
     end
 
+    # Expands a unique rule symbol by evaluating it and checking that it hasn't
+    # previously been selected.
+    #
+    # @param [Symbol] symbol
+    def unique_expansion(symbol)
+      pending = true
+      uniques[symbol] = [] if uniques[symbol].nil?
+
+      while pending
+        result = expand(symbol).evaluate(@random)
+
+        unless uniques[symbol].include?(result)
+          uniques[symbol] << result
+          pending = false
+        end
+      end
+
+      result
+    end
+
     # Merges the given registry instance with the target registry.
     #
     # This is only needed at compile time, so that child classes can easily
@@ -90,8 +110,6 @@ module Calyx
     def combine(registry)
       @rules = rules.merge(registry.rules)
     end
-
-
 
     # Evaluates the grammar defined in this registry, combining it with rules
     # from the passed in context.
@@ -128,12 +146,13 @@ module Calyx
 
     private
 
-    attr_reader :random, :memos, :context
+    attr_reader :random, :memos, :context, :uniques
 
     def reset_evaluation_context(random)
       @random = random
       @context = {}
       @memos = {}
+      @uniques = {}
     end
 
     def construct_mapping(pairs)

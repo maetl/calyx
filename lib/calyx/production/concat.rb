@@ -3,7 +3,7 @@ module Calyx
     # A type of production rule representing a string combining both template
     # substitutions and raw content.
     class Concat
-      EXPRESSION = /(\{[A-Za-z0-9_@\.]+\})/.freeze
+      EXPRESSION = /(\{[A-Za-z0-9_@$\.]+\})/.freeze
       START_TOKEN = '{'.freeze
       END_TOKEN = '}'.freeze
       DEREF_TOKEN = '.'.freeze
@@ -22,6 +22,8 @@ module Calyx
               head, *tail = atom.slice(1, atom.length-2).split(DEREF_TOKEN)
               if head[0] == Memo::SIGIL
                 rule = Memo.new(head, registry)
+              elsif head[0] == Unique::SIGIL
+                rule = Unique.new(head, registry)
               else
                 rule = NonTerminal.new(head, registry)
               end

@@ -17,6 +17,8 @@ module Calyx
           elsif choice.is_a?(Symbol)
             if choice[0] == Memo::SIGIL
               Memo.new(choice, registry)
+            elsif choice[0] == Unique::SIGIL
+              Unique.new(choice, registry)
             else
               NonTerminal.new(choice, registry)
             end
