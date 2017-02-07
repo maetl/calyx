@@ -397,7 +397,7 @@ end
 
 Rule expansions can be ‘memoized’ so that multiple references to the same rule return the same value. This is useful for picking a noun from a list and reusing it in multiple places within a text.
 
-The `@` symbol is used to mark memoized rules. This evaluates the rule and stores it in memory the first time it’s referenced. All subsequent references to the memoized rule use the same stored value.
+The `@` sigil is used to mark memoized rules. This evaluates the rule and stores it in memory the first time it’s referenced. All subsequent references to the memoized rule use the same stored value.
 
 ```ruby
 # Without memoization
@@ -424,6 +424,24 @@ end
 ```
 
 Note that the memoization symbol can only be used on the right hand side of a production rule.
+
+### Unique Rules
+
+Rule expansions can be marked as ‘unique’, meaning that multiple references to the same rule always return a different value. This is useful for situations where the same result appearing twice would appear awkward and messy.
+
+Unique rules are marked by the `$` sigil.
+
+```ruby
+grammar = Calyx::Grammar.new do
+  start "{$medal}, {$medal}, {$medal}"
+  medal 'Gold', 'Silver', 'Bronze'
+end
+
+grammar.generate
+# => Silver, Bronze, Gold
+```
+
+**Note: this is a new and experimental feature and the API may change as kinks are ironed out from testing and exploration.**
 
 ### Dynamically Constructing Rules
 
