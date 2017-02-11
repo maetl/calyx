@@ -4,7 +4,8 @@ module Calyx
     attr_reader :rules, :transforms, :modifiers
 
     # Construct an empty registry.
-    def initialize
+    def initialize(options={})
+      @options = {}
       @rules = {}
       @transforms = {}
       @modifiers = Modifiers.new

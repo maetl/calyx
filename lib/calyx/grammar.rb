@@ -98,16 +98,29 @@ module Calyx
     # Grammar rules can be constructed on the fly when the passed-in block is
     # evaluated.
     #
-    # @param [Numeric, Random] random
-    def initialize(random=Random.new, &block)
-      if random.is_a?(Numeric)
-        @random = Random.new(random)
+    # @param [Numeric, Random, Hash] options
+    def initialize(options={}, &block)
+      unless options.is_a?(Hash)
+        config_opts = {}
+        if options.is_a?(Numeric)
+          config_opts[:seed] = options
+        elsif options.is_a?(Random)
+          config_opts[:rng] = options
+        end
       else
-        @random = random
+        config_opts = options.dup
+      end
+
+      @random = if config_opts.key?(:seed)
+        Random.new(config_opts[:seed])
+      elsif config_opts.key?(:rng)
+        config_opts[:rng]
+      else
+        Random.new
       end
 
       if block_given?
-        @registry = Registry.new
+        @registry = Registry.new(config_opts)
         @registry.instance_eval(&block)
       else
         @registry = self.class.registry
