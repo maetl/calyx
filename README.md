@@ -505,6 +505,6 @@ Rough plan for stabilising the API and features for a `1.0` release.
 
 ## License
 
-Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015-2016 [Editorial Technology](http://editorial.technology/).
+Calyx is open source and provided under the terms of the MIT license. Copyright (c) 2015-2017 [Editorial Technology](http://editorial.technology/).
 
 See the `LICENSE` file [included with the project distribution](https://github.com/maetl/calyx/blob/master/LICENSE) for more information.
