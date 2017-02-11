@@ -489,7 +489,9 @@ Rough plan for stabilising the API and features for a `1.0` release.
 | `0.9`   | ~~return grammar tree from `#evaluate`, with flattened string from `#generate` being separate~~ |
 | `0.10`  | ~~inject custom string functions for parameterised rules, transforms and mappings~~ |
 | `0.11`  | ~~support YAML format (and JSON?)~~ |
-| `1.0`   | ~~API documentation~~ |
+| `0.12`   | ~~API documentation~~ |
+| `0.13`   | ~~Support for unique rules~~ |
+| `0.14`   | Options config and ‘strict mode’ error handling |
 
 ## Credits
 
