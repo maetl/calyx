@@ -333,12 +333,14 @@ end
 
 ### Modifier Mixins
 
-In order to use more intricate natural language processing capabilities, you can add modifier methods to a module and extend the grammar with it:
+In order to use more intricate rewriting and formatting methods in a modifier chain, you can add methods to a module and embed it in a grammar using the `modifier` classmethod.
+
+Modifier methods accept a single argument representing the input string from the previous step in the expression chain and must return a string, representing the modified output.
 
 ```ruby
 module FullStop
-  def full_stop
-    self << '.'
+  def full_stop(input)
+    input << '.'
   end
 end
 
@@ -355,8 +357,8 @@ To share custom modifiers across multiple grammars, you can include the module i
 
 ```ruby
 module FullStop
-  def full_stop
-    self << '.'
+  def full_stop(input)
+    input << '.'
   end
 end
 
