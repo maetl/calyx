@@ -18,7 +18,12 @@ module Calyx
       # @param [Random] random
       # @return [Array]
       def evaluate(random)
-        [@symbol, @registry.expand(@symbol).evaluate(random)]
+        expansion = @registry.expand(@symbol)
+        if expansion.nil?
+          raise Errors::MissingRule.new(@symbol)
+        else
+          [@symbol, expansion.evaluate(random)]
+        end
       end
     end
   end

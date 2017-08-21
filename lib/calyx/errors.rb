@@ -10,7 +10,7 @@ module Calyx
     #
     #   grammar.evaluate
     #   # => Calyx::Errors::MissingRule: :blank is not registered
-    class MissingRule < RuntimeError;
+    class MissingRule < RuntimeError
       def initialize(msg)
         super(":#{msg} is not registered")
       end
