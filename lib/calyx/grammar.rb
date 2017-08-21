@@ -138,7 +138,7 @@ module Calyx
 
       @registry.evaluate(start_symbol, @random, rules_map).flatten.reject do |obj|
         obj.is_a?(Symbol)
-      end.join(''.freeze)
+      end.join
     end
 
     # Produces a syntax tree of nested list nodes as an output of the grammar.

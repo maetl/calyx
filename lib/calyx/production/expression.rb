@@ -20,7 +20,7 @@ module Calyx
       # @param [Random] random
       # @return [Array]
       def evaluate(random)
-        terminal = @production.evaluate(random).flatten.reject { |o| o.is_a?(Symbol) }.join(''.freeze)
+        terminal = @production.evaluate(random).flatten.reject { |o| o.is_a?(Symbol) }.join
         expression = @methods.reduce(terminal) do |value, method|
           @registry.transform(method, value)
         end
