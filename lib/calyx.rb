@@ -1,4 +1,5 @@
 require 'calyx/version'
+require 'calyx/rule'
 require 'calyx/grammar'
 require 'calyx/errors'
 require 'calyx/format'

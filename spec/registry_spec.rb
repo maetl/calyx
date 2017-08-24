@@ -27,6 +27,12 @@ describe Calyx::Registry do
     expect(registry.evaluate).to eq([:start, [:choice, [:concat, [[:atom, 'Hello, '], [:name, [:choice, [:concat, [[:atom, 'Joe']]]]], [:atom, '.']]]]])
   end
 
+  specify 'define rules with error traces' do
+    registry.define_rule(:start, 'Registry#define_rule', ['Hello, {name}.'])
+    registry.define_rule(:name, 'Registry#define_rule', ['Joe'])
+    expect(registry.evaluate).to eq([:start, [:choice, [:concat, [[:atom, 'Hello, '], [:name, [:choice, [:concat, [[:atom, 'Joe']]]]], [:atom, '.']]]]])
+  end
+
   specify 'transform a value using core string API' do
     expect(registry.transform(:upcase, 'derive')).to eq('DERIVE')
   end

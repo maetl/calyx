@@ -59,7 +59,7 @@ module Calyx
       # @param [Symbol] name
       # @param [Array] productions
       def rule(name, *productions)
-        registry.rule(name, *productions)
+        registry.define_rule(name, caller_locations(), productions)
       end
 
       # Augument the grammar with a method missing hook that treats class
@@ -71,7 +71,7 @@ module Calyx
       # @param [Symbol] name
       # @param [Array] productions
       def method_missing(name, *productions)
-        registry.rule(name, *productions)
+        registry.define_rule(name, caller_locations(), productions)
       end
 
       # Hook for combining the registry of a parent grammar into the child that

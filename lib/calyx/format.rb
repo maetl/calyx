@@ -44,7 +44,8 @@ module Calyx
     def self.build_grammar(rules)
       Calyx::Grammar.new do
         rules.each do |label, productions|
-          rule(label, *productions)
+          productions = [productions] unless productions.is_a?(Enumerable)
+          define_rule(label, "Format#build_grammar", productions)
         end
       end
     end

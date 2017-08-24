@@ -11,14 +11,6 @@ module Calyx
       @modifiers = Modifiers.new
     end
 
-    # Hook for defining rules without explicitly calling the `#rule` method.
-    #
-    # @param [Symbol] name
-    # @param [Array] productions
-    def method_missing(name, *arguments)
-      rule(name, *arguments)
-    end
-
     # Attaches a modifier module to this instance.
     #
     # @param [Module] module_name
@@ -46,19 +38,44 @@ module Calyx
       end
     end
 
+    # Registers a new grammar rule without explicitly calling the `#rule` method.
+    #
+    # @param [Symbol] name
+    # @param [Array] productions
+    def method_missing(name, *productions)
+      define_rule(name, "Registry#method_missing", productions)
+    end
+
     # Registers a new grammar rule.
     #
     # @param [Symbol] name
     # @param [Array] productions
     def rule(name, *productions)
-      rules[name.to_sym] = construct_rule(productions)
+      define_rule(name, "Registry#rule", productions)
+    end
+
+    # Defines a static rule in the grammar.
+    #
+    # @param [Symbol] name
+    # @param [Array] productions
+    def define_rule(name, trace, productions)
+      rules[name.to_sym] = Rule.new(name.to_sym, construct_rule(productions), trace)
+    end
+
+    # Defines a rule in the temporary evaluation context.
+    #
+    # @param [Symbol] name
+    # @param [Array] productions
+    def define_context_rule(name, trace, productions)
+      context[name.to_sym] = Rule.new(name.to_sym, construct_context_rule(productions), trace)
     end
 
     # Expands the given rule symbol to its production.
     #
     # @param [Symbol] symbol
     def expand(symbol)
-      rules[symbol] || context[symbol]
+      expansion = rules[symbol] || context[symbol]
+      expansion.productions unless expansion.nil?
     end
 
     # Applies the given modifier function to the given value to transform it.
@@ -129,11 +146,7 @@ module Calyx
           raise Errors::DuplicateRule.new(key)
         end
 
-        context[key.to_sym] = if value.is_a?(Array)
-          Production::Choices.parse(value, self)
-        else
-          Production::Concat.parse(value.to_s, self)
-        end
+        define_context_rule(key.to_sym, "Registry#evaluate(context)", value)
       end
 
       expansion = expand(start_symbol)
@@ -175,6 +188,14 @@ module Calyx
         Production::WeightedChoices.parse(productions, self)
       else
         Production::Choices.parse(productions, self)
+      end
+    end
+
+    def construct_context_rule(production)
+      if production.is_a?(Array)
+        Production::Choices.parse(production, self)
+      else
+        Production::Concat.parse(production.to_s, self)
       end
     end
   end
