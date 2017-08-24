@@ -22,5 +22,18 @@ describe Calyx::Grammar do
 
       expect(grammar.generate).to eq('Hallo Welt.')
     end
+
+    specify 'class definitions behave the same as instance definitions' do
+      class ClassDef < Calyx::Grammar
+        start '.1.'
+      end
+
+      instance_def = Calyx::Grammar.new do
+        start '.1.'
+      end
+
+      class_def = ClassDef.new
+      expect(class_def.generate).to eq(instance_def.generate)
+    end
   end
 end

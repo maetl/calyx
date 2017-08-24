@@ -33,6 +33,11 @@ describe Calyx::Registry do
     expect(registry.evaluate).to eq([:start, [:choice, [:concat, [[:atom, 'Hello, '], [:name, [:choice, [:concat, [[:atom, 'Joe']]]]], [:atom, '.']]]]])
   end
 
+  specify 'define rules with method missing' do
+    registry.one('1.')
+    expect(registry.evaluate(:one)).to eq([:one, [:choice, [:concat, [[:atom, "1."]]]]])
+  end
+
   specify 'transform a value using core string API' do
     expect(registry.transform(:upcase, 'derive')).to eq('DERIVE')
   end
