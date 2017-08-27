@@ -9,5 +9,9 @@ module Calyx
       @productions = productions
       @trace = trace
     end
+
+    def evaluate(random)
+      productions.evaluate(random)
+    end
   end
 end

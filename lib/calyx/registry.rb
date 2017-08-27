@@ -43,7 +43,7 @@ module Calyx
     # @param [Symbol] name
     # @param [Array] productions
     def method_missing(name, *productions)
-      define_rule(name, "Registry#method_missing", productions)
+      define_rule(name, caller_locations.first, productions)
     end
 
     # Registers a new grammar rule.
@@ -70,12 +70,15 @@ module Calyx
       context[name.to_sym] = Rule.new(name.to_sym, construct_context_rule(productions), trace)
     end
 
-    # Expands the given rule symbol to its production.
+    # Expands the given symbol to its rule.
     #
     # @param [Symbol] symbol
+    # @return [Calyx::Rule]
     def expand(symbol)
       expansion = rules[symbol] || context[symbol]
-      expansion.productions unless expansion.nil?
+      raise Errors::UndefinedRule.new(@last_expansion, symbol) if expansion.nil?
+      @last_expansion = expansion
+      expansion
     end
 
     # Applies the given modifier function to the given value to transform it.
@@ -154,7 +157,8 @@ module Calyx
       if expansion.respond_to?(:evaluate)
         [start_symbol, expansion.evaluate(random)]
       else
-        raise Errors::MissingRule.new(start_symbol)
+        #raise Errors::UndefinedRule.new(expansion)
+        raise "missing start symbol"
       end
     end
 

@@ -5,7 +5,7 @@ describe Calyx::Grammar do
         start '{next_rule}'
       end
 
-      expect { grammar.generate }.to raise_error(Calyx::Errors::MissingRule)
+      expect { grammar.generate }.to raise_error(Calyx::Errors::UndefinedRule, /'{next_rule}'/)
     end
   end
 end

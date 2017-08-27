@@ -9,10 +9,31 @@ module Calyx
     #   end
     #
     #   grammar.evaluate
-    #   # => Calyx::Errors::MissingRule: :blank is not registered
-    class MissingRule < RuntimeError
-      def initialize(msg)
-        super(":#{msg} is not registered")
+    #   # => Calyx::Errors::UndefinedRule: :blank is not defined
+    class UndefinedRule < RuntimeError
+      def initialize(rule, symbol)
+        trace = if rule
+          rule.trace
+        else
+          trace_api_boundary(caller_locations)
+        end
+
+        super("undefined rule :#{symbol} in #{trace.path}:#{trace.lineno}:`#{source_line(trace)}`")
+      end
+
+      def trace_api_boundary(trace)
+        (trace.count - 1).downto(0) do |index|
+          if trace[index].to_s.include?('lib/calyx/')
+            return trace[index + 1]
+          end
+        end
+      end
+
+      def source_line(trace)
+        File.open(trace.absolute_path) do |source|
+          (trace.lineno-1).times { source.gets }
+          source.gets
+        end.strip
       end
     end
 
