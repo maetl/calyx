@@ -152,14 +152,7 @@ module Calyx
         define_context_rule(key.to_sym, "Registry#evaluate(context)", value)
       end
 
-      expansion = expand(start_symbol)
-
-      if expansion.respond_to?(:evaluate)
-        [start_symbol, expansion.evaluate(random)]
-      else
-        #raise Errors::UndefinedRule.new(expansion)
-        raise "missing start symbol"
-      end
+      [start_symbol, expand(start_symbol).evaluate(random)]
     end
 
     private
