@@ -12,13 +12,13 @@ module Calyx
     #   # => Calyx::Errors::UndefinedRule: :blank is not defined
     class UndefinedRule < RuntimeError
       def initialize(rule, symbol)
-        trace = if rule
+        @trace = if rule
           rule.trace
         else
           trace_api_boundary(caller_locations)
         end
 
-        super("undefined rule :#{symbol} in #{trace.path}:#{trace.lineno}:`#{source_line(trace)}`")
+        super("undefined rule :#{symbol} in #{@trace.path}:#{@trace.lineno}:`#{source_line}`")
       end
 
       def trace_api_boundary(trace)
@@ -29,9 +29,9 @@ module Calyx
         end
       end
 
-      def source_line(trace)
-        File.open(trace.absolute_path) do |source|
-          (trace.lineno-1).times { source.gets }
+      def source_line
+        File.open(@trace.absolute_path) do |source|
+          (@trace.lineno-1).times { source.gets }
           source.gets
         end.strip
       end

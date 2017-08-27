@@ -51,7 +51,7 @@ module Calyx
     # @param [Symbol] name
     # @param [Array] productions
     def rule(name, *productions)
-      define_rule(name, "Registry#rule", productions)
+      define_rule(name, caller_locations.first, productions)
     end
 
     # Defines a static rule in the grammar.
@@ -67,7 +67,8 @@ module Calyx
     # @param [Symbol] name
     # @param [Array] productions
     def define_context_rule(name, trace, productions)
-      context[name.to_sym] = Rule.new(name.to_sym, construct_context_rule(productions), trace)
+      productions = [productions] unless productions.is_a?(Enumerable)
+      context[name.to_sym] = Rule.new(name.to_sym, construct_rule(productions), trace)
     end
 
     # Expands the given symbol to its rule.
@@ -149,7 +150,7 @@ module Calyx
           raise Errors::DuplicateRule.new(key)
         end
 
-        define_context_rule(key.to_sym, "Registry#evaluate(context)", value)
+        define_context_rule(key, caller_locations.last, value)
       end
 
       [start_symbol, expand(start_symbol).evaluate(random)]
@@ -185,14 +186,6 @@ module Calyx
         Production::WeightedChoices.parse(productions, self)
       else
         Production::Choices.parse(productions, self)
-      end
-    end
-
-    def construct_context_rule(production)
-      if production.is_a?(Array)
-        Production::Choices.parse(production, self)
-      else
-        Production::Concat.parse(production.to_s, self)
       end
     end
   end
