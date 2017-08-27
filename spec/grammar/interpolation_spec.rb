@@ -31,7 +31,7 @@ describe Calyx::Grammar do
         rule :hello, 'hello'
       end
 
-      grammar = StringFormatters.new(12345)
+      grammar = StringFormatters.new(seed: 12345)
       expect(grammar.generate).to eq('Hello world')
     end
 

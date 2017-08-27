@@ -19,10 +19,21 @@ describe Calyx::Grammar do
     end
 
     describe ':seed' do
-      it 'accepts a seed in the legacy constructor format' do
-        grammar = Metallurgy.new(43210)
+      describe 'deprecation' do
+        before do
+          @orig_stderr = $stderr
+          $stderr = StringIO.new
+        end
 
-        expect(grammar.generate).to eq_per_platform(jruby: 'tungsten', default: 'platinum')
+        it 'deprecates seed number in the legacy constructor format' do
+          Metallurgy.new(43210)
+          $stderr.rewind
+          expect($stderr.string.chomp).to match(/Passing a numeric seed arg directly is deprecated./)
+        end
+
+        after do
+          $stderr = @orig_stderr
+        end
       end
 
       it 'accepts a seed option' do
@@ -33,10 +44,21 @@ describe Calyx::Grammar do
     end
 
     describe ':rng' do
-      it 'accepts a random instance in the legacy constructor format' do
-        grammar = Metallurgy.new(Random.new(43210))
+      describe 'deprecation' do
+        before do
+          @orig_stderr = $stderr
+          $stderr = StringIO.new
+        end
 
-        expect(grammar.generate).to eq_per_platform(jruby: 'tungsten', default: 'platinum')
+        it 'deprecates random instance in the legacy constructor format' do
+          Metallurgy.new(Random.new(43210))
+          $stderr.rewind
+          expect($stderr.string.chomp).to match(/Passing a Random object directly is deprecated./)
+        end
+
+        after do
+          $stderr = @orig_stderr
+        end
       end
 
       it 'accepts a random instance as an option' do

@@ -214,11 +214,22 @@ end
 By default, the outcomes of generated rules are selected with Ruby’s built-in pseudorandom number generator (as seen in methods like `Kernel.rand` and `Array.sample`). To seed the random number generator, pass in an integer seed value as the first argument to the constructor:
 
 ```ruby
-MyGrammar.new(12345)
-Calyx::Grammar.new(12345, &rules)
+grammar = Calyx::Grammar.new(seed: 12345) do
+  # rules...
+end
 ```
 
-When a seed value isn’t supplied, `Time.new.to_i` is used as the default seed, which makes each run of the generator relatively unique.
+Alternatively, you can pass a preconfigured instance of Ruby’s stdlib `Random` class:
+
+```ruby
+random = Random.new(12345)
+
+grammar = Calyx::Grammar.new(rng: random) do
+  # rules...
+end
+```
+
+When a random seed isn’t supplied, `Time.new.to_i` is used as the default seed, which makes each run of the generator relatively unique.
 
 ### Weighted Selection
 

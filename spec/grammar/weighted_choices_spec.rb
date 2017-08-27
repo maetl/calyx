@@ -15,7 +15,7 @@ describe Calyx::Grammar do
         start ['20%', 0.2], ['80%', 0.8]
       end
 
-      grammar = WeightedChoices.new(Random.new(12345))
+      grammar = WeightedChoices.new(seed: 12345)
       expect(grammar.generate).to eq('20%')
     end
 
@@ -24,7 +24,7 @@ describe Calyx::Grammar do
         start '20%' => 0.2, '80%' => 0.8
       end
 
-      grammar = WeightedChoices.new(Random.new(12345))
+      grammar = WeightedChoices.new(seed: 12345)
       expect(grammar.generate).to eq('20%')
     end
   end
