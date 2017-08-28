@@ -22,9 +22,9 @@ module Calyx
       # Evaluate the unique rule, using the registry to handle the expansion
       # and keep track of previous selections.
       #
-      # @param [Random] random
+      # @param [Calyx::Options] options
       # @return [Array]
-      def evaluate(random)
+      def evaluate(options)
         [@symbol, @registry.unique_expansion(@symbol)]
       end
     end

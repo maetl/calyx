@@ -17,9 +17,9 @@ module Calyx
 
       # Evaluate the memo, using the registry to handle the expansion.
       #
-      # @param [Random] random
+      # @param [Calyx::Options] options
       # @return [Array]
-      def evaluate(random)
+      def evaluate(options)
         [@symbol, @registry.memoize_expansion(@symbol)]
       end
     end

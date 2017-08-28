@@ -20,12 +20,12 @@ describe Calyx::Options do
   describe :strict do
     it 'returns true by default' do
       options = Calyx::Options.new
-      expect(options.strict).to eq(true)
+      expect(options.strict?).to eq(true)
     end
 
     it 'returns false when option is set' do
       options = Calyx::Options.new(strict: false)
-      expect(options.strict).to eq(false)
+      expect(options.strict?).to eq(false)
     end
   end
 end

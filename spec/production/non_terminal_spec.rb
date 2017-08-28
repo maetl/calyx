@@ -5,6 +5,6 @@ describe Calyx::Production::NonTerminal do
     registry = double('registry')
     expect(registry).to receive(:expand).and_return(Calyx::Production::Terminal.new(:atom))
     rule = Calyx::Production::NonTerminal.new(:statement, registry)
-    rule.evaluate(Random.new)
+    rule.evaluate(Calyx::Options.new)
   end
 end

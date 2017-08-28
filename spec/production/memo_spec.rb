@@ -3,6 +3,6 @@ describe Calyx::Production::Memo do
     registry = double('registry')
     allow(registry).to receive(:memoize_expansion).with(:one).and_return('ONE')
     memo = Calyx::Production::Memo.new(:@one, registry)
-    expect(memo.evaluate(Random.new)).to eq([:one, 'ONE'])
+    expect(memo.evaluate(Calyx::Options.new)).to eq([:one, 'ONE'])
   end
 end

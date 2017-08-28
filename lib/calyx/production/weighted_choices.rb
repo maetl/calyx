@@ -40,14 +40,14 @@ module Calyx
       # The method for selecting weighted probabilities is based on a snippet
       # of code recommended in the Ruby standard library documentation.
       #
-      # @param [Random] random
+      # @param [Calyx::Options] options
       # @return [Array]
-      def evaluate(random)
+      def evaluate(options)
         choice = @collection.max_by do |_, weight|
-          random.rand ** (1.0 / weight)
+          options.rng.rand ** (1.0 / weight)
         end.first
 
-        [:weighted_choice, choice.evaluate(random)]
+        [:weighted_choice, choice.evaluate(options)]
       end
     end
   end

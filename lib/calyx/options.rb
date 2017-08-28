@@ -20,7 +20,7 @@ module Calyx
       @options[:rng]
     end
 
-    def strict
+    def strict?
       @options[:strict]
     end
 

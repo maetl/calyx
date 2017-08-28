@@ -10,8 +10,8 @@ module Calyx
       @trace = trace
     end
 
-    def evaluate(random)
-      productions.evaluate(random)
+    def evaluate(options)
+      productions.evaluate(options)
     end
   end
 end

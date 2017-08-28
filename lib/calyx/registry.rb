@@ -84,7 +84,15 @@ module Calyx
     # @return [Calyx::Rule]
     def expand(symbol)
       expansion = rules[symbol] || context[symbol]
-      raise Errors::UndefinedRule.new(@last_expansion, symbol) if expansion.nil?
+
+      if expansion.nil?
+        if @options.strict?
+          raise Errors::UndefinedRule.new(@last_expansion, symbol)
+        else
+          expansion = Production::Terminal.new('')
+        end
+      end
+
       @last_expansion = expansion
       expansion
     end
@@ -107,7 +115,7 @@ module Calyx
     #
     # @param [Symbol] symbol
     def memoize_expansion(symbol)
-      memos[symbol] ||= expand(symbol).evaluate(@random)
+      memos[symbol] ||= expand(symbol).evaluate(@options)
     end
 
     # Expands a unique rule symbol by evaluating it and checking that it hasn't
@@ -119,7 +127,7 @@ module Calyx
       uniques[symbol] = [] if uniques[symbol].nil?
 
       while pending
-        result = expand(symbol).evaluate(@random)
+        result = expand(symbol).evaluate(@options)
 
         unless uniques[symbol].include?(result)
           uniques[symbol] << result
@@ -149,8 +157,8 @@ module Calyx
     # @param [Random] random
     # @param [Hash] rules_map
     # @return [Array]
-    def evaluate(start_symbol=:start, random=Random.new, rules_map={})
-      reset_evaluation_context(random)
+    def evaluate(start_symbol=:start, rules_map={})
+      reset_evaluation_context
 
       rules_map.each do |key, value|
         if rules.key?(key.to_sym)
@@ -160,15 +168,14 @@ module Calyx
         define_context_rule(key, caller_locations.last, value)
       end
 
-      [start_symbol, expand(start_symbol).evaluate(random)]
+      [start_symbol, expand(start_symbol).evaluate(@options)]
     end
 
     private
 
-    attr_reader :random, :memos, :context, :uniques
+    attr_reader :memos, :context, :uniques
 
-    def reset_evaluation_context(random)
-      @random = random
+    def reset_evaluation_context
       @context = {}
       @memos = {}
       @uniques = {}

@@ -140,7 +140,7 @@ module Calyx
     def generate(*args)
       start_symbol, rules_map = map_default_args(*args)
 
-      @registry.evaluate(start_symbol, @options.rng, rules_map).flatten.reject do |obj|
+      @registry.evaluate(start_symbol, rules_map).flatten.reject do |obj|
         obj.is_a?(Symbol)
       end.join
     end
@@ -154,7 +154,7 @@ module Calyx
     def evaluate(*args)
       start_symbol, rules_map = map_default_args(*args)
 
-      @registry.evaluate(start_symbol, @options.rng, rules_map)
+      @registry.evaluate(start_symbol, rules_map)
     end
 
     private

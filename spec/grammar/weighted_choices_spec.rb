@@ -20,11 +20,10 @@ describe Calyx::Grammar do
     end
 
     it 'selects rules with hash choices' do
-      grammar = Calyx::Grammar.new do
+      grammar = Calyx::Grammar.new(seed: 12345) do
         start '20%' => 0.2, '80%' => 0.8
       end
 
-      grammar = WeightedChoices.new(seed: 12345)
       expect(grammar.generate).to eq('20%')
     end
   end

@@ -17,10 +17,10 @@ module Calyx
       # terminal string, then passing it through the given modifier chain and
       # returning the transformed result.
       #
-      # @param [Random] random
+      # @param [Calyx::Options] options
       # @return [Array]
-      def evaluate(random)
-        terminal = @production.evaluate(random).flatten.reject { |o| o.is_a?(Symbol) }.join
+      def evaluate(options)
+        terminal = @production.evaluate(options).flatten.reject { |o| o.is_a?(Symbol) }.join
         expression = @methods.reduce(terminal) do |value, method|
           @registry.transform(method, value)
         end

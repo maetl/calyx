@@ -52,11 +52,11 @@ module Calyx
       # Evaluate all the child nodes of this node and concatenate them together
       # into a single result.
       #
-      # @param [Random] random
+      # @param [Calyx::Options] options
       # @return [Array]
-      def evaluate(random)
+      def evaluate(options)
         concat = @expansion.reduce([]) do |exp, atom|
-          exp << atom.evaluate(random)
+          exp << atom.evaluate(options)
         end
 
         [:concat, concat]
