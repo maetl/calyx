@@ -99,40 +99,36 @@ module Calyx
     # evaluated.
     #
     # @param [Numeric, Random, Hash] options
-    def initialize(options={}, &block)
-      unless options.is_a?(Hash)
+    def initialize(opts={}, &block)
+      unless opts.is_a?(Hash)
         config_opts = {}
-        if options.is_a?(Numeric)
+        if opts.is_a?(Numeric)
           warn [
             "NOTE: Passing a numeric seed arg directly is deprecated. ",
             "Use the options hash instead: `Calyx::Grammar.new(seed: 1234)`"
           ].join
-          config_opts[:seed] = options
-        elsif options.is_a?(Random)
+          config_opts[:seed] = opts
+        elsif opts.is_a?(Random)
           warn [
             "NOTE: Passing a Random object directly is deprecated. ",
             "Use the options hash instead: `Calyx::Grammar.new(rng: Random.new)`"
           ].join
-          config_opts[:rng] = options
+          config_opts[:rng] = opts
         end
       else
-        config_opts = options.dup
+        config_opts = opts
       end
 
-      @random = if config_opts.key?(:seed)
-        Random.new(config_opts[:seed])
-      elsif config_opts.key?(:rng)
-        config_opts[:rng]
-      else
-        Random.new
-      end
+      @options = Options.new(config_opts)
 
       if block_given?
-        @registry = Registry.new(config_opts)
+        @registry = Registry.new
         @registry.instance_eval(&block)
       else
         @registry = self.class.registry
       end
+
+      @registry.options(@options)
     end
 
     # Produces a string as an output of the grammar.
@@ -144,7 +140,7 @@ module Calyx
     def generate(*args)
       start_symbol, rules_map = map_default_args(*args)
 
-      @registry.evaluate(start_symbol, @random, rules_map).flatten.reject do |obj|
+      @registry.evaluate(start_symbol, @options.rng, rules_map).flatten.reject do |obj|
         obj.is_a?(Symbol)
       end.join
     end
@@ -158,7 +154,7 @@ module Calyx
     def evaluate(*args)
       start_symbol, rules_map = map_default_args(*args)
 
-      @registry.evaluate(start_symbol, @random, rules_map)
+      @registry.evaluate(start_symbol, @options.rng, rules_map)
     end
 
     private

@@ -4,11 +4,18 @@ module Calyx
     attr_reader :rules, :transforms, :modifiers
 
     # Construct an empty registry.
-    def initialize(options={})
-      @options = {}
+    def initialize
+      @options = Options.new({})
       @rules = {}
       @transforms = {}
       @modifiers = Modifiers.new
+    end
+
+    # Applies additional config options to this instance.
+    #
+    # @param [Options] opts
+    def options(opts)
+      @options = @options.merge(opts)
     end
 
     # Attaches a modifier module to this instance.
