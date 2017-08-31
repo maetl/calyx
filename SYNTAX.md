@@ -4,7 +4,7 @@
 
 ## Background
 
-Since `v0.11`, Calyx has supported loading grammars from external JSON files—a very similar format to Tracery[1][1]—but the precise syntax and structure used by these files was never properly documented or defined in a schema[2][2].
+Since `v0.11`, Calyx has supported loading grammars from external JSON files—a very similar format to Tracery<sup>[1][1]</sup>—but the precise syntax and structure used by these files was never properly documented or defined in a schema<sup>[2][2]</sup>.
 
 This is worth documenting for several reasons:
 
@@ -44,7 +44,7 @@ Left hand side rules must be string symbols conforming to the following pattern:
 /^[A-Za-z0-9_\-]+$/
 ```
 
-Grammars are not context-sensitive[3][3]. The left-hand side rules must be a direct symbol reference, not a production that can be expanded.
+Grammars are not context-sensitive<sup>[3][3]</sup>. The left-hand side rules must be a direct symbol reference, not a production that can be expanded.
 
 Right-hand side productions can be either single strings, arrays of strings or weighted probability objects.
 
@@ -169,7 +169,7 @@ This ensures that multiple references to the same production will always result 
 
 Due to their dependency on Ruby string methods and Calyx internals, output modifiers are currently a bit of a nightmare for interoperability.
 
-All basic Ruby string formatting methods with arity 0 are supported by default[4][4].
+All basic Ruby string formatting methods with arity 0 are supported by default<sup>[4][4]</sup>.
 
 ```json
 "{my_rule.downcase}"
@@ -193,3 +193,8 @@ The Ruby DSL provides a variety of methods for extending the supported range of 
 [2]: http://json-schema.org/
 [3]: https://en.wikipedia.org/wiki/Context-sensitive_grammar
 [4]: https://ruby-doc.org/core-2.4.0/String.html
+
+1) http://tracery.io/
+2) http://json-schema.org/
+3) https://en.wikipedia.org/wiki/Context-sensitive_grammar
+4) https://ruby-doc.org/core-2.4.0/String.html
