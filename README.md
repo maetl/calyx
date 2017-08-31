@@ -282,11 +282,19 @@ end
 Basic rule substitution uses single curly brackets as delimiters for template expressions:
 
 ```ruby
-class Fruit < Calyx::Grammar
+fruit = Calyx::Grammar.new do
   start '{colour} {fruit}'
   colour 'red', 'green', 'yellow'
   fruit 'apple', 'pear', 'tomato'
 end
+
+6.times { fruit.generate }
+# => "yellow pear"
+# => "red apple"
+# => "green tomato"
+# => "red pear"
+# => "yellow tomato"
+# => "green apple"
 ```
 
 ## String Modifiers
@@ -294,11 +302,12 @@ end
 Dot-notation is supported in template expressions, allowing you to call any available method on the `String` object returned from a rule. Formatting methods can be chained arbitrarily and will execute in the same way as they would in native Ruby code.
 
 ```ruby
-class Greeting < Calyx::Grammar
+greeting = Calyx::Grammar.new do
   start '{hello.capitalize} there.', 'Why, {hello} there.'
   hello 'hello', 'hi'
 end
 
+4.times { greeting.generate }
 # => "Hello there."
 # => "Hi there."
 # => "Why, hello there."
@@ -312,15 +321,16 @@ You can also extend the grammar with custom modifiers that provide useful format
 Filters accept an input string and return the transformed output:
 
 ```ruby
-class Greeting < Calyx::Grammar
+greeting = Calyx::Grammar.new do
   filter :shoutycaps do |input|
     input.upcase
   end
 
-  start '{hello.shoutycaps} there.', 'Why, {hello} there.'
+  start '{hello.shoutycaps} there.', 'Why, {hello.shoutycaps} there.'
   hello 'hello', 'hi'
 end
 
+4.times { greeting.generate }
 # => "HELLO there."
 # => "HI there."
 # => "Why, HELLO there."
@@ -332,12 +342,13 @@ end
 The mapping shortcut allows you to specify a map of regex patterns pointing to their resulting substitution strings:
 
 ```ruby
-class GreenBottle < Calyx::Grammar
+green_bottle = Calyx::Grammar.new do
   mapping :pluralize, /(.+)/ => '\\1s'
   start 'One green {bottle}.', 'Two green {bottle.pluralize}.'
   bottle 'bottle'
 end
 
+2.times { green_bottle.generate }
 # => "One green bottle."
 # => "Two green bottles."
 ```
@@ -355,12 +366,13 @@ module FullStop
   end
 end
 
-class Hello < Calyx::Grammar
+hello = Calyx::Grammar.new do
   modifier FullStop
   start '{hello.capitalize.full_stop}'
   hello 'hello'
 end
 
+hello.generate
 # => "Hello."
 ```
 
@@ -395,11 +407,12 @@ class String
   include FullStop
 end
 
-class NounsWithArticles < Calyx::Grammar
+noun_articles = Calyx::Grammar.new do
   start '{fruit.with_indefinite_article.capitalize.full_stop}'
   fruit 'apple', 'orange', 'banana', 'pear'
 end
 
+4.times { noun_articles.generate }
 # => "An apple."
 # => "An orange."
 # => "A banana."
@@ -507,6 +520,7 @@ Rough plan for stabilising the API and features for a `1.0` release.
 | `0.14`   | ~~Support for Ruby 2.4~~ |
 | `0.15`   | Options config and ‘strict mode’ error handling |
 | `0.16`   | Improve representation of weighted probability selection |
+| `0.17`   | Introduce wildcard syntax for meta rules (rules returning rules) |
 
 ## Credits
 
