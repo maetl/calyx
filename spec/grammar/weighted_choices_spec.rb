@@ -26,5 +26,21 @@ describe Calyx::Grammar do
 
       expect(grammar.generate).to eq('20%')
     end
+
+    it 'raises error if ranges do not sum to range.max' do
+      expect do
+        Calyx::Grammar.new(seed: 12345) do
+          start 'first' => 0..1, 'last' => 5..7
+        end
+      end.to raise_error('Weights must sum to total: 7')
+    end
+
+    it 'selects rules with range weights' do
+      grammar = Calyx::Grammar.new(seed: 12345) do
+        start '20%' => 1..2, '80%' => 3..10
+      end
+
+      expect(grammar.generate).to eq('20%')
+    end
   end
 end

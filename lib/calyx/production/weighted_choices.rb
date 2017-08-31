@@ -10,13 +10,32 @@ module Calyx
       # @param [Array<Array>, Hash<#to_s, Float>] productions
       # @param [Calyx::Registry] registry
       def self.parse(productions, registry)
-        weights_sum = productions.reduce(0) do |memo, choice|
-          memo += choice.last
+        if productions.first.last.is_a?(Range)
+          range_max = productions.max { |a,b| a.last.max <=> b.last.max }.last.max
+
+          weights_sum = productions.reduce(0) do |memo, choice|
+            memo += choice.last.size
+          end
+
+          if range_max != weights_sum
+            raise Errors::InvalidDefinition, "Weights must sum to total: #{range_max}"
+          end
+
+          normalized_productions = productions.map do |choice|
+            weight = choice.last.size / range_max.to_f
+            [choice.first, weight]
+          end
+        else
+          weights_sum = productions.reduce(0) do |memo, choice|
+            memo += choice.last
+          end
+
+          raise Errors::InvalidDefinition, 'Weights must sum to 1' if weights_sum != 1.0
+
+          normalized_productions = productions
         end
 
-        raise Errors::InvalidDefinition, 'Weights must sum to 1' if weights_sum != 1.0
-
-        choices = productions.map do |choice, weight|
+        choices = normalized_productions.map do |choice, weight|
           if choice.is_a?(String)
             [Concat.parse(choice, registry), weight]
           elsif choice.is_a?(Symbol)
