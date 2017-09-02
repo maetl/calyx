@@ -20,6 +20,10 @@ module Calyx
       @options[:rng]
     end
 
+    def rand
+      rng.rand
+    end
+
     def strict?
       @options[:strict]
     end

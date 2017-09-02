@@ -5,10 +5,14 @@ module Calyx
     # being chosen.
     class WeightedChoices
       # Parse a given list or hash of productions into a syntax tree of weighted
-      # choices.
+      # choices. Supports weights specified as Range, Fixnum and Float types.
+      #
+      # All weights get normalized to a set of values in the 0..1 interval that
+      # sum to 1.
       #
       # @param [Array<Array>, Hash<#to_s, Float>] productions
       # @param [Calyx::Registry] registry
+      # @return [Calyx::Production::WeightedChoices]
       def self.parse(productions, registry)
         if productions.first.last.is_a?(Range)
           range_max = productions.max { |a,b| a.last.max <=> b.last.max }.last.max
@@ -30,9 +34,15 @@ module Calyx
             memo += choice.last
           end
 
-          raise Errors::InvalidDefinition, 'Weights must sum to 1' if weights_sum != 1.0
-
-          normalized_productions = productions
+          if productions.first.last.is_a?(Float)
+            raise Errors::InvalidDefinition, 'Weights must sum to 1' if weights_sum != 1.0
+            normalized_productions = productions
+          else
+            normalized_productions = productions.map do |choice|
+              weight = choice.last.to_f / weights_sum.to_f * 1.0
+              [choice.first, weight]
+            end
+          end
         end
 
         choices = normalized_productions.map do |choice, weight|
@@ -63,7 +73,7 @@ module Calyx
       # @return [Array]
       def evaluate(options)
         choice = @collection.max_by do |_, weight|
-          options.rng.rand ** (1.0 / weight)
+          options.rand ** (1.0 / weight)
         end.first
 
         [:weighted_choice, choice.evaluate(options)]

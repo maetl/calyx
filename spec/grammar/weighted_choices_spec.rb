@@ -42,5 +42,13 @@ describe Calyx::Grammar do
 
       expect(grammar.generate).to eq('20%')
     end
+
+    it 'selects rules with fixnum weights' do
+      grammar = Calyx::Grammar.new(seed: 12345) do
+        start '20%' => 20, '80%' => 80
+      end
+
+      expect(grammar.generate).to eq('20%')
+    end
   end
 end
