@@ -545,8 +545,8 @@ Rough plan for stabilising the API and features for a `1.0` release.
 | `0.12`   | ~~API documentation~~ |
 | `0.13`   | ~~Support for unique rules~~ |
 | `0.14`   | ~~Support for Ruby 2.4~~ |
-| `0.15`   | Options config and ‘strict mode’ error handling |
-| `0.16`   | Improve representation of weighted probability selection |
+| `0.15`   | ~~Options config and ‘strict mode’ error handling~~ |
+| `0.16`   | ~~Improve representation of weighted probability selection~~ |
 | `0.17`   | Introduce wildcard syntax for meta rules (rules returning rules) |
 
 ## Credits
