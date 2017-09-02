@@ -39,7 +39,7 @@ describe Calyx::Grammar do
       it 'accepts a seed option' do
         grammar = Metallurgy.new(seed: 43210)
 
-        expect(grammar.generate).to eq_per_platform(jruby: 'tungsten', default: 'platinum')
+        expect(grammar.generate).to eq_per_platform(jruby: 'platinum', default: 'platinum')
       end
     end
 
@@ -64,7 +64,7 @@ describe Calyx::Grammar do
       it 'accepts a random instance as an option' do
         grammar = Metallurgy.new(rng: Random.new(43210))
 
-        expect(grammar.generate).to eq_per_platform(jruby: 'tungsten', default: 'platinum')
+        expect(grammar.generate).to eq_per_platform(jruby: 'platinum', default: 'platinum')
       end
     end
   end
