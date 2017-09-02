@@ -141,36 +141,24 @@ end
 hello.generate
 ```
 
-### External File Formats
+### Template Expressions
 
-In addition to defining grammars in pure Ruby, you can load them from external JSON and YAML files:
+Basic rule substitution uses single curly brackets as delimiters for template expressions:
 
 ```ruby
-hello = Calyx::Grammar.load('hello.yml')
-hello.generate
-```
+fruit = Calyx::Grammar.new do
+  start '{colour} {fruit}'
+  colour 'red', 'green', 'yellow'
+  fruit 'apple', 'pear', 'tomato'
+end
 
-The format requires a flat map with keys representing the left-hand side named symbols and the values representing the right hand side substitution rules.
-
-In JSON:
-
-```json
-{
-  "start": "{greeting} world.",
-  "greeting": ["Hello", "Hi", "Hey", "Yo"]
-}
-```
-
-In YAML:
-
-```yaml
----
-start: "{greeting} world."
-greeting:
-  - Hello
-  - Hi
-  - Hey
-  - Yo
+6.times { fruit.generate }
+# => "yellow pear"
+# => "red apple"
+# => "green tomato"
+# => "red pear"
+# => "yellow tomato"
+# => "green apple"
 ```
 
 ### Nesting and Substitution
@@ -302,26 +290,6 @@ Calyx::Grammar.new do
   trick_trap 'Trick/Trap.'
   treasure 'Treasure'
 end
-```
-
-### Template Expressions
-
-Basic rule substitution uses single curly brackets as delimiters for template expressions:
-
-```ruby
-fruit = Calyx::Grammar.new do
-  start '{colour} {fruit}'
-  colour 'red', 'green', 'yellow'
-  fruit 'apple', 'pear', 'tomato'
-end
-
-6.times { fruit.generate }
-# => "yellow pear"
-# => "red apple"
-# => "green tomato"
-# => "red pear"
-# => "yellow tomato"
-# => "green apple"
 ```
 
 ## String Modifiers
@@ -494,8 +462,6 @@ grammar.generate
 # => Silver, Bronze, Gold
 ```
 
-**Note: this is a new and experimental feature and the API may change as kinks are ironed out from testing and exploration.**
-
 ### Dynamically Constructing Rules
 
 Template expansions can be dynamically constructed at runtime by passing a context map of rules to the `#generate` method:
@@ -511,6 +477,38 @@ context = {
 
 greeting = AppGreeting.new
 greeting.generate(context)
+```
+
+### External File Formats
+
+In addition to defining grammars in pure Ruby, you can load them from external JSON and YAML files:
+
+```ruby
+hello = Calyx::Grammar.load('hello.yml')
+hello.generate
+```
+
+The format requires a flat map with keys representing the left-hand side named symbols and the values representing the right hand side substitution rules.
+
+In JSON:
+
+```json
+{
+  "start": "{greeting} world.",
+  "greeting": ["Hello", "Hi", "Hey", "Yo"]
+}
+```
+
+In YAML:
+
+```yaml
+---
+start: "{greeting} world."
+greeting:
+  - Hello
+  - Hi
+  - Hey
+  - Yo
 ```
 
 ### Accessing the Raw Generated Tree
