@@ -10,3 +10,7 @@
 /*.gem
 .DS_Store
 NOTES*
+/docs/node_modules
+/docs/_site
+/docs/.sass-cache
+/docs/.jekyll-metadata

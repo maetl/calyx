@@ -1,0 +1,15 @@
+{
+  "name": "calyx-docs",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "build": "node-sass --include-path node_modules/bulma calyx-docs.scss assets/calyx-docs.css",
+    "help": "node-sass --help"
+  },
+  "author": "Mark Rickerby <me@maetl.net>",
+  "license": "MIT",
+  "devDependencies": {
+    "bulma": "^0.5.2",
+    "node-sass": "^4.5.3"
+  }
+}
