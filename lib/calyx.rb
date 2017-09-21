@@ -1,6 +1,8 @@
+require 'rubygems/deprecate'
 require 'calyx/version'
 require 'calyx/options'
 require 'calyx/rule'
+require 'calyx/result'
 require 'calyx/grammar'
 require 'calyx/errors'
 require 'calyx/format'

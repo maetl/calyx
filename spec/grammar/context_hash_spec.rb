@@ -50,7 +50,7 @@ describe Calyx::Grammar do
         priority '(A)'
       end
 
-      expect { grammar.evaluate(priority: '(B)') }.to raise_error(Calyx::Errors::DuplicateRule)
+      expect { grammar.generate(priority: '(B)') }.to raise_error(Calyx::Errors::DuplicateRule)
     end
   end
 end

@@ -138,23 +138,35 @@ module Calyx
     #   @param [Hash] rules_map
     # @return [String]
     def generate(*args)
-      start_symbol, rules_map = map_default_args(*args)
-
-      @registry.evaluate(start_symbol, rules_map).flatten.reject do |obj|
-        obj.is_a?(Symbol)
-      end.join
+      result = generate_result(*args)
+      result.text
     end
 
     # Produces a syntax tree of nested list nodes as an output of the grammar.
     #
+    # @deprecated Please use {#generate_result} instead.
+    def evaluate(*args)
+      warn <<~DEPRECATION
+        [DEPRECATION] `evaluate` is deprecated and will be removed in 1.0.
+        Please use #generate_result instead.
+        See https://github.com/maetl/calyx/issues/23 for more details.
+      DEPRECATION
+
+      result = generate_result(*args)
+      result.tree
+    end
+
+    # Produces a generated result from evaluating the grammar.
+    #
+    # @see Calyx::Result
     # @overload
     #   @param [Symbol] start_symbol
     #   @param [Hash] rules_map
-    # @return [Array]
-    def evaluate(*args)
+    # @return [Calyx::Result]
+    def generate_result(*args)
       start_symbol, rules_map = map_default_args(*args)
 
-      @registry.evaluate(start_symbol, rules_map)
+      Result.new(@registry.evaluate(start_symbol, rules_map))
     end
 
     private
