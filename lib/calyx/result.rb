@@ -5,8 +5,9 @@ module Calyx
       @expression = expression.freeze
     end
 
-    # The syntax tree of nested nodes representing the production rules which
-    # generated this result.
+    # Produces a syntax tree of nested nodes as the output of the grammar. Each
+    # syntax node represents the production rules that were evaluated at each
+    # step of the generator.
     #
     # @return [Array]
     def tree
@@ -15,7 +16,7 @@ module Calyx
 
     alias_method :to_exp, :tree
 
-    # The generated text string produced by the grammar.
+    # Produces a text string as the output of the grammar.
     #
     # @return [String]
     def text
@@ -26,7 +27,7 @@ module Calyx
 
     alias_method :to_s, :text
 
-    # A symbol produced by converting the generated text string where possible.
+    # Produces a symbol as the output of the grammar.
     #
     # @return [Symbol]
     def symbol
