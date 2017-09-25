@@ -1,10 +1,6 @@
 # Contributing to Calyx
 
-Calyx is an open source project and contributions are welcome with the caveat that this is very much a personal creative project by Mark Rickerby, so keep that context in mind if you’re considering drastic code changes.
-
-Changes that fix bugs and improve test coverage will generally be merged on-the-spot. Larger changes that introduce new features should harmonise with the vision, goals and style of the project. If in doubt, just ask in advance.
-
-Should Calyx become more popular, these guidelines are likely to become more community-oriented, and I’ll look at handing project stewardship over to the community with a more formal project charter and structure.
+Calyx is an open source project and contributions are welcome.
 
 ## General Contributions
 
@@ -14,6 +10,8 @@ It’s really helpful to contribute to discussion on open issues, reporting bugs
 
 ## Code Contributions
 
+Changes that fix bugs and improve test coverage will generally be merged on-the-spot. Larger changes that introduce new features should harmonise with the vision, goals and style of the project. If in doubt, just ask in advance.
+
 ### Submitting Changes
 
 Changes to the source code and documentation should be submitted as a pull request on GitHub, corresponding to the following process:
@@ -21,9 +19,9 @@ Changes to the source code and documentation should be submitted as a pull reque
 - Fork the repo and make a new branch for your changes
 - Submit your branch as a pull request against the master branch
 
-If any aspects of your changes are ambiguous or unclear, use the pull request description to explain and provide further context (including code samples as necessary).
+If any aspects of your changes need further explanation, use the pull request description to provide further detail and context (including code samples as necessary).
 
-Please don’t bump the version as part of your changes (this happens separately).
+Please don’t bump the version as part of your pull request (this happens separately).
 
 ### Pull Request Checklist
 
@@ -36,14 +34,4 @@ Please don’t bump the version as part of your changes (this happens separately
 
 ## Code of Conduct
 
-As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.
-
-We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, or religion.
-
-Examples of unacceptable behaviour by participants include the use of sexual language or imagery, derogatory comments or personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.
-
-The maintainer has the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct.
-
-Instances of abusive, harassing, or otherwise unacceptable behaviour may be reported by opening an issue or contacting the maintainer.
-
-*From the [Contributor Covenant](http://contributor-covenant.org), version 1.0.0, available at [http://contributor-covenant.org/version/1/0/0/](http://contributor-covenant.org/version/1/0/0/).*
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms.
