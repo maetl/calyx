@@ -20,7 +20,7 @@ module Calyx
 
     # Attaches a modifier module to this instance.
     #
-    # @param [Module] module_name
+    # @param [Module] name
     def modifier(name)
       modifiers.extend(name)
     end
@@ -36,7 +36,8 @@ module Calyx
     # Registers the given block as a string filter.
     #
     # @param [Symbol] name
-    # @block block with a single string argument returning a modified string.
+    # @yield [String]
+    # @yieldreturn [String]
     def filter(name, callable=nil, &block)
       if block_given?
         transforms[name.to_sym] = block
@@ -154,7 +155,6 @@ module Calyx
     # Produces a syntax tree of nested list nodes.
     #
     # @param [Symbol] start_symbol
-    # @param [Random] random
     # @param [Hash] rules_map
     # @return [Array]
     def evaluate(start_symbol=:start, rules_map={})

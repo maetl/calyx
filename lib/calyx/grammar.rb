@@ -47,7 +47,8 @@ module Calyx
       # DSL helper method for registering the given block as a string filter.
       #
       # @param [Symbol] name
-      # @block block with a single string argument returning a modified string.
+      # @yieldparam [String] the input string to be processed by the filter
+      # @yieldreturn [String] the processed output string
       def filter(name, &block)
         registry.filter(name, &block)
       end
@@ -99,24 +100,24 @@ module Calyx
     # evaluated.
     #
     # @param [Numeric, Random, Hash] options
-    def initialize(opts={}, &block)
-      unless opts.is_a?(Hash)
+    def initialize(options={}, &block)
+      unless options.is_a?(Hash)
         config_opts = {}
-        if opts.is_a?(Numeric)
+        if options.is_a?(Numeric)
           warn [
             "NOTE: Passing a numeric seed arg directly is deprecated. ",
             "Use the options hash instead: `Calyx::Grammar.new(seed: 1234)`"
           ].join
-          config_opts[:seed] = opts
-        elsif opts.is_a?(Random)
+          config_opts[:seed] = options
+        elsif options.is_a?(Random)
           warn [
             "NOTE: Passing a Random object directly is deprecated. ",
             "Use the options hash instead: `Calyx::Grammar.new(rng: Random.new)`"
           ].join
-          config_opts[:rng] = opts
+          config_opts[:rng] = options
         end
       else
-        config_opts = opts
+        config_opts = options
       end
 
       @options = Options.new(config_opts)
@@ -133,7 +134,11 @@ module Calyx
 
     # Produces a string as an output of the grammar.
     #
-    # @overload
+    # @overload generate(start_symbol)
+    #   @param [Symbol] start_symbol
+    # @overload generate(rules_map)
+    #   @param [Hash] rules_map
+    # @overload generate(start_symbol, rules_map)
     #   @param [Symbol] start_symbol
     #   @param [Hash] rules_map
     # @return [String]
@@ -159,7 +164,11 @@ module Calyx
     # Produces a generated result from evaluating the grammar.
     #
     # @see Calyx::Result
-    # @overload
+    # @overload generate_result(start_symbol)
+    #   @param [Symbol] start_symbol
+    # @overload generate_result(rules_map)
+    #   @param [Hash] rules_map
+    # @overload generate_result(start_symbol, rules_map)
     #   @param [Symbol] start_symbol
     #   @param [Hash] rules_map
     # @return [Calyx::Result]

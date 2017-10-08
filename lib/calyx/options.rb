@@ -10,7 +10,7 @@ module Calyx
     # Constructs a new options instance, merging the passed in options with the
     # defaults.
     #
-    # @params [Hash, Calyx::Options] options
+    # @param [Hash, Calyx::Options] options
     def initialize(options={})
       @options = DEFAULTS.merge(options)
     end
@@ -54,7 +54,7 @@ module Calyx
 
     # Merges two instances together and returns a new instance.
     #
-    # @params [Calyx::Options]
+    # @param [Calyx::Options] options
     # @return [Calyx::Options]
     def merge(options)
       Options.new(@options.merge(options.to_h))
