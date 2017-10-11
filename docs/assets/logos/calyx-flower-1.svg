@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <svg width="400px"
+         height="400px"
+         version="1.1"
+         xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs>
+        <symbol id="petals">
+          <ellipse cx="200" cy="120" rx="37" ry="80" /><ellipse cx="200" cy="280" rx="37" ry="80" /><ellipse cx="280" cy="200" rx="80" ry="37" /><ellipse cx="120" cy="200" rx="80" ry="37" />
+        </symbol>
+        <symbol id="corolla">
+          <use xlink:href="#petals" />
+          <use xlink:href="#petals" transform="rotate(22.5 200 200)" />
+          <use xlink:href="#petals" transform="rotate(45 200 200)" />
+          <use xlink:href="#petals" transform="rotate(-22.5 200 200)" />
+        </symbol>
+      </defs>
+      <use xlink:href="#corolla" fill="#1BDE81" stroke="#2F5E52" stroke-width="16"/>
+      <use xlink:href="#corolla" fill="#76FABB" stroke="#2F5E52" stroke-width="18" transform="scale(0.80 0.80) translate(50 50)" />
+      <use xlink:href="#corolla" fill="#218764" stroke="#2F5E52" stroke-width="5" transform="scale(0.40 0.40) translate(300 300)" />
+    </svg>
+  

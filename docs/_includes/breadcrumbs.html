@@ -1,0 +1,36 @@
+<ol itemscope itemtype="http://schema.org/BreadcrumbList">
+
+  {% assign counter=0 %}
+
+  {% for category in site.categories %}
+
+      {% capture category_url %}{{ site.category_dir }}/{{ category | first | slugize | downcase | replace:' ','-' }}{% endcapture %}
+      {% capture category_name %}{{ category | first}}{% endcapture %}
+
+        {% for catpagename in page.categories %}
+          {% if category_name == catpagename %}
+
+          {% assign counter=counter | plus:1 %}
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+             <a itemprop="item" href="{{ site.url }}{{ append:'/' | append:category_url |  append:'/' }}">
+               <span itemprop="name">{{ catpagename }}</span>
+             </a>
+            <meta itemprop="position" content="{{counter}}" />
+          </li>
+
+          {% endif %}
+        {% endfor %}
+
+   {% endfor %}
+
+   {% assign counter=counter | plus:1 %}
+
+  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+     <a itemprop="item" href="{{ site.url }}{{ page.url }}">
+       <span itemprop="name">{{ page.title }}</span>
+     </a>
+    <meta itemprop="position" content="{{counter}}" />
+  </li>
+
+</ol>

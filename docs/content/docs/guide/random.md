@@ -1,3 +1,9 @@
+---
+layout: default
+title: Random Sampling
+permalink: /random/
+---
+
 # Random Sampling
 
 By default, the outcomes of generated rules are selected with Ruby’s built-in pseudorandom number generator (as seen in methods like `Kernel.rand` and `Array.sample`). To seed the random number generator, pass in an integer seed value as the first argument to the constructor:

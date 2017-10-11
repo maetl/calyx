@@ -1,0 +1,68 @@
+$navbar-height: ($scale-p0 + $scale-m3) * 3;
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: $navbar-height;
+  background-color: $color-meadow;
+
+  &.is-fixed {
+    position: fixed;
+    top: 0px;
+    z-index: 2000;
+  }
+
+  .nav-brand {
+    background-color: $color-meadow;
+    display: flex;
+    align-items: center;
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      padding: $scale-p0 $scale-m1 $scale-p0 $scale-p0;
+    }
+
+    .logo-type {
+      color: #fff;
+      font-family: $font-display-family;
+      font-weight: 800;
+      font-size: $scale-p1;
+      padding-right: $scale-p0;
+    }
+  }
+
+  .nav-menu {
+    margin-left: $scale-p3;
+
+    &.is-meta {
+      margin-left: 0;
+    }
+
+    ul {
+      display: flex;
+
+      li {
+        font-size: $scale-p0;
+        line-height: 1.2;
+        height: $navbar-height;
+        font-family: $font-display-family;
+        font-weight: 700;
+        color: $color-white;
+
+        a {
+          display: block;
+          box-sizing: border-box;
+          padding: $scale-p0 + $scale-m3;
+          height: $navbar-height;
+          color: $color-white;
+
+          &:hover {
+            background-color: darken($color-meadow, 6%);
+          }
+        }
+      }
+    }
+  }
+}

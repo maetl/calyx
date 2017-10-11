@@ -1,0 +1,55 @@
+.spread {
+  //height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: $scale-p3 $scale-p3 $scale-p2 $scale-p3;
+  //justify-content: center;
+
+  &.spread-hero {
+    background-color: $color-eucalyptus;
+    color: $color-white;
+  }
+
+  &.spread-intro {
+    p {
+      font-size: $scale-p0;
+      font-weight: 700;
+      color: $color-stromboli;
+      padding-bottom: $scale-p0;
+      border-bottom: $scale-m4 solid $color-stromboli;
+    }
+  }
+
+  .identity {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // img {
+    //   animation-name: logospin;
+    //   animation-duration: 5s;
+    //   animation-iteration-count: infinite;
+    //   transform-origin: 50% 50%;
+    // }
+    //
+    // @keyframes logospin {
+    //   0% {
+    //     transform: rotate(0deg);
+    //   }
+    //   100% {
+    //     transform: rotate(360deg);
+    //   }
+    // }
+  }
+
+  .lede {
+    width: 60%;
+
+    h2 {
+      margin-bottom: $scale-p1;
+      font-size: $scale-p2;
+      line-height: 1.2;
+    }
+  }
+}

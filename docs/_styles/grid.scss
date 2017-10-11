@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  display: block;
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+}

@@ -1,0 +1,31 @@
+- title: Introduction
+  permalink: /docs/intro
+  pages:
+    - title: Getting Started
+      permalink: /docs/intro/getting-started
+    - title: Key Concepts
+      permalink: /docs/intro/concepts
+    - title: For Beginners
+      permalink: /docs/intro/beginners
+- title: Guide
+  permalink: /docs/guide
+  pages:
+    - title: Generating Results
+      permalink: /docs/guide/results
+    - title: Dynamic Rules
+      permalink: /docs/guide/dynamic-rules
+    - title: Template Expressions
+      permalink: /docs/guide/template-expressions
+    - title: Weighted Choices
+      permalink: /docs/guide/weighted-choices
+    - title: Extending Grammars
+      permalink: /docs/guide/extending
+    - title: Random Seeds
+      permalink: /docs/guide/random-seeds
+- title: Reference
+  permalink: /docs/reference
+  pages:
+    - title: Configuration Options
+      permalink: /docs/reference/config
+    - title: API Listing
+      permalink: /docs/reference/api

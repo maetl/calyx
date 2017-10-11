@@ -1,4 +1,10 @@
-# External File Formats
+---
+layout: default
+title: File Formats
+permalink: /docs/guide/formats
+---
+
+# File Formats
 
 In addition to defining grammars in pure Ruby, you can load them from external JSON and YAML files:
 

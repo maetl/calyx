@@ -1,0 +1,31 @@
+.pagebar {
+  background-color: $color-eucalyptus;
+  height: auto;
+  color: $color-white;
+  padding: $scale-p0;
+
+  .breadcrumbs {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+
+    li {
+      margin-right: $scale-m2;
+      font-size: $scale-m1;
+
+      &:not(:first-child) {
+        &:before {
+          content: "/";
+          margin-right: $scale-m2;
+        }
+      }
+    }
+  }
+
+  h1 {
+    margin-top: $scale-m3;
+    margin-bottom: $scale-m2;
+    line-height: 1.2;
+    font-size: $scale-p2;
+  }
+}

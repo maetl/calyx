@@ -1,0 +1,12 @@
+<div class="menu">
+{% for section in site.data.docs %}
+  <p class="menu-label">
+    <a href="{{ section.permalink }}" class="{% if section.permalink == page.url %}is-active{% endif %}">{{ section.title }}</a>
+  </p>
+  <ul class="menu-list">
+  {% for doc_page in section.pages %}
+    <a href="{{ doc_page.permalink }}" class="{% if doc_page.permalink == page.url %}is-active{% endif %}">{{ doc_page.title }}</a>
+  {% endfor %}
+  </ul>
+{% endfor %}
+</div>

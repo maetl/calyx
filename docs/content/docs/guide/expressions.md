@@ -1,3 +1,9 @@
+---
+layout: page
+title: Template Expressions
+permalink: /docs/guide/expressions
+---
+
 # Template Expressions
 
 Dot-notation is supported in template expressions, allowing you to call any available method on the `String` object returned from a rule. Formatting methods can be chained arbitrarily and will execute in the same way as they would in native Ruby code.

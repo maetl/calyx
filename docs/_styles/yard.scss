@@ -1,0 +1,36 @@
+#content {
+  margin: 0 auto;
+  padding: $scale-p2;
+
+  h1:first-child {
+    display: none;
+  }
+
+  h1 {
+    font-size: $scale-p1;
+    margin-top: $scale-p1;
+  }
+
+  h2, p {
+    margin: 0;
+    font-size: $scale-p0;
+  }
+
+  .source_code,
+  .box_info {
+    display: none;
+  }
+
+  h2 + .docstring {
+    p {
+      font-size: $scale-p1;
+    }
+  }
+
+  .signature {
+    padding: $scale-m2;
+    border-radius: 6px;
+    background-color: $color-aquamarine;
+    font-family: $font-code-family;
+  }
+}

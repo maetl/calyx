@@ -1,0 +1,98 @@
+// Via: https://github.com/maetl/highball
+
+html {
+  // Setting text-size-adjust to 100% means that fonts don't automatically zoom on mobile browsers
+  // (but pinch zoom still works).
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  // Remove default margins from the document.
+  margin: 0;
+
+  // Make the base font size consistent across all browsers.
+  font: 16px/1 sans-serif;
+
+  // TODO: what is the best option here?
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+p,
+blockquote,
+figure,
+ol,
+ul {
+  // Remove margin and padding from content block elements. This makes it easier to style
+  // by adding margins and ratios, rather than resetting 0 all over the place.
+  margin: 0;
+  padding: 0;
+}
+
+main,
+li {
+  // Strangely, main isn't block level in certain versions of IE. Also, list items not being
+  // block by default leads to fiddly resets when they're used in nav bars or menus.
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  // Make font sizes reset
+  font-size: inherit;
+}
+
+strong {
+  // Bold, not bolder.
+  font-weight: bold;
+}
+
+a,
+button {
+  // fixes buttons not inheriting text color in most browsers
+  color: inherit;
+}
+
+a {
+  // This is what we want most of the time for apps. Content sites are a little different.
+  text-decoration: none;
+}
+
+button {
+  overflow: visible;
+  border: 0;
+  font: inherit;
+  -webkit-font-smoothing: inherit;
+  letter-spacing: inherit;
+  background: none;
+  cursor: pointer;
+}
+
+::-moz-focus-inner {
+  // Fix a Firefox WTF.
+  padding: 0;
+  border: 0;
+}
+
+:focus {
+  // Switch off focus outlines. This might not be best-practice, as it requires
+  // the custom design to add them back in for tailored accessibility.
+  outline: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}

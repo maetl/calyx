@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.html",
   "scripts": {
-    "build": "node-sass --include-path node_modules/bulma calyx-docs.scss assets/calyx-docs.css",
+    "build": "node-sass --include-path node_modules/bulma docs.scss assets/calyx-docs.css",
+    "watch": "node-sass --watch --include-path node_modules/bulma docs.scss assets/calyx-docs.css",
     "help": "node-sass --help"
   },
   "author": "Mark Rickerby <me@maetl.net>",

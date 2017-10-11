@@ -1,0 +1,29 @@
+.menu {
+  width: 100%;
+  padding-top: $scale-p0;
+
+  .menu-label {
+    &:first-child {
+      margin-top: 0;
+    }
+
+    margin: $scale-p0 0 0 0;
+    font-size: $scale-p0;
+
+    a {
+      display: block;
+      padding: $scale-m1 $scale-p0;
+    }
+  }
+
+  .menu-list {
+    a {
+      display: block;
+      padding: $scale-m1 $scale-p0;
+
+      &:hover {
+        //background-color: darken(#efefef, 6%);
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+// https://github.com/modularscale/modularscale-sass#ratios
+
+$unit-base: 1rem;
+
+$ratio-major-twelfth: 1.3;
+$ratio-fifth: 1.5;
+$ratio-minor-sixth: 1.6;
+$ratio-golden: 1.618;
+$ratio-augmented-fourth: 1.414;
+
+$ratio: $ratio-major-twelfth;
+
+$scale-p0: $unit-base;
+$scale-p1: $unit-base * $ratio;
+$scale-p2: $unit-base * ($ratio * 2);
+$scale-p3: $unit-base * ($ratio * 3);
+$scale-p4: $unit-base * ($ratio * 4);
+
+$scale-m0: $unit-base;
+$scale-m1: $unit-base / $ratio;
+$scale-m2: $unit-base / ($ratio * 2);
+$scale-m3: $unit-base / ($ratio * 3);
+$scale-m4: $unit-base / ($ratio * 4);

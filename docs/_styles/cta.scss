@@ -1,0 +1,25 @@
+.cta-list {
+  display: flex;
+  align-items: center;
+
+  li {
+    margin-right: $scale-p1;
+  }
+}
+
+.cta-button {
+  display: inline-block;
+  padding: $scale-m1 $scale-p0;
+  border: 2px solid $color-white;
+  border-radius: $scale-m1;
+  font-weight: 700;
+
+  &:hover {
+    border: 2px solid $color-aquamarine;
+    color: $color-aquamarine;
+  }
+
+  &:active {
+    box-shadow: 0 0 4px $color-aquamarine;
+  }
+}

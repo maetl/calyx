@@ -9,25 +9,19 @@
     <link rel="stylesheet" href="/assets/calyx-docs.css">
   </head>
   <body>
-  <div class="container">
-    <div class="row">
+    {% include navbar.html %}
+    {% include pagebar.html %}
+    <div class="page row">
       <div class="col docs-sidebar">
         {% include contents.html %}
       </div>
       <div class="col docs-content">
-        <div class="content">
-          {{ content }}
-        </div>
-        <div class="content-footer">
-          <div class="content-footer-col">
-            <a href="#">Prev</a>
-          </div>
-          <div class="content-footer-col">
-            <a href="#">Next</a>
+        <div class="content-body">
+          <div class="content">
+            {{ content }}
           </div>
         </div>
       </div>
     </div>
-  </div>
   </body>
 </html>

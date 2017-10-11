@@ -1,1 +1,66 @@
+$green: #218764;
+
+$family-monospace: "Oxygen Mono", "Monaco", Inconsolata, monospace;
+$family-sans-serif: "Libre Franklin", sans-serif;
+
+$background: #fafafa;
+
+$content-pre-padding: 0;
+$content-heading-color: #218764;
+$content-heading-weight: 700;
+
+$navbar-item-color: #fff;
+$navbar-background-color: #1BDE81;
+$navbar-item-hover-color: $navbar-item-color;
+$navbar-item-hover-background-color: darken($navbar-background-color, 6%);
+$navbar-item-active-background-color: #1BDE81;
+
 @import "bulma";
+@import "syntax";
+@import "styleguide";
+
+body {
+  font-weight: 500;
+  height: 100%;
+  background-color: $background;
+}
+
+.sidebar {
+  background-color: #eee;
+  height: calc(100vh - 3.25rem);
+}
+
+.navbar-item {
+  font-weight: 500;
+}
+
+.navbar-brand {
+  .navbar-item {
+    font-family: "Work Sans";
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 24px;
+
+    span {
+      margin-left: 6px;
+    }
+  }
+}
+
+.content {
+  h1, h2, h3 {
+    letter-spacing: -1px;
+    font-family: "Work Sans";
+    font-weight: 700;
+  }
+
+  .highlighter-rouge {
+    margin-bottom: 1rem;
+  }
+
+  pre {
+    code {
+      font-size: 1em;
+    }
+  }
+}

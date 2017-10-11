@@ -1,0 +1,12 @@
+---
+title: Examples
+layout: page
+permalink: /examples/
+---
+
+{% for example in site.data.examples %}
+<div class="card">
+  <h2><a href="{{ example.permalink }}">{{ example.title }}</a></h2>
+  <p>{{ example.description }}</p>
+</div>
+{% endfor %}

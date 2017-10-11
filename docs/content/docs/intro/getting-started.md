@@ -1,3 +1,9 @@
+---
+title: Getting Started
+layout: docs
+permalink: /docs/intro/getting-started/
+---
+
 # Getting Started
 
 Require the library and inherit from `Calyx::Grammar` to construct a set of rules to generate a text.
