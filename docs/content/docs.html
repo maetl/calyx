@@ -1,0 +1,20 @@
+---
+title: Documentation
+layout: page
+permalink: /docs/
+---
+
+{% include pagebar.html %}
+
+{% for section in site.data.docs %}
+  <div class="card">
+    <div class="card-body">
+      <h2><a href="{{ section.permalink }}">{{ section.title }}</a></h2>
+      <ul>
+      {% for doc_page in section.pages %}
+        <li><a href="{{ doc_page.permalink }}">{{ doc_page.title }}</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endfor %}

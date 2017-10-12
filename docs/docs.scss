@@ -19,6 +19,28 @@ $color-sidebar-link-background-hover: $color-edge;
 $color-content-background: $color-white;
 $color-page-background: $color-light;
 
+.container {
+  width: 60%;
+  margin: $scale-p2 auto;
+  color: $color-dark;
+  line-height: 1.5;
+
+  h1 {
+    color: $color-eucalyptus;
+  }
+
+  a {
+    color: $color-dark;
+    border-bottom: 1px solid $color-meadow;
+    padding-left: $scale-m2;
+
+    &:before {
+      padding-right: $scale-m2;
+      content: "→";
+    }
+  }
+}
+
 .page {
   background-color: $color-page-background;
 }
@@ -83,20 +105,24 @@ $color-page-background: $color-light;
     background-color: $color-content-background;
     padding: $scale-p1;
     max-width: 800px;
-    //margin: 0 auto;
-    //border-top: 6px solid darken($color-light, 6%);
     border: 1px solid #e9e9e9;
-    -webkit-box-shadow: 1px 1px 6px 0px rgba(170,170,170,0.2);
-    -moz-box-shadow: 1px 1px 6px 0px rgba(170,170,170,0.2);
-    box-shadow: 1px 1px 6px 0px rgba(170,170,170,0.2);
+    box-shadow: 1px 1px 6px 0px rgba(#e9e9e9, 0.2);
 
     h1, h2, h3 {
       color: $color-eucalyptus;
+      margin-top: $scale-p1;
 
       &:first-of-type {
         margin-top: 0;
-        //margin-bottom: $scale-m2;
       }
+    }
+
+    h2 {
+      font-size: $scale-p1;
+    }
+
+    h3 {
+      font-size: $scale-p0;
     }
 
     .highlighter-rouge {
@@ -104,18 +130,20 @@ $color-page-background: $color-light;
     }
 
     pre {
+      font-family: $font-code-family;
       overflow-x: scroll;
-      //padding: $scale-m1;
+      padding: $scale-m2 $scale-m1;
+      border-radius: 2px;
+      line-height: 1.4;
 
       code {
+        font-family: $font-code-family;
         font-size: $scale-p0;
       }
     }
 
     p, li {
-      font-size: $scale-p0;
-      line-height: 1.5;
-      color: #555;
+      color: $color-dark;
     }
 
     li {

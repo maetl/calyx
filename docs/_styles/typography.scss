@@ -4,29 +4,28 @@ $font-body-family: "Libre Franklin", sans-serif;
 $font-body-weight: 400;
 $font-display-family: "Work Sans", sans-serif;
 $font-display-weight: normal;
-$font-code-family: "Oxygen Mono", "Monaco", Inconsolata, monospace;
+$font-code-family: "Inconsolata", "Monaco", monospace;
 
 html {
   font-size: 16px;
 
-  @include tablet {
-    font-size: 18px;
-  }
+  // @include tablet {
+  //   font-size: 16px;
+  // }
 
   @include desktop {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
 body {
   font-family: $font-body-family;
   font-weight: $font-body-weight;
-  line-height: $ratio;
+  line-height: 1.4;
 }
 
 h1,h2,h3,h4,h5,h6 {
   font-family: $font-display-family;
-  //font-weight: $font-display-weight;
   font-weight: $font-display-weight;
 }
 
@@ -36,6 +35,10 @@ h1 {
 
 h2 {
   font-size: $scale-p1;
+}
+
+p, li {
+  font-size: $scale-p0;
 }
 
 .content {

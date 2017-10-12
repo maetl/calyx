@@ -4,48 +4,61 @@ layout: docs
 permalink: /docs/intro/getting-started/
 ---
 
-# Getting Started
+## Hello World
 
-Require the library and inherit from `Calyx::Grammar` to construct a set of rules to generate a text.
+Require the Calyx library and use `Calyx::Grammar` to define the rules for your generated text.
 
 ```ruby
-require 'calyx'
+require "calyx"
 
-class HelloWorld < Calyx::Grammar
-  start 'Hello world.'
+hello = Calyx::Grammar.new do
+  start "Hello world."
 end
 ```
 
-To generate the text itself, initialize the object and call the `generate` method.
+To generate a text result, call the `#generate` method on the grammar object.
 
 ```ruby
-hello = HelloWorld.new
-hello.generate
-# > "Hello world."
+puts hello.generate
+# => Hello world.
 ```
 
-Obviously, this hardcoded sentence isn’t very interesting by itself. Possible variations can be added to the text by adding additional rules which provide a named set of text strings. The rule delimiter syntax (`{}`) can be used to substitute the generated content of other rules.
+## Adding choices
+
+Obviously, this hardcoded sentence isn’t very interesting by itself. To add variety to the text, rules can be defined with multiple choices.
 
 ```ruby
-class HelloWorld < Calyx::Grammar
+hello = Calyx::Grammar.new do
+  start 'Hello world.', 'Hi world.', 'Hey world.'
+end
+```
+
+Each time `#generate` runs, Calyx evaluates the grammar and randomly selects a single choice from the list of possible choices.
+
+```ruby
+hello.generate
+# => Hi world.
+
+hello.generate
+# => Hello world.
+
+hello.generate
+# => Yo world.
+```
+
+## Expanding rules inside other rules
+
+Recursively nesting rules inside other rules is the core idea of generative grammars. Calyx makes this possible with a template expansion syntax.
+
+When you wrap the name of a rule in curly brackets, Calyx will expand the embedded rule and replace it with generated output each time the grammar runs.
+
+The following example expands the `greeting` rule within the `start` rule.
+
+```ruby
+hello = Calyx::Grammar.new do
   start '{greeting} world.'
   greeting 'Hello', 'Hi', 'Hey', 'Yo'
 end
-```
-
-Each time `#generate` runs, it evaluates the tree and randomly selects variations of rules to construct a resulting string.
-
-```ruby
-hello = HelloWorld.new
-
-hello.generate
-# > "Hi world."
-
-hello.generate
-# > "Hello world."
-
-hello.generate
-# > "Yo world."
 ```
 
 By convention, the `start` rule specifies the default starting point for generating the final text. You can start from any other named rule by passing it explicitly to the generate method.

@@ -1,12 +1,12 @@
 - title: Introduction
-  permalink: /docs/intro
+  permalink: /docs/intro/
   pages:
     - title: Getting Started
-      permalink: /docs/intro/getting-started
+      permalink: /docs/intro/getting-started/
     - title: Key Concepts
-      permalink: /docs/intro/concepts
+      permalink: /docs/intro/concepts/
     - title: For Beginners
-      permalink: /docs/intro/beginners
+      permalink: /docs/intro/beginners/
 - title: Guide
   permalink: /docs/guide
   pages:
