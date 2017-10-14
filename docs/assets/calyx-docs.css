@@ -235,7 +235,8 @@ p, li {
   background-color: #37463f; }
 
 .highlight {
-  background: #37463f;
+  color: #eee;
+  background-color: #37463f;
   font-weight: bold; }
 
 .highlight .c {
