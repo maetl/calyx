@@ -1,15 +1,17 @@
 - title: Introduction
   permalink: /docs/intro/
   pages:
-    - title: Getting Started
-      permalink: /docs/intro/getting-started/
+    - title: Tutorial
+      permalink: /docs/intro/tutorial
     - title: Key Concepts
-      permalink: /docs/intro/concepts/
+      permalink: /docs/intro/concepts
     - title: For Beginners
-      permalink: /docs/intro/beginners/
+      permalink: /docs/intro/beginners
 - title: Guide
-  permalink: /docs/guide
+  permalink: /docs/guide/
   pages:
+    - title: Installation
+      permalink: /docs/guide/installation
     - title: Generating Results
       permalink: /docs/guide/results
     - title: Dynamic Rules
@@ -23,7 +25,7 @@
     - title: Random Seeds
       permalink: /docs/guide/random-seeds
 - title: Reference
-  permalink: /docs/reference
+  permalink: /docs/reference/
   pages:
     - title: Configuration Options
       permalink: /docs/reference/config

@@ -4,3 +4,6 @@ docs:
 intro:
   title: Introduction
   permalink: /docs/intro/
+guide:
+  title: Guide
+  permalink: /docs/guide/
