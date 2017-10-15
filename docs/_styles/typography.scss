@@ -7,21 +7,21 @@ $font-display-weight: normal;
 $font-code-family: "Inconsolata", "Monaco", monospace;
 
 html {
-  font-size: 16px;
+  font-size: 18px;
 
   // @include tablet {
   //   font-size: 16px;
   // }
 
   @include desktop {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 
 body {
   font-family: $font-body-family;
   font-weight: $font-body-weight;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 h1,h2,h3,h4,h5,h6 {

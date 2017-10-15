@@ -54,38 +54,30 @@ $color-page-background: $color-light;
   width: $scale-p0 * 10;
   //max-height: 100vh;
 
-  .menu-label {
-    font-weight: 700;
-    font-family: $font-display-family;
-
+  .menu-label, .menu-list {
     a {
-      &.is-active {
-        background-color: $color-sidebar-link-background-hover;
-      }
-
       color: $color-sidebar-link;
 
+      &.is-active {
+        color: $color-white;
+        background-color: $color-eucalyptus;
+      }
+
       &:hover {
-        background-color: $color-sidebar-link-background-hover;
+        &:not(.is-active) {
+          background-color: $color-sidebar-link-background-hover;
+        }
       }
     }
   }
 
+  .menu-label {
+    font-weight: 700;
+    font-family: $font-display-family;
+  }
+
   .menu-list {
     font-weight: 400;
-
-    a {
-      color: $color-sidebar-link;
-
-      &.is-active {
-        background-color: $color-eucalyptus;
-        color: $color-white;
-      }
-
-      &:hover {
-        background-color: $color-sidebar-link-background-hover;
-      }
-    }
   }
 }
 
@@ -107,6 +99,11 @@ $color-page-background: $color-light;
     max-width: 800px;
     border: 1px solid #e9e9e9;
     box-shadow: 1px 1px 6px 0px rgba(#e9e9e9, 0.2);
+
+    a {
+      color: $color-stromboli;
+      border-bottom: 1px solid $color-eucalyptus;
+    }
 
     h1, h2, h3 {
       color: $color-eucalyptus;
