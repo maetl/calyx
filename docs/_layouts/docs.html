@@ -11,15 +11,13 @@
     {% include navbar.html %}
     {% include pagebar.html %}
     <div class="page row">
+      <div class="col docs-content">
+        <div class="content card">
+          {{ content }}
+        </div>
+      </div>
       <div class="col docs-sidebar">
         {% include contents.html %}
-      </div>
-      <div class="col docs-content">
-        <div class="content-body">
-          <div class="content">
-            {{ content }}
-          </div>
-        </div>
       </div>
     </div>
   </body>

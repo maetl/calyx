@@ -9,6 +9,9 @@
   </head>
   <body>
     {% include navbar.html %}
-    {{ content }}
+    {% include pagebar.html %}
+    <div class="page">
+      {{ content }}
+    </div>
   </body>
 </html>
