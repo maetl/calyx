@@ -5,7 +5,7 @@
   </p>
   <ul class="menu-list">
   {% for doc_page in section.pages %}
-    <a href="{{ doc_page.permalink }}" class="{% if doc_page.permalink == page.url %}is-active{% endif %}">{{ doc_page.title }}</a>
+    <li><a href="{{ doc_page.permalink }}" class="{% if doc_page.permalink == page.url %}is-active{% endif %}">{{ doc_page.title }}</a></li>
   {% endfor %}
   </ul>
 {% endfor %}
