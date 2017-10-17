@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Random Sampling
-permalink: /random/
+permalink: /guides/random/
 ---
 
 # Random Sampling

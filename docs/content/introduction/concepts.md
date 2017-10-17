@@ -1,7 +1,7 @@
 ---
 title: Key Concepts
 layout: docs
-permalink: /docs/intro/concepts/
+permalink: /introduction/concepts/
 ---
 
 ## What are grammars?

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: File Formats
-permalink: /docs/guide/formats
+permalink: /guides/formats
 ---
 
 # File Formats

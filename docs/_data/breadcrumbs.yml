@@ -1,9 +1,9 @@
-docs:
+documentation:
   title: Documentation
-  permalink: /docs/
-intro:
+  permalink: /documentation/
+introduction:
   title: Introduction
-  permalink: /docs/intro/
-guide:
-  title: Guide
-  permalink: /docs/guide/
+  permalink: /introduction/
+guides:
+  title: Guides
+  permalink: /guides/

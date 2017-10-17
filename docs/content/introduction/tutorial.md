@@ -1,7 +1,7 @@
 ---
 title: Tutorial
 layout: docs
-permalink: /docs/intro/tutorial
+permalink: /introduction/tutorial
 ---
 
 ## Objective
@@ -16,7 +16,7 @@ Before getting started, you’ll need to install Calyx from RubyGems and have it
 gem install calyx
 ```
 
-If you’re not sure how to do this yet, there’s more information about setting up your Ruby environment in the [resources for beginners](/docs/intro/beginners). The [installation guide](/docs/guide/installation) contains further details about prerequisites and how to download and install the Gem.
+If you’re not sure how to do this yet, there’s more information about setting up your Ruby environment in the [resources for beginners](/introduction/beginners). The [installation guide](/docs/guide/installation) contains further details about prerequisites and how to download and install the Gem.
 
 ## Getting started
 

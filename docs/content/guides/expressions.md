@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Template Expressions
-permalink: /docs/guide/expressions
+permalink: /guides/expressions
 ---
 
 # Template Expressions

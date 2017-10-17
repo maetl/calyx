@@ -1,7 +1,7 @@
 ---
 layout: docs
 title: Introduction
-permalink: /docs/intro/
+permalink: /introduction/
 ---
 
 ## What is Calyx?
@@ -16,6 +16,6 @@ Grammars offer direct authorial control over the fragments that combine to produ
 
 ## Getting Started
 
-Get started with a [simple tutorial](/docs/intro/tutorial) or learn more about the [underlying concepts](/docs/intro/concepts/). If you’re new to Ruby and generative art in general, the [documentation for beginners](/docs/intro/beginners/) is a good place to start.
+Get started with a [simple tutorial](/introduction/tutorial) or learn more about the [underlying concepts](/introduction/concepts/). If you’re new to Ruby and generative art in general, the [documentation for beginners](/introduction/beginners/) is a good place to start.
 
 Use the [guides](/docs/guides/) to learn how to use the various features and capabilities of the library. For more direct and structured information, the [reference](/docs/reference/) contains a full breakdown of the syntax, API listings and links to useful resources.

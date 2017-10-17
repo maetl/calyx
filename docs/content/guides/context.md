@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Context
-permalink: /docs/guide/context
+permalink: /guides/context
 ---
 
 j,jnnnnnnjjj
