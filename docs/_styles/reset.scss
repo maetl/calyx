@@ -85,12 +85,6 @@ button {
   border: 0;
 }
 
-:focus {
-  // Switch off focus outlines. This might not be best-practice, as it requires
-  // the custom design to add them back in for tailored accessibility.
-  outline: 0;
-}
-
 img {
   max-width: 100%;
   height: auto;
