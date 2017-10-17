@@ -1,7 +1,7 @@
 ---
 title: Contributing to Calyx
-layout: page
-permalink: /about/contributing
+layout: docs
+permalink: /introduction/contributing/
 ---
 
 # Contributing to Calyx
