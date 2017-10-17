@@ -1,28 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Calyx</title>
-    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Libre+Franklin:300,400,500,600,700|Work+Sans:700,800" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/calyx-docs.css">
-  </head>
-  <body>
-    {% include navbar.html %}
-    <div class="page">
-      {% include pagebar.html %}
-      {{ content }}
-    </div>
-    <script>
-    window.addEventListener('load', function() {
-      var navbar = document.querySelector('.navbar');
-      var page = document.querySelector('.page');
-      var toggle = document.querySelector('.nav-toggle');
-      toggle.onclick = function(ev) {
-        navbar.classList.toggle('is-open');
-        page.classList.toggle('is-hidden');
-      }
-    });
-    </script>
-  </body>
-</html>
+---
+layout: default
+---
+
+{% include navbar.html %}
+<div class="page">
+  {% include pagebar.html %}
+  {{ content }}
+</div>
+<script>
+window.addEventListener('load', function() {
+  var navbar = document.querySelector('.navbar');
+  var page = document.querySelector('.page');
+  var toggle = document.querySelector('.nav-toggle');
+  toggle.onclick = function(ev) {
+    navbar.classList.toggle('is-open');
+    page.classList.toggle('is-hidden');
+  }
+});
+</script>
