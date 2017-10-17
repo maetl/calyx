@@ -9,9 +9,20 @@
   </head>
   <body>
     {% include navbar.html %}
-    {% include pagebar.html %}
     <div class="page">
+      {% include pagebar.html %}
       {{ content }}
     </div>
+    <script>
+    window.addEventListener('load', function() {
+      var navbar = document.querySelector('.navbar');
+      var page = document.querySelector('.page');
+      var toggle = document.querySelector('.nav-toggle');
+      toggle.onclick = function(ev) {
+        navbar.classList.toggle('is-open');
+        page.classList.toggle('is-hidden');
+      }
+    });
+    </script>
   </body>
 </html>

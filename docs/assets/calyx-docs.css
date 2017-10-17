@@ -94,6 +94,9 @@ p, li {
   margin-top: 1.3rem;
   margin-bottom: 1rem; }
 
+.is-hidden {
+  display: none; }
+
 .container {
   width: 100%; }
 
@@ -186,50 +189,103 @@ p, li {
   overflow: hidden; }
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
   width: 100%;
   height: 3.76923rem;
   background-color: #1BDE81; }
+  @media (max-width: 768px) {
+    .navbar .nav-menu {
+      visibility: hidden; }
+    .navbar.is-open {
+      height: 100vh;
+      overflow-y: scroll; }
+      .navbar.is-open .logo {
+        height: 3.76923rem;
+        background-color: #18c371; }
+      .navbar.is-open .nav-menu {
+        visibility: visible; } }
+  @media (min-width: 768px) {
+    .navbar {
+      display: flex;
+      justify-content: space-between; } }
+  @media (min-width: 1024px) {
+    .navbar {
+      justify-content: space-between; } }
+  .navbar .nav-toggle {
+    color: #fff;
+    font-size: 2.6rem;
+    height: 3.76923rem;
+    display: inline-block;
+    line-height: 2.6rem; }
+    .navbar .nav-toggle:hover {
+      background-color: #18c371; }
+    @media (min-width: 768px) {
+      .navbar .nav-toggle {
+        display: none; } }
   .navbar.is-fixed {
     position: fixed;
     top: 0px;
     z-index: 2000; }
-  .navbar .nav-brand {
-    background-color: #1BDE81;
+  @media (min-width: 768px) {
+    .navbar .nav-brand {
+      display: flex;
+      align-items: center; } }
+  @media (max-width: 768px) {
+    .navbar .nav-brand {
+      width: 100%; }
+      .navbar .nav-brand .nav-menu ul {
+        justify-content: center; } }
+  .navbar .nav-brand .logo {
+    height: 3.76923rem;
     display: flex;
     align-items: center; }
-    .navbar .nav-brand .logo-mark {
-      width: 36px;
-      height: 36px;
-      padding: 1rem 0.76923rem 1rem 1rem; }
-    .navbar .nav-brand .logo-type {
-      color: #fff;
-      font-family: "Work Sans", sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      padding-right: 1rem; }
-  .navbar .nav-menu {
-    margin-left: 3.9rem; }
-    .navbar .nav-menu.is-meta {
-      margin-left: 0; }
+  .navbar .nav-brand .logo-mark {
+    width: 36px;
+    height: 36px;
+    padding: 1rem 0.76923rem 1rem 1rem; }
+  .navbar .nav-brand .logo-type {
+    color: #fff;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    padding-right: 1rem; }
+  @media (min-width: 1024px) {
+    .navbar .nav-menu {
+      margin-left: 3.9rem; } }
+  .navbar .nav-menu.is-meta {
+    margin-left: 0; }
+  @media (min-width: 768px) {
     .navbar .nav-menu ul {
-      display: flex; }
+      display: flex;
+      align-items: center; } }
+  .navbar .nav-menu ul li {
+    font-size: 1rem;
+    line-height: 1.2;
+    height: 3.76923rem;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 700;
+    color: #fff; }
+    .navbar .nav-menu ul li a {
+      display: block;
+      box-sizing: border-box;
+      padding: 1.25641rem;
+      height: 3.76923rem;
+      color: #fff; }
+      .navbar .nav-menu ul li a:hover {
+        background-color: #18c371; }
+      .navbar .nav-menu ul li a svg {
+        display: inline; }
+      .navbar .nav-menu ul li a span {
+        display: none; }
+    @media (max-width: 768px) {
       .navbar .nav-menu ul li {
-        font-size: 1rem;
-        line-height: 1.2;
-        height: 3.76923rem;
-        font-family: "Work Sans", sans-serif;
-        font-weight: 700;
-        color: #fff; }
+        font-size: 2.6rem;
+        height: auto; }
         .navbar .nav-menu ul li a {
-          display: block;
-          box-sizing: border-box;
-          padding: 1.25641rem;
-          height: 3.76923rem;
-          color: #fff; }
-          .navbar .nav-menu ul li a:hover {
-            background-color: #18c371; }
+          height: auto; }
+          .navbar .nav-menu ul li a svg {
+            display: none; }
+          .navbar .nav-menu ul li a span {
+            display: inline; } }
 
 .pagebar {
   background-color: #218764;

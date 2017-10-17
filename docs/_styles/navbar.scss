@@ -1,11 +1,59 @@
 $navbar-height: ($scale-p0 + $scale-m3) * 3;
+$navbar-transition-timing: 0.2s;
+$color-navbar-hover: darken($color-meadow, 6%);
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
   width: 100%;
   height: $navbar-height;
   background-color: $color-meadow;
+
+  @include until-tablet {
+    //transition: height $navbar-transition-timing ease-in;
+
+    .nav-menu {
+      visibility: hidden;
+    }
+
+    &.is-open {
+      height: 100vh;
+      //transition: height $navbar-transition-timing ease-in;
+      overflow-y: scroll;
+
+      .logo {
+        height: $navbar-height;
+        background-color: $color-navbar-hover;
+      }
+
+      .nav-menu {
+        visibility: visible;
+      }
+    }
+  }
+
+  @include at-least-tablet {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @include at-least-desktop {
+    justify-content: space-between;
+  }
+
+  .nav-toggle {
+    color: $color-white;
+    font-size: $scale-p2;
+    height: $navbar-height;
+    display: inline-block;
+    line-height: $scale-p2;
+
+    &:hover {
+      background-color: $color-navbar-hover;
+    }
+
+    @include at-least-tablet {
+      display: none;
+    }
+  }
 
   &.is-fixed {
     position: fixed;
@@ -14,9 +62,24 @@ $navbar-height: ($scale-p0 + $scale-m3) * 3;
   }
 
   .nav-brand {
-    background-color: $color-meadow;
-    display: flex;
-    align-items: center;
+    @include at-least-tablet {
+      display: flex;
+      align-items: center;
+    }
+
+    @include until-tablet {
+      width: 100%;
+
+      .nav-menu ul {
+        justify-content: center;
+      }
+    }
+
+    .logo {
+      height: $navbar-height;
+      display: flex;
+      align-items: center;
+    }
 
     .logo-mark {
       width: 36px;
@@ -34,14 +97,19 @@ $navbar-height: ($scale-p0 + $scale-m3) * 3;
   }
 
   .nav-menu {
-    margin-left: $scale-p3;
+    @include at-least-desktop {
+      margin-left: $scale-p3;
+    }
 
     &.is-meta {
       margin-left: 0;
     }
 
     ul {
-      display: flex;
+      @include at-least-tablet {
+        display: flex;
+        align-items: center;
+      }
 
       li {
         font-size: $scale-p0;
@@ -59,7 +127,32 @@ $navbar-height: ($scale-p0 + $scale-m3) * 3;
           color: $color-white;
 
           &:hover {
-            background-color: darken($color-meadow, 6%);
+            background-color: $color-navbar-hover;
+          }
+
+          svg {
+            display: inline;
+          }
+
+          span {
+            display: none;
+          }
+        }
+
+        @include until-tablet {
+          font-size: $scale-p2;
+          height: auto;
+
+          a {
+            height: auto;
+
+            svg {
+              display: none;
+            }
+
+            span {
+              display: inline;
+            }
           }
         }
       }

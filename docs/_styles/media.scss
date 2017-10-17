@@ -19,6 +19,12 @@ $min-desktop: 1024px;
   }
 }
 
+@mixin at-least-desktop {
+  @include at-least($min-desktop) {
+    @content;
+  }
+}
+
 @mixin desktop {
   @media (min-width: 1024px) {
     @content;
