@@ -10,6 +10,10 @@ module Calyx
       @trace = trace
     end
 
+    def size
+      productions.size
+    end
+
     def evaluate(options)
       productions.evaluate(options)
     end

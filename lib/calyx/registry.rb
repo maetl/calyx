@@ -128,6 +128,11 @@ module Calyx
       uniques[symbol] = [] if uniques[symbol].nil?
 
       while pending
+        if uniques[symbol].size == @rules[symbol].size
+          uniques[symbol] = []
+          pending = false
+        end
+
         result = expand(symbol).evaluate(@options)
 
         unless uniques[symbol].include?(result)

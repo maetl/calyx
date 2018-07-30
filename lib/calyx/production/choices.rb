@@ -34,6 +34,13 @@ module Calyx
         @collection = collection
       end
 
+      # The number of possible choices available for this rule.
+      #
+      # @return [Integer]
+      def size
+        @collection.size
+      end
+
       # Evaluate the choice by randomly picking one of its possible options.
       #
       # @param [Calyx::Options] options

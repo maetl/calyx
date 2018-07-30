@@ -20,5 +20,15 @@ describe Calyx::Grammar do
 
       expect(grammar.generate).to match(/🌷🌻🌼|🌷🌼🌻|🌻🌷🌼|🌻🌼🌷|🌼🌻🌷|🌼🌷🌻/)
     end
+
+    specify 'unique rules cycle once sequence is consumed' do
+      grammar = Calyx::Grammar.new do
+        rule :start, '{pet}{pet}{pet}'
+        rule :pet, :$pets
+        rule :pets, '🐱', '🐶'
+      end
+
+      expect(grammar.generate).to match(/🐱🐶🐶|🐱🐶🐱|🐶🐱🐱|🐶🐱🐶/)
+    end
   end
 end

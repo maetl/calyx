@@ -4,8 +4,6 @@ module Calyx
     # returns values that have not previously been selected. The probability
     # that a given rule will be selected increases as more selections are made
     # and the list grows smaller.
-    #
-    # TODO: handle wraparound
     class Unique
       SIGIL = '$'.freeze
 
