@@ -2,17 +2,6 @@ require 'spec_helper'
 
 describe Calyx::Grammar do
   describe 'string interpolation' do
-    it 'substitutes a chain of rules with strings' do
-      class RuleSymbols < Calyx::Grammar
-        start '{rule_symbol}'
-        rule :rule_symbol, '{terminal_symbol}'
-        rule :terminal_symbol, 'OK'
-      end
-
-      grammar = RuleSymbols.new
-      expect(grammar.generate).to eq('OK')
-    end
-
     it 'substitutes multiple rules in a string' do
       class OneTwo < Calyx::Grammar
         start '{one}. {two}.'
