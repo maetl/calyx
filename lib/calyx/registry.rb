@@ -128,7 +128,7 @@ module Calyx
       uniques[symbol] = [] if uniques[symbol].nil?
 
       while pending
-        if uniques[symbol].size == @rules[symbol].size
+        if uniques[symbol].size == expand(symbol).size
           uniques[symbol] = []
           pending = false
         end

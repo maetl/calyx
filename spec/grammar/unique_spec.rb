@@ -30,5 +30,13 @@ describe Calyx::Grammar do
 
       expect(grammar.generate).to match(/🐱🐶🐶|🐱🐶🐱|🐶🐱🐱|🐶🐱🐶/)
     end
+
+    specify 'unique rules can merge from execution context' do
+      grammar = Calyx::Grammar.new do
+        start "{$num}{$num}"
+      end
+
+      expect(grammar.generate(num: ["¶", "§"])).to match(/¶§|§¶/)
+    end
   end
 end
