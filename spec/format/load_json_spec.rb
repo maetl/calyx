@@ -16,7 +16,7 @@ describe '#load_json' do
   end
 
   specify 'generate with rule expansion' do
-    grammar = Calyx::Format.load_yml(sample_path('rule_expansion'))
+    grammar = Calyx::Format.load_json(sample_path('rule_expansion'))
     expect(grammar.generate).to match(/apple|orange/)
   end
 

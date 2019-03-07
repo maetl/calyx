@@ -1,14 +1,9 @@
 require 'spec_helper'
-require 'psych'
+require 'json'
 
 describe '#load' do
   def sample(filename)
     "#{__dir__}/samples/#{filename}"
-  end
-
-  specify 'can load a YAML file properly' do
-    grammar = Calyx::Format.load(sample('hello.yml'))
-    expect(grammar.generate).to eq('Hello World')
   end
 
   specify 'can load a JSON file properly' do
@@ -17,7 +12,7 @@ describe '#load' do
   end
 
   specify 'raises error if given a file that it cannot parse' do
-    expect { Calyx::Format.load(sample('bad_syntax.yml')) }.to raise_error(Psych::SyntaxError)
+    expect { Calyx::Format.load(sample('bad_syntax.json')) }.to raise_error(JSON::ParserError)
   end
 
   specify 'raises error with bad file extension' do

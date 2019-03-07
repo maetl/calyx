@@ -45,6 +45,11 @@ module Calyx
 
     class YAMLGrammar
       def initialize(filename)
+        warn [
+          "NOTE: Loading grammars defined in YAML is deprecated. ",
+          "Use the JSON format instead: `Calyx::Format.load(\"hello.json\")`"
+        ].join
+
         require 'yaml'
         @filename = filename
         @contents = File.read(@filename)

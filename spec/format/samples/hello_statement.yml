@@ -1,3 +1,0 @@
-start: :hello_world
-hello_world: :statement
-statement: "Hello World"
