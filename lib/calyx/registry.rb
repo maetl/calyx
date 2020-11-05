@@ -67,7 +67,7 @@ module Calyx
     # @param [Symbol] name
     # @param [Array] productions
     def define_rule(name, trace, productions)
-      rules[name.to_sym] = Rule.new(name.to_sym, construct_rule(productions), trace)
+      rules[name.to_sym] = Rule.new(name.to_sym, Rule.build_ast(productions, self), trace)
     end
 
     # Defines a rule in the temporary evaluation context.
@@ -76,7 +76,7 @@ module Calyx
     # @param [Array] productions
     def define_context_rule(name, trace, productions)
       productions = [productions] unless productions.is_a?(Enumerable)
-      context[name.to_sym] = Rule.new(name.to_sym, construct_rule(productions), trace)
+      context[name.to_sym] = Rule.new(name.to_sym, Rule.build_ast(productions, self), trace)
     end
 
     # Expands the given symbol to its rule.
@@ -196,16 +196,6 @@ module Calyx
           input
         end
       }
-    end
-
-    def construct_rule(productions)
-      if productions.first.is_a?(Hash)
-        Production::WeightedChoices.parse(productions.first.to_a, self)
-      elsif productions.first.is_a?(Enumerable)
-        Production::WeightedChoices.parse(productions, self)
-      else
-        Production::Choices.parse(productions, self)
-      end
     end
   end
 end
