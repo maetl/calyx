@@ -15,32 +15,6 @@ describe Calyx::Grammar do
       expect(grammar.generate(:ism_with_e)).to eq('narrativism')
     end
 
-    it 'modifies expressions with custom filters defined in the grammar' do
-      grammar = Calyx::Grammar.new do
-        filter :pluralise do |input|
-          "#{input}s"
-        end
-        start '{noun.pluralise}'
-        noun 'noun'
-      end
-
-      expect(grammar.generate).to eq('nouns')
-    end
-
-    it 'define custom filters using the Class syntax' do
-      class Filter < Calyx::Grammar
-        filter :pluralise do |input|
-          "#{input}s"
-        end
-        start '{noun.pluralise}'
-        noun 'noun'
-      end
-
-      grammar = Filter.new
-
-      expect(grammar.generate).to eq('nouns')
-    end
-
     it 'modifies expressions with methods from an included module' do
       module Pluralisation
         def pluralise(input)

@@ -33,6 +33,10 @@ module Calyx
       #
       # @param [Module] module_name
       def modifier(module_name)
+        warn [
+          "NOTE: Loading modifiers via grammar class methods is deprecated.",
+          "Alternative API TBD. For now this method still works."
+        ].join
         registry.modifier(module_name)
       end
 
@@ -41,6 +45,10 @@ module Calyx
       # @param [Symbol] name
       # @param [Hash<Regex,String>] pairs
       def mapping(name, pairs)
+        warn [
+          "NOTE: The fixed `mapping` class method is deprecated.",
+          "This still works but will be replaced with a new mapping format."
+        ].join
         registry.mapping(name, pairs)
       end
 
@@ -50,6 +58,10 @@ module Calyx
       # @yieldparam [String] the input string to be processed by the filter
       # @yieldreturn [String] the processed output string
       def filter(name, &block)
+        warn [
+          "NOTE: The fixed `filter` class method is deprecated.",
+          "This will be removed in 0.22. Use the API for modifers instead."
+        ].join
         registry.filter(name, &block)
       end
 
