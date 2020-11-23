@@ -20,5 +20,15 @@ module Calyx
         value
       end
     end
+
+    def upper(value)
+      value.upcase
+    end
+
+    def lower(value)
+      value.downcase
+    end
+
+
   end
 end

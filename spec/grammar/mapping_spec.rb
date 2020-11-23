@@ -65,5 +65,31 @@ describe Calyx::Grammar do
 
       expect(grammar.generate).to eq('noun')
     end
+
+    it 'responds to builtin modifiers' do
+      grammar = Calyx::Grammar.new do
+        start '{noun_l.upper}:{noun_u.lower}'
+        noun_l 'lower'
+        noun_u 'UPPER'
+      end
+
+      expect(grammar.generate).to eq('LOWER:upper')
+    end
+
+    xit "rewrites selected nouns using mapping" do
+      grammar = Calyx::Grammar.new do
+        mapping :pronoun, {
+          /Snowball/i => "her",
+          /Santa’s Little Helper/i => "his"
+        }
+
+        start "{@animal} {verb} {@animal.pronoun} {appendage}"
+        animal "Snowball", "Santa’s Little Helper"
+        verb "chases", "licks", "bites"
+        appendage "tail", "paw"
+      end
+
+      expect(grammar.generate).to eq('Snowball licks her tail')
+    end
   end
 end

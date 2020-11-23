@@ -13,7 +13,7 @@ describe Calyx::Grammar do
       expect(grammar.generate).to eq('One. Two.')
     end
 
-    it 'calls a formatting function in a string substitution' do
+    it 'calls a formatting modifier in a string substitution' do
       class StringFormatters < Calyx::Grammar
         start :hello_world
         rule :hello_world, '{hello.capitalize} world'
