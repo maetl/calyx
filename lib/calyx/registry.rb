@@ -90,7 +90,7 @@ module Calyx
         if @options.strict?
           raise Errors::UndefinedRule.new(@last_expansion, symbol)
         else
-          expansion = Production::Terminal.new('')
+          expansion = Syntax::Terminal.new('')
         end
       end
 

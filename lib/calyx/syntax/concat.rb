@@ -1,5 +1,5 @@
 module Calyx
-  module Production
+  module Syntax
     # A type of production rule representing a string combining both template
     # substitutions and raw content.
     class Concat

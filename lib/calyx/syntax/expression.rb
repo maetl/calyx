@@ -1,5 +1,5 @@
 module Calyx
-  module Production
+  module Syntax
     # A type of production rule representing a single template substitution.
     class Expression
       # Constructs a node representing a single template substitution.

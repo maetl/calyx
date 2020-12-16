@@ -1,5 +1,5 @@
 module Calyx
-  module Production
+  module Syntax
     # A type of production rule representing a unique substitution which only
     # returns values that have not previously been selected. The probability
     # that a given rule will be selected increases as more selections are made

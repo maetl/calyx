@@ -1,5 +1,5 @@
 module Calyx
-  module Production
+  module Syntax
     # A type of production rule representing a map of possible rules with
     # associated weights that define the expected probability of a rule
     # being chosen.
@@ -12,7 +12,7 @@ module Calyx
       #
       # @param [Array<Array>, Hash<#to_s, Float>] productions
       # @param [Calyx::Registry] registry
-      # @return [Calyx::Production::WeightedChoices]
+      # @return [Calyx::Syntax::WeightedChoices]
       def self.parse(productions, registry)
         if productions.first.last.is_a?(Range)
           range_max = productions.max { |a,b| a.last.max <=> b.last.max }.last.max

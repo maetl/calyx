@@ -4,11 +4,11 @@ module Calyx
   class Rule
     def self.build_ast(productions, registry)
       if productions.first.is_a?(Hash)
-        Production::WeightedChoices.parse(productions.first.to_a, registry)
+        Syntax::WeightedChoices.parse(productions.first.to_a, registry)
       elsif productions.first.is_a?(Enumerable)
-        Production::WeightedChoices.parse(productions, registry)
+        Syntax::WeightedChoices.parse(productions, registry)
       else
-        Production::Choices.parse(productions, registry)
+        Syntax::Choices.parse(productions, registry)
       end
     end
 

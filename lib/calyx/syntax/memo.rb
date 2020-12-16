@@ -1,5 +1,5 @@
 module Calyx
-  module Production
+  module Syntax
     # A type of production rule representing a memoized subsitution which
     # returns the first value selected on all subsequent lookups.
     class Memo

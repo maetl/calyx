@@ -1,5 +1,5 @@
 module Calyx
-  module Production
+  module Syntax
     # A type of production rule that represents a non-terminal expansion,
     # linking one rule to another.
     class NonTerminal
