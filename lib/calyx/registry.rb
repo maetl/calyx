@@ -1,12 +1,13 @@
 module Calyx
   # Lookup table of all the available rules in the grammar.
   class Registry
-    attr_reader :rules, :transforms, :modifiers
+    attr_reader :rules, :dicts, :transforms, :modifiers
 
     # Construct an empty registry.
     def initialize
       @options = Options.new({})
       @rules = {}
+      @dicts = {}
       @transforms = {}
       @modifiers = Modifiers.new
     end
@@ -67,7 +68,17 @@ module Calyx
     # @param [Symbol] name
     # @param [Array] productions
     def define_rule(name, trace, productions)
-      rules[name.to_sym] = Rule.new(name.to_sym, Rule.build_ast(productions, self), trace)
+      symbol = name.to_sym
+
+      # TODO: this could be tidied up by consolidating parsing in a single class
+      branch = Rule.build_ast(productions, self)
+
+      # If the static rule is a map of k=>v pairs then add it to the lookup dict
+      if branch.is_a?(Syntax::PairedMapping)
+        dicts[symbol] = branch
+      else
+        rules[symbol] = Rule.new(symbol, branch, trace)
+      end
     end
 
     # Defines a rule in the temporary evaluation context.
@@ -98,16 +109,33 @@ module Calyx
       expansion
     end
 
-    # Applies the given modifier function to the given value to transform it.
+    # Applies the given modifier function to the given value to filter it.
     #
     # @param [Symbol] name
     # @param [String] value
     # @return [String]
-    def transform(name, value)
+    def expand_filter(name, value)
       if transforms.key?(name)
         transforms[name].call(value)
       else
         modifiers.transform(name, value)
+      end
+    end
+
+    # Applies a modifier to substitute the value with a bidirectional map
+    # lookup.
+    #
+    # @param [Symbol] name
+    # @param [String] value
+    # @param [Symbol] direction :left or :right
+    # @return [String]
+    def expand_map(name, value, direction)
+      map_lookup = dicts[name]
+
+      if direction == :left
+        map_lookup.key_for(value)
+      else
+        map_lookup.value_for(value)
       end
     end
 

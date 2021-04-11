@@ -39,15 +39,15 @@ describe Calyx::Registry do
   end
 
   specify 'transform a value using core string API' do
-    expect(registry.transform(:upcase, 'derive')).to eq('DERIVE')
+    expect(registry.expand_filter(:upcase, 'derive')).to eq('DERIVE')
   end
 
   specify 'transform a value using custom string transformation' do
     registry.mapping(:past_tensify, /(.+e)$/ => '\1d')
-    expect(registry.transform(:past_tensify, 'derive')).to eq('derived')
+    expect(registry.expand_filter(:past_tensify, 'derive')).to eq('derived')
   end
 
   specify 'unregistered transform returns the identity passed to it' do
-    expect(registry.transform(:null, 'derive')). to eq('derive')
+    expect(registry.expand_filter(:null, 'derive')). to eq('derive')
   end
 end

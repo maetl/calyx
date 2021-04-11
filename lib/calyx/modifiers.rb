@@ -28,7 +28,5 @@ module Calyx
     def lower(value)
       value.downcase
     end
-
-
   end
 end

@@ -4,8 +4,19 @@ module Calyx
   class Rule
     def self.build_ast(productions, registry)
       if productions.first.is_a?(Hash)
-        Syntax::WeightedChoices.parse(productions.first.to_a, registry)
+        # TODO: test that key is a string
+
+        # If value of the production is a strings then this is a
+        # paired mapping production.
+        if productions.first.first.last.is_a?(String)
+          Syntax::PairedMapping.parse(productions.first, registry)
+        # Otherwise, we assume this is a weighted choice declaration and
+        # convert the hash to an array
+        else
+          Syntax::WeightedChoices.parse(productions.first.to_a, registry)
+        end
       elsif productions.first.is_a?(Enumerable)
+        # TODO: this needs to change to support attributed/tagged grammars
         Syntax::WeightedChoices.parse(productions, registry)
       else
         Syntax::Choices.parse(productions, registry)

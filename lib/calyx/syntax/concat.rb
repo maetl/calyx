@@ -3,10 +3,10 @@ module Calyx
     # A type of production rule representing a string combining both template
     # substitutions and raw content.
     class Concat
-      EXPRESSION = /(\{[A-Za-z0-9_@$\.]+\})/.freeze
+      EXPRESSION = /(\{[A-Za-z0-9_@$<>\.]+\})/.freeze
+      DEREF_OP = /([<>\.])/.freeze
       START_TOKEN = '{'.freeze
       END_TOKEN = '}'.freeze
-      DEREF_TOKEN = '.'.freeze
 
       # Parses an interpolated string into fragments combining terminal strings
       # and non-terminal rules.
@@ -16,21 +16,14 @@ module Calyx
       # @param [String] production
       # @param [Calyx::Registry] registry
       def self.parse(production, registry)
-        expansion = production.split(EXPRESSION).map do |atom|
+        expressions = production.split(EXPRESSION).map do |atom|
           if atom.is_a?(String)
             if atom.chars.first == START_TOKEN && atom.chars.last == END_TOKEN
-              head, *tail = atom.slice(1, atom.length-2).split(DEREF_TOKEN)
-              if head[0] == Memo::SIGIL
-                rule = Memo.new(head, registry)
-              elsif head[0] == Unique::SIGIL
-                rule = Unique.new(head, registry)
+              head, *tail = atom.slice(1, atom.length-2).split(DEREF_OP)
+              if tail.any?
+                ExpressionChain.parse(head, tail, registry)
               else
-                rule = NonTerminal.new(head, registry)
-              end
-              unless tail.empty?
-                Expression.new(rule, tail, registry)
-              else
-                rule
+                Expression.parse(head, registry)
               end
             else
               Terminal.new(atom)
@@ -38,28 +31,31 @@ module Calyx
           end
         end
 
-        self.new(expansion)
+        self.new(expressions)
       end
 
       # Initialize the concat node with an expansion of terminal and
       # non-terminal fragments.
       #
       # @param [Array] expansion
-      def initialize(expansion)
-        @expansion = expansion
+      def initialize(expressions)
+        @expressions = expressions
       end
 
-      # Evaluate all the child nodes of this node and concatenate them together
-      # into a single result.
+      # Evaluate all the child nodes of this node and concatenate each expansion
+      # together into a single result.
       #
       # @param [Calyx::Options] options
       # @return [Array]
       def evaluate(options)
-        concat = @expansion.reduce([]) do |exp, atom|
+        expansion = @expressions.reduce([]) do |exp, atom|
           exp << atom.evaluate(options)
         end
 
-        [:concat, concat]
+        #[:expansion, expansion]
+        # TODO: fix this along with a git rename
+        # Commented out because of a lot of tests depending on :concat symbol
+        [:concat, expansion]
       end
     end
   end

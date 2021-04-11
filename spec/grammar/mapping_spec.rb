@@ -42,28 +42,30 @@ describe Calyx::Grammar do
 
     it 'responds to builtin modifiers' do
       grammar = Calyx::Grammar.new do
-        start '{noun_l.upper}:{noun_u.lower}'
+        start '{noun_l.upper} & {noun_u.lower}'
         noun_l 'lower'
         noun_u 'UPPER'
       end
 
-      expect(grammar.generate).to eq('LOWER:upper')
+      expect(grammar.generate).to eq('LOWER & upper')
     end
 
-    xit "rewrites selected nouns using mapping" do
-      grammar = Calyx::Grammar.new do
-        mapping :pronoun, {
-          /Snowball/i => "her",
-          /Santa’s Little Helper/i => "his"
-        }
-
-        start "{@animal} {verb} {@animal.pronoun} {appendage}"
+    it "handles modifier chains with bidirectional mapping" do
+      grammar = Calyx::Grammar.new(seed: 12345) do
         animal "Snowball", "Santa’s Little Helper"
-        verb "chases", "licks", "bites"
-        appendage "tail", "paw"
+        posessive "her", "his"
+
+        animal_to_pronoun({
+          "Snowball" => "her",
+          "Santa’s Little Helper" => "his"
+        })
+
+        map_left "{@posessive<animal_to_pronoun} licks {@posessive} tail"
+        map_right "{@animal} licks {@animal>animal_to_pronoun} tail"
       end
 
-      expect(grammar.generate).to eq('Snowball licks her tail')
+      expect(grammar.generate(:map_left)).to eq("Snowball licks her tail")
+      expect(grammar.generate(:map_right)).to eq("Santa’s Little Helper licks his tail")
     end
   end
 end
