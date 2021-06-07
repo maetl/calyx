@@ -1,25 +1,52 @@
 module Calyx
-  # A type of production rule representing a bidirectional dictionary of
-  # mapping pairs that can be used as a substitution table in template
-  # expressions.
   module Syntax
+    # A type of production rule representing a bidirectional dictionary of
+    # mapping pairs that can be used as a substitution table in template
+    # expressions.
     class PairedMapping
       def self.parse(productions, registry)
         # TODO: handle wildcard expressions
         self.new(productions)
       end
 
+      # %es
+      # prefix: nil, suffix: 'es'
+      # match: 'buses' -> ends_with(suffix)
+
+      # %y
+      # prefix: nil, suffix: 'ies'
+
       def initialize(mapping)
-        @mapping_keys = mapping.keys
-        @mapping_values = mapping.values
+        @lhs_index = PrefixTree.new
+        @rhs_index = PrefixTree.new
+
+        @lhs_list = mapping.keys
+        @rhs_list = mapping.values
+
+        @lhs_index.add_all(@lhs_list)
+        @rhs_index.add_all(@rhs_list)
       end
 
       def value_for(key)
-        @mapping_values[@mapping_keys.index(key)]
+        match = @lhs_index.lookup(key)
+        result = @rhs_list[match.index]
+
+        if match.captured
+          result.sub("%", match.captured)
+        else
+          result
+        end
       end
 
       def key_for(value)
-        @mapping_keys[@mapping_values.index(value)]
+        match = @rhs_index.lookup(value)
+        result = @lhs_list[match.index]
+
+        if match.captured
+          result.sub("%", match.captured)
+        else
+          result
+        end
       end
     end
   end

@@ -6,13 +6,13 @@ module Calyx
       if productions.first.is_a?(Hash)
         # TODO: test that key is a string
 
-        # If value of the production is a strings then this is a
-        # paired mapping production.
         if productions.first.first.last.is_a?(String)
+          # If value of the production is a strings then this is a
+          # paired mapping production.
           Syntax::PairedMapping.parse(productions.first, registry)
-        # Otherwise, we assume this is a weighted choice declaration and
-        # convert the hash to an array
         else
+          # Otherwise, we assume this is a weighted choice declaration and
+          # convert the hash to an array
           Syntax::WeightedChoices.parse(productions.first.to_a, registry)
         end
       elsif productions.first.is_a?(Enumerable)
