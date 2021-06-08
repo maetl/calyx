@@ -74,48 +74,6 @@ class PrefixTree
     end
   end
 
-  def insert_string_trie
-    add("test", 2)
-    add("team", 3)
-    #st = PrefixEdge.new(PrefixNode.new([], 2), "st", false)
-    #am = PrefixEdge.new(PrefixNode.new([], 3), "am", false)
-    #@root.children << PrefixEdge.new(PrefixNode.new([am, st], 1), "te", false)
-  end
-
-  def insert_leading_wildcard_trie
-    add("%es", 111)
-    #es = PrefixEdge.new(PrefixNode.new([], 111), "es", false)
-    #@root.children << PrefixEdge.new(PrefixNode.new([es], 1), "%", true)
-  end
-
-  def insert_trailing_wildcard_trie
-    add("te%", 222)
-    #wildcard = PrefixEdge.new(PrefixNode.new([], 222), "%", true)
-    #@root.children << PrefixEdge.new(PrefixNode.new([wildcard], 1), "te", false)
-  end
-
-  def insert_anchored_wildcard_trie
-    add("te%s", 333)
-    #plural_suffix = PrefixEdge.new(PrefixNode.new([], 333), "s", false)
-    #wildcard = PrefixEdge.new(PrefixNode.new([plural_suffix], 222), "%", true)
-    #@root.children << PrefixEdge.new(PrefixNode.new([wildcard], 1), "te", false)
-  end
-
-  def insert_catch_all_wildcard_trie
-    add("%", 444)
-    #@root.children << PrefixEdge.new(PrefixNode.new([], 444), "%", true)
-  end
-
-  def insert_cascading_wildcard_trie
-    add("%y", 555)
-    add("%s", 666)
-    add("%", 444)
-    #y = PrefixEdge.new(PrefixNode.new([], 555), "y", false)
-    #s = PrefixEdge.new(PrefixNode.new([], 666), "s", false)
-    #_ = PrefixEdge.new(PrefixNode.new([], 444), "", false)
-    #@root.children << PrefixEdge.new(PrefixNode.new([y, s, _], 444), "%", true)
-  end
-
   # This was basically ported from the pseudocode found on Wikipedia to Ruby,
   # with a lot of extra internal state tracking that is totally absent from
   # most algorithmic descriptions. This ends up making a real mess of the
@@ -285,11 +243,12 @@ describe Calyx::Syntax::PairedMapping do
       expect(tree.common_prefix("aaaaa", "aab")).to eq("aa")
       expect(tree.common_prefix("aa", "ab")).to eq("a")
       expect(tree.common_prefix("ababababahahahaha", "ababafgfgbaba")).to eq("ababa")
+      expect(tree.common_prefix("abab", "abab")).to eq("abab")
     end
 
     specify "insert single value" do
       tree = PrefixTree.new
-      tree.insert("one", 0)
+      tree.add("one", 0)
 
       expect(tree.lookup("one").index).to eq(0)
       expect(tree.lookup("one!!")).to be_falsey
@@ -298,7 +257,8 @@ describe Calyx::Syntax::PairedMapping do
 
     specify "lookup with literal string data" do
       tree = PrefixTree.new
-      tree.insert_string_trie
+      tree.add("test", 2)
+      tree.add("team", 3)
 
       expect(tree.lookup("test").index).to eq(2)
       expect(tree.lookup("team").index).to eq(3)
@@ -307,7 +267,7 @@ describe Calyx::Syntax::PairedMapping do
 
     specify "lookup with leading wildcard data" do
       tree = PrefixTree.new
-      tree.insert_leading_wildcard_trie
+      tree.add("%es", 111)
 
       expect(tree.lookup("buses").index).to eq(111)
       expect(tree.lookup("bus")).to be_falsey
@@ -317,7 +277,7 @@ describe Calyx::Syntax::PairedMapping do
 
     specify "lookup with trailing wildcard data" do
       tree = PrefixTree.new
-      tree.insert_trailing_wildcard_trie
+      tree.add("te%", 222)
 
       expect(tree.lookup("test").index).to eq(222)
       expect(tree.lookup("total")).to be_falsey
@@ -327,7 +287,7 @@ describe Calyx::Syntax::PairedMapping do
 
     specify "lookup with anchored wildcard data" do
       tree = PrefixTree.new
-      tree.insert_anchored_wildcard_trie
+      tree.add("te%s", 333)
 
       expect(tree.lookup("tests").index).to eq(333)
       expect(tree.lookup("total")).to be_falsey
@@ -336,9 +296,9 @@ describe Calyx::Syntax::PairedMapping do
       expect(tree.lookup("teams").index).to eq(333)
     end
 
-    specify "lookup with anchored wildcard data" do
+    specify "lookup with catch all wildcard data" do
       tree = PrefixTree.new
-      tree.insert_catch_all_wildcard_trie
+      tree.add("%", 444)
 
       expect(tree.lookup("tests").index).to eq(444)
       expect(tree.lookup("total").index).to eq(444)
@@ -347,13 +307,15 @@ describe Calyx::Syntax::PairedMapping do
       expect(tree.lookup("teams").index).to eq(444)
     end
 
-    specify "lookup with anchored wildcard data" do
+    specify "lookup with cascading wildcard data" do
       tree = PrefixTree.new
-      tree.insert_cascading_wildcard_trie
+      tree.add("%y", 555)
+      tree.add("%s", 666)
+      tree.add("%", 777)
 
       expect(tree.lookup("ferry").index).to eq(555)
       expect(tree.lookup("bus").index).to eq(666)
-      expect(tree.lookup("car").index).to eq(444)
+      expect(tree.lookup("car").index).to eq(777)
     end
   end
 end
