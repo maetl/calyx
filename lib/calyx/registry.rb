@@ -74,7 +74,7 @@ module Calyx
       branch = Rule.build_ast(productions, self)
 
       # If the static rule is a map of k=>v pairs then add it to the lookup dict
-      if branch.is_a?(Syntax::PairedMapping)
+      if branch.is_a?(Production::AffixTable)
         dicts[symbol] = branch
       else
         rules[symbol] = Rule.new(symbol, branch, trace)

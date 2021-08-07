@@ -9,7 +9,7 @@ module Calyx
         if productions.first.first.last.is_a?(String)
           # If value of the production is a strings then this is a
           # paired mapping production.
-          Syntax::PairedMapping.parse(productions.first, registry)
+          Production::AffixTable.parse(productions.first, registry)
         else
           # Otherwise, we assume this is a weighted choice declaration and
           # convert the hash to an array
