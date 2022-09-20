@@ -29,7 +29,7 @@ Please don’t bump the version as part of your pull request (this happens separ
 - Commits should include concise and clear messages using standard formatting conventions
 - The test suite must be passing
 - Newly introduced code branches should be covered by tests
--- Introduce new tests if existing tests don’t support your changes
+- Introduce new tests if existing tests don’t support your changes
 - Changes to method signatures and class organisation should be annotated by doc comments
 
 ## Code of Conduct
